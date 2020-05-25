@@ -555,5 +555,35 @@ for(let i = 0; i < 5; i++){
 }
 //输出结果 1 2 3 4 5
 ```
-
+### JSON.stringify()
+1. 将普通对象转化为JSON格式
+```javascript
+console.log(JSON.stringify({a:1})) //{"a":"1"}
+```
+2. 取出对象中符合条件的值
+```javascript
+//设置第二个参数为[],其中包含键名
+let _res = {name:'ren',age:2}
+console.log(JSON.stringify(_res,['name']))//{name:'ren'}
+//第二个参数也可以传一个函数
+console.log(JSON.stringify(_res,(key,value)=>{
+     if(typeof value === 'Number'){
+       return undefined
+     }
+     return value
+}))//{name:'ren'}
+```
+3. 格式替换
+```javascript
+console.log(JSON.stringify(obj,['name','age'],5))
+输出结果：{
+     "name": "renlingxin",
+     "age": 11
+}
+console.log(JSON.stringify(obj,['name','age'],'*'))
+输出结果：{
+*"name": "renlingxin",
+*"age": 11
+}
+```
 
