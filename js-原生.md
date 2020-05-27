@@ -1,12 +1,12 @@
 ## 原生
-### document.createElement
+### 一、document.createElement
 概念：Document.createElement() 方法用于创建一个由标签名称 tagName 指定的 HTML 元素。如果用户代理无法识别 tagName，则会生成一个未知 HTML 元素 HTMLUnknownElement。
 ```javascript
         let _input = document.createElement('input')
         document.body.appendChild(_input)
         document.body.removeChild(_input)
 ```
-### appendChild()
+### 二 、appendChild()
 概念：appendChild() 方法可向节点的子节点列表的末尾添加新的子节点。
 ```html
 <body>
@@ -23,7 +23,7 @@ console.log(_user) //<li>3333</li>
 _child.appendChild(_user)
 </script>
 ```
-### addEventListener ,removeEventListener() IE（attachEvent,detachEvent）
+### 三、addEventListener ,removeEventListener() IE（attachEvent,detachEvent）
 概念：addEventListener() 方法用于向指定元素添加事件句柄。
 用法：element.addEventListener(event, function, useCapture) 
 event => 事件名   function => 事件触发执行的函数  useCapture => 是否在事件冒泡阶段执行  true 捕获阶段 false 冒泡阶段
@@ -59,7 +59,7 @@ event => 事件名   function => 事件触发执行的函数  useCapture => 是�
 四 其他事件
 1. storage 该事件在 Web Storage(HTML 5 Web 存储)更新时
 2. popstate 该事件在窗口的浏览历史（history 对象）发生改变时触发。
-### 事件对象
+### 四、事件对象
 属性：
 1. bubbles 事件是否是冒泡事件类型
 2. cancelable 事件是否可以取消默认行为
@@ -72,5 +72,16 @@ event => 事件名   function => 事件触发执行的函数  useCapture => 是�
 
 方法：
 1. initEvent() 初始化新创建的event对象的属性
+
 2. preventDefault() 阻止默认行为
+
 3. stopPropagation()阻止事件冒泡
+
+### 五、节点操作
+**lastchild** 获取子节点的最后一个
+**firstchild**  获取子节点中的第一个
+**childNodes**  获取子节点集合
+**appendChild**  追加节点
+**removeChild**   移除节点
+
+

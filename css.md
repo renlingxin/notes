@@ -41,12 +41,15 @@ text-overflow:'>>>'   //具有兼容问题  火狐浏览器能正常显示
        pre-wrap --- 保留空白符序列，正常换行
        pre-line --- 合并空白符序列，保留换行符
        inherit --- 从父元素继承white-space属性的值
-   
-      
-   
-      
-   
-      
-   
-      
-   
+### 四  、 display:none和visibility:hidden的区别
+二者都是隐藏元素，但是display:none后元素在页面中不占位置；visibility:hidden依然在页面中占据位置
+## html
+#### 转义字符
+| 字符   | 十进制 |     转义字符 |
+| :----- | :--: | -------: |
+| " |  &#34;  | &quot; |
+| & |  &#38;   | &amp; |
+| < |  &#60;   | &lt; |
+| > |  &#62;   | &gt; |
+| 不断开空格(non-breaking space) |  &#160;   | &nbsp; |
+
