@@ -1,4 +1,4 @@
-## element-ui 
+## 一、element-ui 
 
 #### el-table
 
@@ -14,7 +14,7 @@
 
 2 highlight-current-row 添加属性会添加行数据的点击事件
 
-## vue-router
+## 二、vue-router
 ### 在浏览器中创建新窗口打开页面
 ```javascript
 const routerUrl = this.$router.resolve({
@@ -149,6 +149,7 @@ import List from '@/components/common/list.vue'
 }
 ```
 **采用import引入，当项目打包时路由中的所有component都会打包在一个js中，造成进入首页时，需要加载的内容过多，时间相对较长**
+
 ### 路由 - 滚动行为
 需求=>使用前端路由时，想要页面滚到顶部，或者是保持原先非滚动位置，就像重新加载页面一样
 ###### scrollBehavior
@@ -316,7 +317,7 @@ history模式下：xxx.com/id=5 请求地址为 xxx.com/id=5，如果后端没�
 为了应对这种情况，需要后台配置支持：
 在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面
 
-## vue
+## 三、vue-常用API
 
 ### provide / inject 组合
 
@@ -442,7 +443,7 @@ directives: {
 <input v-focus>
 ```
 
-## vue-cli
+## 四、vue-cli 脚手架
 ### vue-cli 3 . 4 使用
 ```javascript
 //安装
@@ -461,7 +462,7 @@ npm run build
 
 **二次运行 npm run build 会先把旧有的dist文件夹删除，然后重新生成dist文件夹**
 
-## vuex
+## 五、 vuex 状态管理
 **vuex是状态管理模式** 它采用集中式存储管理应用的所有组件的状态 
 这个状态管理应用包含以下几个部分
 1. state 驱动应用的数据源
@@ -787,7 +788,7 @@ const store = new Vuex.Store({
 
 ```
 
-## 服务端渲染 （SSR Server Site Render）
+## 六、 服务端渲染 （SSR Server Site Render）
 
 ### Nuxt.js
 * 服务器端渲染：根据请求的URL，动态的将模版与数据结合，并响应给客户端
@@ -800,8 +801,6 @@ const store = new Vuex.Store({
 **使用**
 * 触发刷新的时候，地址栏回车或者和URL改变，服务端渲染
 * 点击nuxt-link组件，点击a标签，禁止a标签的页面跳转，并根据href属性，通过history.pushState改变地址栏，并发起请求或者具体的客户端渲染行为，局部替换内容
-
-
 
 Assets --- 需要编译的资源文件less,js,css
 
@@ -826,8 +825,20 @@ store --- Vuex
 4. 服务器端渲染 npm run start ( run可以省略 )
 5. 单页应用 npm run start-spa
 
-## 扩展
+## 七、扩展
 vue组件之间通信方式 ： https://segmentfault.com/a/1190000019208626
+
+## 八、vue 中的 style
+### 深度作用选择器 ' >>> ' === ' /deep/ ' === ' ::v-deep '
+想要在设置了scoped属性的组件，使样式能处理到最深的层次，可以使用 ‘ >>> ’
+因为有的Sass无法解析‘ >>> ’,可以使用 ' /deep/ '  或 ' ::v-deep '替代
+```css
+<style scoped>
+.a >>> .b { /* ... */ }
+</style>
+//上面的代码会被编译为
+.a[data-v-f3f3eg9] .b { /* ... */ }
+```
 
 
 

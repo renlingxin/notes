@@ -1,6 +1,6 @@
 ### 资源： https://baijiahao.baidu.com/s?id=1662842929861521073&wfr=spider&for=pc
 
-## 请求报文和响应报文格式
+### 一 、请求报文和响应报文格式
 
  **请求和响应报文格式 --- 请求报文和响应报文的结构大体一致**
 
@@ -22,7 +22,7 @@
 
 
 
-#### 常见响应头字段
+### 二 、 常见响应头字段
 ##### 1. Access-Control-Allow-Credentials 
 响应头表示是否可以将请求的响应暴露给页面，返回true可以，其他值都不可以
 ##### 2. option(预检请求) -- 浏览器发送的用于向服务器请求权限信息 预检成功后 才会发起真正的http请求
@@ -86,7 +86,7 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
 
 ##### 6. X-RateLimit-Remaining(当前时间段内剩余的请求的数量)
 
-#### 常见的请求头
+### 三 、 常见的请求头
 
  ##### 1. Accept(告知服务端，客户端可以处理的内容类型) -- 内容是MIME类型
  与之相对应的是响应头 Content-Type （告知客户端，服务端的选择） 
@@ -114,7 +114,7 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
   http1.1 => 由于虚拟 机技术的发现 同一台物理服务器可能会有多个虚拟主机 因此HTTP1.1支持了 HOST头域 可以传输响应的域
 *举例：Host：test-api.adsdesk.cn*
 
-### HTTP常见的请求方法
+### 四 、HTTP常见的请求方法
 1. GET --- 请求获取资源
 2. HEAD --- 请求获取资源的响应消息报头  与GET的区别  --- 只获取报头
 2. POST --- 提交数据
@@ -126,7 +126,7 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
 7. CONNECT --- 保留将来使用  HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。
 
 
-### HTTP1.0 和 HTTP1.1 的区别
+### 五 、HTTP1.0 和 HTTP1.1 的区别
 
 #### 1. Host
   http1.0 => 默认每台服务器只绑定唯一的IP地址
@@ -142,13 +142,13 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
 ####   4.增加了状态码
  HTTP1.1增加了24个错误状态响应码 如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除
 
-###  HTTP 和 HTTPS 的区别
+### 六 、 HTTP 和 HTTPS 的区别
  1. HTTPS协议需要到CA申请证书，需要缴费
  2. HTTP协议运行在TCP之上，所有的传输的内容都是明文的 HTTPS运行在SSL/TLS之上，所有的传输都经过加密
  3. 端口不一样 HTTP 使用的80 HTTPS使用的443
  4. HTTPS有效防止了运营商劫持
 
-###  HTTP 协议的特点
+###  七 、HTTP 协议的特点
 简介 HTTP（超文本传输协议）是面向应用层的协议 基于TCP协议  其与1990年提出 它出现的初始目的是为了传输HTML也就是超文本标记语言
 1. 基于请求-响应   请求从客户端发起 服务器不会主动响应    必须是客户端主动
 2. 无状态 在连接的始末 不保存状态 也就是对请求和响应不做持久化处理
@@ -157,5 +157,5 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
 3. 无连接 每次连接只处理一个请求 服务器处理完请求 并收到客户端响应后 就断开连接 这种方式可以有效节省传输时间 提高并发性能  但是请求较多的情况下 重复的建立连接十分消耗性能
    解决方法：Connection:keep-alive  会保持一定时间的连接
    
-###  cookie session tocken
+###  八 、cookie session tocken
 cookie 和 session https://www.cnblogs.com/moyand/p/9047978.html

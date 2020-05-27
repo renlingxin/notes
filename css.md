@@ -1,13 +1,13 @@
 ## CSS
 
-### 扩展1 --- vh的实际使用
+### 一 、 --- vh的实际使用
 ```css
 /*元素高度满屏显示*/
 div{
    heigth:100vh;
 }
 ```
-### css 属性通常可以设置的值
+### 二 、 css 属性通常可以设置的值
 ```css
 initial --- 设置属性为他的默认值
 inherit --- 继承父元素的属性值
@@ -17,7 +17,7 @@ unset --- 不设置，是关键字initial和inherit的组合
 
 ![1588826354(D:\mackdown\1588826354(1).png)](C:\Users\admin\Desktop\1588826354(1).png)
 
-### 超出部分隐藏  显示省略号等处理  css  
+### 三  、 超出部分隐藏  显示省略号等处理  css  
 
 ```css
 .no-white{

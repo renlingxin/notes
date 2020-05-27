@@ -188,8 +188,8 @@ obj.num1;
 babel官方预设的一些插件集，称之为preset，这样我们只需要使用对应的preset就可以了：es2015  es2016
 **babel-plugin-transfrom-runtime**
 解析es6中的API，例如promise.set.map
-####一  扩展--5--package.json 和 package-lock.json
-######package-lock.json
+#### 一  扩展--5--package.json 和 package-lock.json
+###### package-lock.json
 
 会在更改node_modules目录树或者package.json自动生成
 
