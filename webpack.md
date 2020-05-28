@@ -204,7 +204,6 @@ https://www.cnblogs.com/miracle77hp/articles/11163532.html
 工作区 -- 暂存区 -- 本地仓库 -- 远程仓库 
 ##### 常用命令总结
 git status      查看文件状态
-git pull     拉取线上分支最新内容
 git add .  添加全部修改文件到 暂存区
 git commit -m   提交暂存区的文件到本地的版本库
 git push    推送当前分支到远程仓库
@@ -223,12 +222,27 @@ git log  查看当前分支的版本历史
 git log -S [xxx]   搜索提交历史，根据关键词
 git log -p [file]   查看指定文件相关的每一次diff
 git shortlog -sn  查看所有提交过的用户  按提交次数降序
-git reflog   查看简洁日志
+git reflog   展示已经执行过的所有动作的日志
+git reset HEAD@{1}  回退到执行的这一步
 git merge 分支名    合并指定分支到当前分支
 git init    初始化
-git tag   列出所有的标签
-git reset --soft HEAD^    不删除工作空间改动的代码  撤销commit 不撤销add.
+git tag   列出所有的标签      tag会记录版本的commit号，方便后期回溯
+git tag -l ' v0.3.* ‘ 加 -l 命令过滤 tag
+
+git tag tagName 本地创建 tag
+git tag -a tagName -m ' 备注信息 ' 创建tag并添加备注信息
+git show tagName 查看tag的详细信息
+git push origin tagName 将本地创建的tag同步到远程
+git tag -d tagName 删除本地分支
+git push origin :refs/tags/tagName 删除远程tag
+git reset --soft HEAD^    不删除工作空间改动的代码  撤销commit 不撤销add.(软重置)
 git reset --mixed HEAD^  默认参数  不删除工作空间改动代码 并且撤销add.  === git reset HEAD^
-git reset --hard HEAD^  删除工作空间改动代码 撤销commit 撤销add.
-
-
+git reset --hard HEAD^  删除工作空间改动代码 撤销commit 撤销add.(硬重置)
+git revert ec5be  撤销修改：通过对特定的提交执行还原操作，创建一个包含已还原修改的新提交
+git cherry-pick ec5be 挑选其他分支上更改（ec5be）到当前分支
+git fetch origin master 下载远程分支master上的最新修改
+git pull  等价于 git fetch 和 git merge   拉取线上分支最新内容，并且自动合并
+git merge 分支名 => 合并： 将一个分支的修改应用到当前分支
+git rebase  => 变基: 将当前分支的提交复制到指定的分支之上。(融入)
+变基与合并有一个重大的区别：Git 不会尝试确定要保留或不保留哪些文件。我们执行 rebase 的分支总是含有我们想要保留的最新近的修改！这样我们不会遇到任何合并冲突，而且可以保留一个漂亮的、线性的 Git 历史记录。
+HEAD => 本质上仅仅是个指向 commit 对象的可变指针,每个仓库只有一个HEAD  git checkout 就是在改变HEAD指向
