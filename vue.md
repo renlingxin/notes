@@ -327,6 +327,10 @@ forward() => 在浏览器记录中前往下一页
 go() => 通过当前页面的相对位置从浏览器会话记录中加载页面，可以理解为当前页面为0
 pushState() => 按指定名称和url将数据push进会话历史栈，数据被DOM进行了不透明处理
 replaceState() => 按指定的数据，名称或url，更新历史栈上最新的入口
+**window.onpopstate**
+window.onpopstate是popstate事件在window对象上的事件处理程序
+如果记录是pushstate或replacestate操作过的,onpopstate会包含一个拷贝
+每当处于激活状态的历史记录发生变化时，window.onpopstate触发；history.replacestate和history.pushstate不会触发window.onpopstate;前进后退等行为会触发;
 
 ## 三、vue-常用API
 
@@ -453,7 +457,15 @@ directives: {
 //调用
 <input v-focus>
 ```
+### v-if v-show 的区别
+```javascript
+v-if 会销毁并重建DOM元素
+v-show 通过设置display:none属性来控制当前元素的显示与隐藏
+//扩展
+display:none => 不占据当前DOM的结构位置
+visibility:hidden => 在当前页面中依然占据结构位置
 
+```
 ## 四、vue-cli 脚手架
 ### vue-cli 3 . 4 使用
 ```javascript
