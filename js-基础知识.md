@@ -606,4 +606,44 @@ console.log(JSON.stringify(obj,['name','age'],'*'))
 *"age": 11
 }
 ```
+### js  URI编码解码
+escape（）函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。（不会对ASCII字母和数字编码）
+unescape() 对escape（）编码过的解码
+encodeURI()把字符串编码为 URI。
+encodeURIComponent()把字符串编码为 URI 组件。
+decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。
+decodeURIComponent() 函数可对 encodeURIComponent() 函数编码的 URI 进行解码。
 
+**使用区别**
+```javascript
+encodeURI('&') //"&"
+decodeURI('&') //"&"
+encodeURIComponent('&') //"%26"
+decodeURIComponent('%26') //"&"
+//encodeURIComponent  可以对如#*&等特殊字符进行编码
+```
+
+**URI : URL   URN**
+Web上可用的每种资源 -HTML文档、图像、视频片段、程序等 - 由一个通用资源标识符（Uniform Resource Identifier, 简称"URI"）进行定位。
+
+统一资源定位符（Uniform Resource Locator，URL）,统一资源名称（Uniform Resource Name，URN）是URI的子集。
+
+Web上地址的基本形式是URI,它有两种形式：一种是URL，这是目前URI的最普遍形式
+
+URN定义某事物的身份，而URL提供查找该事物的方法。URN仅用于命名，而不指定地址。
+### js  Infinity  代表无穷大的值
+
+### base-64编码解码
+```javascript
+//btoa()方法用于创建一个 base-64 编码的字符串。
+var str = "RUNOOB";
+var enc = window.btoa(str);
+var res = "编码字符串: " + enc; // "编码字符串: UlVOT09C"
+```
+```javascript
+//atob()方法用于解码使用 base-64 编码的字符串。
+var str = "RUNOOB";
+var enc = window.btoa(str);
+var dec = window.atob(enc);
+var res = "编码字符串为: " + enc + "<br>" + "解码后字符串为: " + dec;
+```

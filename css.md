@@ -53,3 +53,4 @@ text-overflow:'>>>'   //具有兼容问题  火狐浏览器能正常显示
 | > |  &#62;   | &gt; |
 | 不断开空格(non-breaking space) |  &#160;   | &nbsp; |
 
+### 五  、 css样式继承

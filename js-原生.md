@@ -85,3 +85,20 @@ event => 事件名   function => 事件触发执行的函数  useCapture => 是�
 **removeChild**   移除节点
 
 
+### 六、api再实现
+**arr.reverse**
+```javascript
+Array.prototype.againReverse = function () {
+    let _len = this.length
+    let _reset = []
+    for (let i = 0; i <= _len - 1; ++i) {
+        _reset[_reset.length] = this[_len - i - 1]
+    }
+    for (let j = 0; j <= _len - 1; ++j) {
+        this[j] = _reset[j]
+    }
+    return this
+}
+```
+
+
