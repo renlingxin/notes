@@ -637,7 +637,7 @@ URN定义某事物的身份，而URL提供查找该事物的方法。URN仅用�
 ```javascript
 //btoa()方法用于创建一个 base-64 编码的字符串。
 var str = "RUNOOB";
-var enc = window.btoa(str);
+var enc = window.btoa(str);                                             
 var res = "编码字符串: " + enc; // "编码字符串: UlVOT09C"
 ```
 ```javascript
@@ -646,4 +646,32 @@ var str = "RUNOOB";
 var enc = window.btoa(str);
 var dec = window.atob(enc);
 var res = "编码字符串为: " + enc + "<br>" + "解码后字符串为: " + dec;
+```
+
+### Array  new API
+1. findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。
+
+```javascript
+
+const n = [12,3,4,5,5,3333]
+n.findIndex((el)=>{return el>3444}) // -1
+n.findIndex((el)=>{return el<=4}) //1
+n.findIndex((el)=>{return el>4}) // 0
+
+```
+2. Array()   和  Array.of()
+Array.of(7) 创建一个具有单个元素 7 的数组，而 Array(7) 创建一个长度为7的空数组
+```javascript
+
+Array(3) // [].length === 3
+Array.of(3) // [3]
+
+```
+3. Array.from
+Array.from() 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
+三个参数 ：1.想要被操作的对象 2.函数 新数组中的每一个元素都会执行改函数 3. 执行回调函数2的this对象y
+```javascript
+Array.from('ren') // ['r','e','n']
+Array.from([1, 2, 3], x => x + x) // [2, 4, 6]
+
 ```

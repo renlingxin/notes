@@ -86,7 +86,7 @@ event => 事件名   function => 事件触发执行的函数  useCapture => 是�
 
 
 ### 六、api再实现
-**arr.reverse**
+**1. arr.reverse**
 ```javascript
 Array.prototype.againReverse = function () {
     let _len = this.length
@@ -100,5 +100,87 @@ Array.prototype.againReverse = function () {
     return this
 }
 ```
+### 七、window对象
 
+**MDN: https://developer.mozilla.org/zh-CN/docs/Web/API/Window/ **
+
+#### 一 、window事件
+
+1. **unhandledrejection**
+当Promise 被 reject 且没有 reject 处理器的时候，会触发 unhandledrejection 事件；
+
+```javascript
+//reason   传入异常处理方法的错误原因
+window.addEventListener("unhandledrejection", event => {
+  console.warn(`UNHANDLED PROMISE REJECTION: ${event.reason}`);
+});
+window.onunhandledrejection = event => {
+  console.log(event.reason)
+}
+```
+2. **window.onpopstate**
+window.onpopstate是popstate事件在window对象上的事件处理程序
+如果记录是pushstate或replacestate操作过的,onpopstate会包含一个拷贝
+
+```javascript
+window.onpopstate = function (event) {
+  alert('location:' + document.location + 'state:' +   JSON.stringify(event.state))
+}
+history.pushState({
+    page: 1
+}, 'title1', '?page=1')
+```
+
+#### 二、window属性
+1. **window.location**
+只读属性 返回当前为包含当前位置信息的对象
+```javascript
+window.localhost => 
+    assign: function assign()
+    hash: "" //哈希值
+    host: "localhost:8080" //主机名=端口
+    hostname: "localhost" //主机名
+    href: "http://localhost:8080/ad/create/kuaishou" //地址
+    origin: "http://localhost:8080"  //起源
+    pathname: "/ad/create/kuaishou" //路径名
+    port: "8080"  //端口
+    protocol: "http:" //协议
+    reload: function reload() //强制从服务器更新
+    replace: function replace() //替换
+    search: "" //参数 ？
+    toString: function toString()
+    valueOf: function valueOf()
+    Symbol(Symbol.toPrimitive): undefined
+```
+
+```javascript
+    //直接赋值 浏览器回跳转到对应页面
+    window.location = 'http://pre.adsdesk.cn'
+    // 和直接赋值效果一样
+    window.location.assign('http://pre.adsdesk.cn')
+```
+
+```javascript
+//强制从服务器刷新当前页面
+window.location.reload(true);
+```
+
+```javascript
+window.location.search = 'Some&& ?Data大的'
+// window.localhost => file:///C:/Users/admin/Desktop/demo/native/index.html?Some&&%20?Data%E5%A4%A7%E7%9A%84  空格会在展示的时候转化为URI格式
+decodeURI('file:///C:/Users/admin/Desktop/demo/native/index.html?Some&&%20?Data%E5%A4%A7%E7%9A%84')
+//"file:///C:/Users/admin/Desktop/demo/native/index.html?Some&& ?Data大的"
+```
+2. **window.navigator **
+当前代码的应用程序的相关信息。
+
+```javascript
+
+window.navigator.appName //appName 属性返回浏览器的应用程序名称
+window.navigator.appCodeName //appCodeName  属性返回浏览器的应用程序代码名称
+window.navigator.product //product 属性返回浏览器引擎的产品名称
+window.navigator.appVersion //appVersion 属性返回有关浏览器的版本信息
+window.navigator.userAgent //userAgent 属性返回由浏览器发送到服务器的用户代理报头（user-agent header）
+
+```
 

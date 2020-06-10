@@ -1,19 +1,34 @@
 ## 一、element-ui 
 
-#### el-table
+#### 1. el-table
 
 ```javascript
 <el-table
  v-loading="showLoading"
  highlight-current-row
-
 ></el-table>
 ```
 
 1 通过添加v-loading数据请求完成之前可以触发‘正在加载’样式，请求完成之后取消样式展示数据；showLoading的值为true 和 false
 
 2 highlight-current-row 添加属性会添加行数据的点击事件
-
+#### 2. append    prepend  （Jquery有相似用法）
+```html
+// append  slot定位 放在input的最后位置
+<Input>
+   <Select slot="append">
+       <Option></Option>
+   </Select>
+</Input>
+```
+```html
+// prepend  slot定位 放在input的开始位置
+<Input>
+   <Select slot="prepend">
+       <Option></Option>
+   </Select>
+</Input>
+```
 ## 二、vue-router
 ### 在浏览器中创建新窗口打开页面
 ```javascript
