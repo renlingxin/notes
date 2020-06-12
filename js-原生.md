@@ -32,6 +32,19 @@ event => 事件名   function => 事件触发执行的函数  useCapture => 是�
         window.location.reload()
     })
 ```
+### 四 、importNode()
+importNode() 将外部文档的一个节点拷贝一份
+```javascript
+    // 获取template
+    let _tem = document.querySelector('#templates')
+    let hr = document.createElement('hr')
+    // content 获取template中的内容
+    let _div = _tem.content.querySelector('div')
+    _div.appendChild(hr)
+    let clone = document.importNode(_div,true) // 两个参数 分别是拷贝的对象 
+    document.body.appendChild(clone)
+```
+
 #### event 事件名扩展
 一 鼠标事件
 1. click
@@ -184,3 +197,22 @@ window.navigator.userAgent //userAgent 属性返回由浏览器发送到服务�
 
 ```
 
+## 	H5
+### 一、template
+
+HTML内容模板（template）元素是一种用于保存客户端内容机制，该内容在加载页面时不会呈现，但随后可以(原文为 may be)在运行时使用JavaScript实例化。
+
+将模板视为一个可存储在文档中以便后续使用的内容片段。虽然解析器在加载页面时确实会处理template元素的内容，但这样做只是为了确保这些内容有效；但元素内容不会被渲染。
+
+HTMLTemplateElement 有个属性： content , 这个属性是只读的DocumentFragment 包含了模板所表示的DOM树。
+
+```javascript
+    // 获取template
+    let _tem = document.querySelector('#templates')
+    let hr = document.createElement('hr')
+    // content 获取template中的内容
+    let _div = _tem.content.querySelector('div')
+    _div.appendChild(hr)
+    let clone = document.importNode(_div,true)
+    document.body.appendChild(clone)
+```
