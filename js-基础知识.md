@@ -62,6 +62,9 @@ charCodeAt() 方法可返回指定位置的字符的Unicode编码，这个返回
 fromCharCode()方法可以将Unicode编码转换成字符
 
 ### javascript中的基本类型(七种)以及引用数据类型
+
+>MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#BigInt_type
+
 **基本数据类型**
 Number    string    null   undefined   boolean      BigInt  symbol
 

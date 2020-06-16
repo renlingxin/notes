@@ -202,6 +202,7 @@ babel官方预设的一些插件集，称之为preset，这样我们只需要使
 ## GIT
 https://www.cnblogs.com/miracle77hp/articles/11163532.html
 工作区 -- 暂存区 -- 本地仓库 -- 远程仓库 
+
 ##### 常用命令总结
 git status      查看文件状态
 git add .  添加全部修改文件到 暂存区
@@ -246,3 +247,7 @@ git merge 分支名 => 合并： 将一个分支的修改应用到当前分支
 git rebase  => 变基: 将当前分支的提交复制到指定的分支之上。(融入)
 变基与合并有一个重大的区别：Git 不会尝试确定要保留或不保留哪些文件。我们执行 rebase 的分支总是含有我们想要保留的最新近的修改！这样我们不会遇到任何合并冲突，而且可以保留一个漂亮的、线性的 Git 历史记录。
 HEAD => 本质上仅仅是个指向 commit 对象的可变指针,每个仓库只有一个HEAD  git checkout 就是在改变HEAD指向
+git config -l  => 查看配置信息
+git config --global user.name = '' => 修改name
+git config --global user.email = '' => 修改邮箱
+cd ~/ssh => 查看本地ssh信息

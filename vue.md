@@ -413,9 +413,80 @@ export default {
 }
 ```
 
-### this.$nextTick()
+### router-link中的tag属性
+```javascript
+//能将标签渲染成预想的 例如 'li'
+<router-link :to="{path:''}" tag='li'>任岭鑫</router-link>
+<li>任岭鑫</li>
+```
 
-##### 需求
+### v-if v-show 的区别
+```javascript
+v-if 会销毁并重建DOM元素
+v-show 通过设置display:none属性来控制当前元素的显示与隐藏
+//扩展
+display:none => 不占据当前DOM的结构位置
+visibility:hidden => 在当前页面中依然占据结构位置
+
+```
+### 全局API
+
+####  1. Vue.extend --- 扩展
+使用基础的Vue构造器，创建一个子类，参数是一个包含组件选项的对象 也就是建造一个小的组件
+
+通过extend构建的组件 data 必须是函数
+
+**官方示例**
+```html
+<div id="mount-point"></div>
+```
+
+```javascript
+// 创建构造器
+var Profile = Vue.extend({
+  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+  data: function () {
+    return {
+      firstName: 'Walter',
+      lastName: 'White',
+      alias: 'Heisenberg'
+    }
+  }
+})
+// 创建 Profile 实例，并挂载到一个元素上。
+new Profile().$mount('#mount-point')
+
+```
+
+
+#### 2. vue-directive  ---   自定义指令 
+**全局注册**
+```javascript
+Vue.directive('focus', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+```
+**局部使用**
+```javascript
+directives: {
+  focus: {
+    //局部 指令的定义
+    inserted: function (el) {
+      el.focus()
+    }
+  }
+}
+//调用
+<input v-focus>
+```
+
+#### 3. this.$nextTick()
+
+**为什么使用**
 在获取数据后，需要对新视图进行下一步操作或者其他操作时，发现获取不到DOM，因为赋值操作只完成了数据模型的改变并没有完成视图更新。就是无法再次触发DOM 更新。
 
 在vue生命周期的created钩子函数进行的DOM操作一定要放在nextTick的回调函数中
@@ -445,46 +516,38 @@ export default {
 22222
 44444
 ```
-### router-link中的tag属性
-```javascript
-//能将标签渲染成预想的 例如 'li'
-<router-link :to="{path:''}" tag='li'>任岭鑫</router-link>
-<li>任岭鑫</li>
-```
+#### 4. Vue.set   向响应对象中添加响应key
 
-### 自定义指令 --- vue-directive
-**全局注册**
+Vue.set( target, propertyName/index, value )
+**参数：**
+target => 目标对象
+propertyName/index => 属性名或index
+value => 内容
+
+向响应式对象中添加一个 property，并确保这个新 property 同样是响应式的，且触发视图更新。它必须用于向响应式对象上添加新 property，因为 Vue 无法探测普通的新增 property (比如 this.myObject.newProperty = 'hi')
+
+#### 5. Vue.delete  删除响应对象中key和Vue.set对应
+
+Vue.delete( target, propertyName/index ) 
+**参数：**
+target => 目标对象
+propertyName/index => 属性名或index
+
+删除对象的 property。如果对象是响应式的，确保删除能触发更新视图。这个方法主要用于避开 Vue 不能检测到 property 被删除的限制，但是你应该很少会使用它。
+
+#### 6. Vue.filter 注册全局过滤器
+
+**官方示例**
 ```javascript
-Vue.directive('focus', {
-  // 当被绑定的元素插入到 DOM 中时……
-  inserted: function (el) {
-    // 聚焦元素
-    el.focus()
-  }
+// 注册
+Vue.filter('my-filter', function (value) {
+  // 返回处理后的值
 })
-```
-**局部使用**
-```javascript
-directives: {
-  focus: {
-    // 指令的定义
-    inserted: function (el) {
-      el.focus()
-    }
-  }
-}
-//调用
-<input v-focus>
-```
-### v-if v-show 的区别
-```javascript
-v-if 会销毁并重建DOM元素
-v-show 通过设置display:none属性来控制当前元素的显示与隐藏
-//扩展
-display:none => 不占据当前DOM的结构位置
-visibility:hidden => 在当前页面中依然占据结构位置
 
+// getter，返回已注册的过滤器
+var myFilter = Vue.filter('my-filter')
 ```
+
 ## 四、vue-cli 脚手架
 ### vue-cli 3 . 4 使用
 ```javascript

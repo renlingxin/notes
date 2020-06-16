@@ -42,7 +42,40 @@ text-overflow:'>>>'   //具有兼容问题  火狐浏览器能正常显示
        pre-line --- 合并空白符序列，保留换行符
        inherit --- 从父元素继承white-space属性的值
 ### 四  、 display:none和visibility:hidden的区别
-二者都是隐藏元素，但是display:none后元素在页面中不占位置；visibility:hidden依然在页面中占据位置
+二者都是隐藏元素，但是
+display:none后元素在页面中不占位置；
+visibility:hidden依然在页面中占据位置
+
+
+### 五  、 cursor 属性
+
+```css
+    /* 鼠标旋转加载 */
+    cursor: progress;
+    /* 调大小的 上下 */
+    cursor: row-resize;
+    /* 四角的箭头 */
+    cursor: move;
+    /* 箭头带个问好 */
+    cursor: help;
+    /* 胖胖的小手 */
+    cursor: grabbing;
+    /* 舒展一点的小手 */
+    cursor: grab;
+    /* 箭头带个加号 */
+    cursor: copy;
+    /* 一个大的十字箭头 */
+    cursor: crosshair;
+    /* 胖胖的十字箭头 */
+    cursor:cell;
+    /* 放小镜 */
+    cursor:-webkit-zoom-out;
+    /* 放大镜 */
+    cursor: -webkit-zoom-in;
+    /* 旋转的圈圈 */
+    ursor:wait;
+```
+
 ## html
 #### 转义字符
 | 字符   | 十进制 |     转义字符 |
@@ -53,4 +86,3 @@ text-overflow:'>>>'   //具有兼容问题  火狐浏览器能正常显示
 | > |  &#62;   | &gt; |
 | 不断开空格(non-breaking space) |  &#160;   | &nbsp; |
 
-### 五  、 css样式继承
