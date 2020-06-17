@@ -248,6 +248,16 @@ git rebase  => 变基: 将当前分支的提交复制到指定的分支之上。
 变基与合并有一个重大的区别：Git 不会尝试确定要保留或不保留哪些文件。我们执行 rebase 的分支总是含有我们想要保留的最新近的修改！这样我们不会遇到任何合并冲突，而且可以保留一个漂亮的、线性的 Git 历史记录。
 HEAD => 本质上仅仅是个指向 commit 对象的可变指针,每个仓库只有一个HEAD  git checkout 就是在改变HEAD指向
 git config -l  => 查看配置信息
-git config --global user.name = '' => 修改name
-git config --global user.email = '' => 修改邮箱
-cd ~/ssh => 查看本地ssh信息
+git config --global user.name  '' => 修改name
+git config --global user.email  '' => 修改邮箱
+cd ~/.ssh => 查看本地ssh信息   .pub结尾的文件是公钥
+ssh-keygen -t rsa -C "your.email@example.com"  => 生成密钥
+
+**git密钥规则**
+
+> 文章链接 https://juejin.im/post/5a2941ad6fb9a045030ffc95
+
+密钥登录比密码登录安全，主要是因为他使用了非对称加密，登录过程中需要用到密钥对。整个登录流程如下：
+1. 远程服务器持有公钥，当有用户进行登录，服务器就会随机生成一串字符串，然后发送给正在进行登录的用户。
+2. 用户收到远程服务器发来的字符串，使用与远程服务器公钥配对的私钥对字符串进行加密，再发送给远程服务器。
+3. 服务器使用公钥对用户发来的加密字符串进行解密，得到的解密字符串如果与第一步中发送给客户端的随机字符串一样，那么判断为登录成功。

@@ -26,7 +26,9 @@ _child.appendChild(_user)
 ### 三、addEventListener ,removeEventListener() IE（attachEvent,detachEvent）
 概念：addEventListener() 方法用于向指定元素添加事件句柄。
 用法：element.addEventListener(event, function, useCapture) 
-event => 事件名   function => 事件触发执行的函数  useCapture => 是否在事件冒泡阶段执行  true 捕获阶段 false 冒泡阶段
+event => 事件名  
+function => 事件触发执行的函数  
+useCapture => 是否在事件冒泡阶段执行  true 捕获阶段 false 冒泡阶段
 ```javascript
     _button.addEventListener('click', function () {
         window.location.reload()
