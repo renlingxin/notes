@@ -229,7 +229,7 @@ git merge 分支名    合并指定分支到当前分支
 git init    初始化
 git tag   列出所有的标签      tag会记录版本的commit号，方便后期回溯
 git tag -l ' v0.3.* ‘ 加 -l 命令过滤 tag
-
+git branch -m old_br new_br  更改分支名
 git tag tagName 本地创建 tag
 git tag -a tagName -m ' 备注信息 ' 创建tag并添加备注信息
 git show tagName 查看tag的详细信息
