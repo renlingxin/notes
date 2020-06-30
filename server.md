@@ -1,3 +1,5 @@
+## Http
+
 ### 资源： https://baijiahao.baidu.com/s?id=1662842929861521073&wfr=spider&for=pc
 
 ### 一 、请求报文和响应报文格式
@@ -159,3 +161,17 @@ media-type -- 资源或数据的MIME type（媒体类型） charset -- HTML的�
    
 ###  八 、cookie session tocken
 cookie 和 session https://www.cnblogs.com/moyand/p/9047978.html
+
+
+## Alpha Beta  Gamma
+
+**以下引用百度百科**
+Beta，普遍认为是“测试”的意思。广义上对测试有着三个传统的称呼：Alpha（α，阿尔法）、Beta（β，贝塔）和Gamma（γ，伽玛），用来标识测试的阶段与范围。Alpha 指的是内测，即现在说的 CB，即开发团队内部测试的版本或者有限用户的体验测试版本。Beta 指的是公测，即针对所有用户公开的测试版本。而做过一些修改，成为正式发布的候选版本时（现在叫做 RC - Release Candidate），叫做 Gamma。
+
+
+
+
+
+
+
+
