@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input属性</title>
+</head>
+
+<body>
+    input 属性
+    <ul>
+        <li>
+            1 type 类型<br>
+            <input type="text" placeholder="文本">
+            <input type="password" placeholder="密码">
+            <input type="number">
+            <input type="file" name="img">
+            <input type="submit" />
+        </li>
+        <li>
+            2 value 初始值<br>
+            <input type="text" value="初始值">
+        </li>
+        <li>
+            3 placeholder 提示语<br>
+            <input type="text" placeholder="请输入">
+        </li>
+        <li>
+            4 readonly 指定属性为只读<br>
+            <input type="text" placeholder="请输入" readonly>
+        </li>
+        <li>
+            5 disabled 禁用<br>
+            <input type="text" placeholder="请输入" disabled>
+        </li>
+        <li>
+            6 size input长度<br>
+            <input type="text" placeholder="长度30" size="30">
+        </li>
+        <li>
+            7 maxlength 输入内容的最大长度<br>
+            <input type="text" placeholder="请输入" maxlength="10">
+        </li>
+        <li>
+            8 autofocus 页面进入自动获得焦点<br>
+            <input type="text" placeholder="请输入" autofocus>
+        </li>
+        <li>
+            9 list 属性引用的datalist元素中包含了input元素的预定义选项。<br>
+            <input list="browsers">
+
+            <datalist id="browsers">
+                <option value="Internet Explorer">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari">
+            </datalist>
+        </li>
+        <li>
+            10 min max 页面进入自动获得焦点<br>
+            <input type="number" placeholder="请输入数字" max="5" min="1" style="width:120px">
+        </li>
+        <li>
+            10 pattern 正则验证 required 必填项<br>
+            <form action="#">
+                <input type="text" name="country_code" pattern="[A-Za-z]{3}" title="只能输入三个英文字符">
+                <input type="text" name="usrname" required>
+                <input type="submit" />
+            </form>
+        </li>
+        <li>
+            11 hidden 隐藏<br>
+            <input type="hidden" placeholder="请输入数字" style="width:120px">
+        </li>
+    </ul>
+
+</body>
+<script>
+    // getElementsByName 获取的是一个数组
+    let file = document.getElementsByName('img')[0]
+    file.addEventListener('change', function (event) {
+        console.log(this.files)
+    }, false)
+</script>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>当日待办日历</title>
+  <style>
+    .container {
+      padding-top: 20px;
+    }
+
+    .time-block {
+      padding: 0 40px;
+    }
+
+    .today {
+      display: flex;
+      position: relative;
+      height: 1200px;
+    }
+
+    .time {
+      position: absolute;
+      left: -35px;
+      font-size: 12px;
+    }
+
+    .line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: red;
+      z-index: 1;
+    }
+
+    .line:before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      border-top: 6px solid transparent;
+      border-left: 6px solid red;
+      border-bottom: 6px solid transparent;
+    }
+
+
+    .today-item {
+      position: relative;
+      flex: 1;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      position: absolute;
+      color: #fff;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="time-block">
+      <div id="js-today" class="today">
+        <div id="js-left-time"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 画时间段
+    ;(function () {
+      const leftTime = document.getElementById('js-left-time')
+      for (let i = 8, j = 0; i <= 21; i++, j++) {
+        const div = document.createElement('div')
+        div.classList.add('time')
+        div.style.top =  j * 100 - 10 + 'px'
+        div.innerHTML = i + ':00'
+        leftTime.appendChild(div)
+      }
+    })()
+
+    // 画当前时间线
+    ;(function () {
+      const today = document.getElementById('js-today')
+      const line = document.createElement('div')
+      line.classList.add('line')
+      line.setAttribute('id', 'js-line')
+      line.style.top = getTimeTop(new Date()) + 'px'
+      today.appendChild(line)
+      setInterval(() => {
+        const hasLine = document.getElementById('js-line')
+        hasLine.style.top = getTimeTop(new Date()) + 'px'
+      }, 1000 * 60 * 5)
+    })()
+
+    // 画任务块
+    ;(function () {
+      const tasks = [{
+        name: '化学',
+        start: '2020-05-11 12:00',
+        end: '2020-05-11 15:30',
+        height: 0,
+        top: 0,
+        bgColor: '#999999'
+      }, {
+        name: '生物',
+        start: '2020-05-11 8:00',
+        end: '2020-05-11 13:30',
+        height: 0,
+        top: 0,
+        bgColor: '#67C23A'
+      }, {
+        name: '地理',
+        start: '2020-05-11 16:00',
+        end: '2020-05-11 18:30',
+        height: 0,
+        top: 0,
+        bgColor: '#409EFF'
+      }, {
+        name: 'test4',
+        start: '2020-05-11 14:00',
+        end: '2020-05-11 17:30',
+        height: 0,
+        top: 0,
+        bgColor: '#E56151'
+      }]
+      computeTask(tasks)
+      const today = document.getElementById('js-today')
+      tasks.forEach(task => {
+        const div = document.createElement('div')
+        div.classList.add('today-item')
+        const taskItem = document.createElement('div')
+        taskItem.classList.add('task')
+        taskItem.style.top = task.top + 'px'
+        taskItem.style.height = task.height + 'px'
+        taskItem.style.background = task.bgColor
+        taskItem.innerHTML = task.name
+        div.appendChild(taskItem)
+        today.appendChild(div)
+      })
+    })()
+
+    /**
+     * 例如 new Date('2020-02-01 17:30')
+     */
+    function getTaskHeight (start, end) {
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      const top = getTimeTop(startDate);
+      const bottom = getTimeTop(endDate);
+      return bottom - top;
+    }
+    /**
+     * 获取指定时间的高度
+     */
+    function getTimeTop (date) {
+      if (typeof date !== 'object') {
+        date = new Date(date)
+      }
+      const hour = date.getHours()
+      const minute = date.getMinutes()
+      const currentH = hour - 8
+      return 100 * currentH + (100 / 60) * minute
+    }
+    /**
+     * 计算任务的高度和定位
+     */
+    function computeTask (tasks) {
+      tasks.forEach((task) => {
+        task.top = getTimeTop(task.start)
+        task.height = getTaskHeight(task.start, task.end)
+      })
+    }
+  </script>
+</body>
+
+</html>

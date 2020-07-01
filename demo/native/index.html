@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一键复制+刷新</title>
+    <style>
+        .white-no {
+            width: 150px;
+            overflow: hidden;
+            text-overflow: '>>>';
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset>
+        <legend>姓名</legend>
+        <input type="text" />
+    </fieldset>
+    
+    <img src="./xxx.svg" alt="" id="img">
+    <button>点我刷新</button>
+    <ul id="btn" onclick="change(event)">
+        <li id="1">1111111</li>
+        <li id="2">2222222</li>
+        <li id="3">3333333</li>
+    </ul>
+    <span onclick="copy()">点我复制</span>
+    <div class="white-no">我不是u还附上附件是的妇女记得发你觉得舒服呢房贷首付看什么看对方</div>
+</body>
+<script>
+    let copy = function () {
+        let _input = document.createElement('input')
+        document.body.appendChild(_input)
+        _input.value = '任岭鑫'
+        _input.focus()
+        _input.select()
+        document.execCommand('copy')
+        _input.blur()
+        console.log('复制成功', _input.value)
+        document.body.removeChild(_input)
+    }
+    let btn = document.getElementById('btn')
+
+    function change(e) {
+        if (e.target.style.color && e.target.style.color === 'red') {
+            e.target.style = ''
+        } else {
+            e.target.style.color = 'red'
+        }
+        console.info('你好', e.target.style)
+    }
+
+    let _button = document.querySelector('button')
+    _button.addEventListener('click', function () {
+        //强制刷新
+        // window.location.reload()
+        //直接赋值 浏览器回跳转到对应页面
+        // window.location = 'http://pre.adsdesk.cn'
+        // 和直接赋值效果一样
+        window.location.assign('http://pre.adsdesk.cn')
+        // window.location.search = 'Some&& ?Data大的' //空格 转化
+    })
+    let _span = document.createElement('span')
+    _span.innerHTML = '你猜'
+    _span.style.color = 'red'
+    document.body.appendChild(_span)
+
+    // let xhr = new XMLHttpRequest();
+    // xhr.open( 'GET','http://localhost:1111/');
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.status === 200 && xhr.readyState === 4) {
+    //         console.log(xhr.responseText())
+    //     }
+    // }
+    // xhr.send()
+    console.log(document.createElement('div','11111'))
+</script>
+
+</html>

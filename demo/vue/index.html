@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{formdata.name}} ---- {{formdata.age}}</p>
+        <span>{{formdata.time}}</span>
+        <!-- {{msg}} -->
+        <input type="text" v-model="msg">
+        <ul>
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+        </ul>
+        <p v-text="formdata.name"></p>
+        <p v-text="msg"></p>
+        <p v-html="formdata.catchs"></p>
+        <button v-on:click="onchange">按钮on</button>
+        <button @click="onchange">按钮@</button>
+    </div>
+</body>
+<script src="./Observer.js"></script>
+<script src="./myVue.js"></script>
+<!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+
+<script>
+    let app = new myVue({
+        el: '#app',
+        data() {
+            return {
+                formdata: {
+                    name: '任岭鑫',
+                    age: 20,
+                    time: '2020-4-10',
+                    catchs: `<b>我不知道我是什么样的</b>`
+                },
+                msg: '我是动态的'
+            }
+        },
+        methods:{
+            onchange(){
+                // console.log(this)
+                // this.$data.formdata.name = '<h1>aaaa</h1>'
+                this.msg = '11111'
+            }
+        }
+    })
+</script>
+
+</html>

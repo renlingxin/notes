@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<style>
+    .father{
+        color: antiquewhite;
+        border: 1px solid red;
+        padding: 10px;
+    }
+    .father-son1{
+        color: blue;
+        border: 1px solid black;
+    }
+    .father-son2{
+        /* color 是可继承属性 border是不可继承的属性 */
+        color: unset;
+        border: unset;
+    }
+</style>
+<body>
+    <div class="father">
+        <div class="father-son1">
+            我是大儿子
+        </div>
+        <div class="father-son2">
+            我是小儿子
+        </div>
+    </div>
+    <template>
+       <p>wwwww</p> 
+    </template>
+</body>
+<script>
+    let b = new Error('我不是')
+    console.log(b.message,b.name)
+    // 自定义 错误
+    function myError(message){
+        this.name = 'myError'
+        this.message = message
+    }
+    myError.prototype = new Error()
+    console.log(myError.prototype)
+    try{
+throw  new myError('不是')
+    }
+    catch(err){
+console.log(err)
+    }
+    // 继承 练习 - 1 原型继承 --实例共享 -- 无法传参
+    function per(age) {
+        this.name = [221, 22, 2]
+        this.age = age
+        this.sayName = function () {
+            console.log(this.name)
+        }
+        this.updateName = function () {
+            this.name = 'xielixin'
+        }
+    }
+
+    function peo() {
+
+    }
+    peo.prototype = new per()
+    let p1 = new peo(23)
+    p1.name.push('renl')
+    let p2 = new peo()
+    console.log(p1)
+    p1.sayName()
+    p2.sayName()
+    console.log('----------------------------------')
+    // 继承 练习 - 2 原型+call
+    function ani(name) {
+        this.name = name
+    }
+    ani.prototype.sayAni = function () {
+        console.log(this.name)
+    }
+
+    function chi(name) {
+        ani.call(this, name)
+        this.time = '2020-1-1'
+    }
+    chi.prototype = ani.prototype
+    chi.prototype.sayTime = function () {
+        console.log(this.time)
+    }
+    let o1 = new chi('dog')
+    let o2 = new chi('cat')
+    o1.sayAni()
+    o2.sayAni()
+    console.log('----------------------------------')
+    // 继承 --3  es6继承
+
+    class old {
+        constructor(age) {
+            this.age = age
+        }
+        sayAge() {
+            console.log(this.age)
+        }
+    }
+    class xin extends old {
+        constructor(age, name) {
+            super(age)
+            this.name = name
+        }
+        sayName() {
+            console.log(this.name)
+        }
+    }
+    let x1 = new xin('23', 'renlingxin')
+    x1.sayAge()
+    x1.sayName()
+    // 继承 --4 寄生组合式
+    function add(obj) {
+        function f() {
+
+        }
+        f.prototype = new obj()
+        return new f()
+    }
+
+    function withObj(son, father) {
+        let prototype = add(father)
+        son.constructor = son
+        son.prototype = prototype
+    }
+
+    function father() {
+        this.name = 'renlingxin'
+    }
+    father.prototype.sayName = function () {
+        console.log(this.name)
+    }
+
+    function son() {
+        this.age = 23
+    }
+    withObj(son, father)
+    let r = new son()
+    console.log(r.name, r.age)
+    r.sayName()
+</script>
+
+</html>

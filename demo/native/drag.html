@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .drap-ul {
+            width: 100%;
+            border: 1px solid black;
+            display: flex;
+            flex-flow: row wrap;
+            padding: 5px;
+        }
+
+        li {
+            list-style: none;
+            border: 1px solid silver;
+            /* 鼠标旋转加载 */
+            /* cursor: progress; */
+            /* 调大小的 上下 */
+            /* cursor: row-resize; */
+            /* 四角的箭头 */
+            /* cursor: move; */
+            /* 箭头带个问好 */
+            /* cursor: help; */
+            /* 胖胖的小手 */
+            cursor: grabbing;
+            /* 舒展一点的小手 */
+            /* cursor: grab; */
+            /* 箭头带个加号 */
+            /* cursor: copy; */
+            /* 一个大的十字箭头 */
+            /* cursor: crosshair; */
+            /* 胖胖的十字箭头 */
+            /* cursor:cell; */
+            /* 放小镜 */
+            /* cursor:-webkit-zoom-out; */
+            /* 放大镜 */
+            /* cursor: -webkit-zoom-in; */
+            /* 旋转的圈圈 */
+            /* cursor:wait; */
+        }
+        .drap-index{
+            width: 10vh;
+            height: 10vh;
+            background-color: chocolate;
+        }
+    </style>
+</head>
+
+<body>
+    <template id="template-data">
+        <li draggable="true">
+            <figure>
+                <figcaption>这是我的头像</figcaption>
+                <img src="../头像.png" alt="">
+            </figure>
+        </li>
+    </template>
+    <ul class="drap-ul">
+    </ul>
+    <div id="drap" class="drap-index" draggable="true">
+        拖动我
+    </div>
+</body>
+<script>
+    for (let i = 0; i <= 5; i++) {
+        let tem = document.getElementById('template-data')
+        let data = tem.content.querySelector('li')
+        let _fig = data.getElementsByTagName('figcaption')[0]
+        let oldVal = _fig.innerHTML
+        _fig.innerHTML = oldVal + i
+        let _data = document.importNode(data, true)
+        let target = document.getElementsByClassName('drap-ul')[0]
+        target.appendChild(_data)
+    }
+    let _drap = document.getElementById('drap')
+    _drap.addEventListener('touchmove', (event) => {
+        let {x,y} = event
+        console.log(x,y)
+    }, false)
+
+    document.addEventListener('drop',(event)=>{
+        console.log(event)
+    },false)
+
+    // this
+    var targets = 'fix'
+    function name(){
+        let names = 'renlingxin'
+        console.log(this.names)
+        console.log(this.targets)
+    }
+    name()
+    const getName = () => {
+        let name = 'xielixin'
+        console.log(this.name)
+    }
+    getName()
+</script>
+
+</html>
