@@ -367,6 +367,7 @@ console.log(isPalindrome(12114521))
 
 // 验证回文串
 
+// 1 折中
 var isPalindrome1 = function (s) {
     let _data = s.match(/\d|\w/g)
     for (let i = 0; len = _data.length, i < (len / 2) + 1; i++) {
@@ -378,7 +379,7 @@ var isPalindrome1 = function (s) {
 };
 console.log('isPalindrome1', isPalindrome1("A man, a plan, a csanal: Panama"))
 
-// 双指针解法
+// 2 双指针解法
 
 var isPalindrome2 = function (s) {
     let _data = s.match(/\d|\w/g)
@@ -395,7 +396,7 @@ var isPalindrome2 = function (s) {
 };
 console.log('isPalindrome2', isPalindrome2("1A man, a plan, a canal: Panama1"))
 
-// 序列化与反序列化 二进制求和
+// 二进制求和
 
 // 题意描述：给你两个二进制字符串，返回它们的和（用二进制表示）。输入为 非空 字符串且只包含数字 1 和 0。
 let a = '11'
