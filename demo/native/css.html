@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tip {
+        padding: 5px 10px;
+        margin-left: 15px;
+        border: 1px solid #f8d19f;
+        border-radius: 3px;
+        background-color: #fdfbb8;
+        color: #d07807;
+        font-size: 12px;
+        position: absolute;
+        display: block;
+    }
+
+    .tip:before,
+    .tip:after {
+        content: attr(data-content);
+        font-family: xms;
+        position: absolute;
+
+    }
+
+    .tip:before {
+        color: :#f8d19f;
+        left: -10px;
+    }
+
+    .tip:after {
+        color: #fdfbb8;
+        left: -8px;
+    }
+</style>
+
+<body>
+    <span id="tip" class="tip" data-content="&#x25c0;">这是一个小tips提示</span>
+</body>
+
+</html>

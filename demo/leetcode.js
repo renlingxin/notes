@@ -429,6 +429,16 @@ var addBinary1 = function(a, b) {
 };
 console.log('addBinary1', addBinary1(a,b))
 
+
+// 循环效率比较
+let both =Array.from(Array(1000000),(v,a)=>a+1)
+
+let oldnow = new Date().getTime()
+// console.log(both, now)
+console.log(both.includes(500))
+let newnow = new Date().getTime()
+console.log(newnow - oldnow)
+
 // 序列化与反序列化
 const ins = [1, 2, 3, null, null, 4, 5]
 

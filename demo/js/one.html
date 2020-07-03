@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 深拷贝
+    let num = [23, 4545, {
+        id: 3,
+        name: 'renlingxin'
+    }, {
+        id: 3,
+        name: 'xijifs'
+    }]
+    let res = [...num];
+    console.log(res);
+    res[0] = 3232;
+    console.log(res);
+    console.log(num)
+    // 扁平化数组
+    let one = [34, 445, [2323, 323],
+        [3232, [22, 323, 434, 545]]
+    ]
+    let res1 = one.toString().split(',').map(item => {
+        // console.log(item)
+        return Number(item)
+    })
+    console.log(res1)
+
+    function bast(arr) {
+        return arr.reduce((result, item) => {
+            return result.concat(Array.isArray(item) ? bast(item) : item);
+        }, []);
+    }
+    console.log(bast(one));
+</script>
+
+</html>
