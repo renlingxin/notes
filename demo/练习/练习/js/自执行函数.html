@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var name = 'renlingxi1111n';
+    // console.log(name)
+    // 自执行函数的作用域是 window
+    (function (x) {
+        this.name = 11111111111
+        console.log(name)
+    })(1)
+    // (function(y){
+    //     console.log(y)
+    // }(12))
+</script>
+
+</html>

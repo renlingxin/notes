@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="utf-8">  
+    <title>test</title>  
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>  
+</head>  
+<body>  
+    <div id='app'>
+      <input type="radio" name="test" v-for="(item,index) in list" :value="item.value" :checked="item.isCheck" @change="changeInput(index)">
+      <button @click="test">获取选中的值</button>
+    </div>
+<script>
+var vm = new Vue({
+  el:'#app', 
+  data(){
+    return{
+      list:[{value:1,isCheck:false},{value:2,isCheck:false},{value:3,isCheck:false}]
+    }
+  },
+  methods:{
+    changeInput(index){
+      this.list.map((v,i)=>{ 
+        if(i==index){
+          v.isCheck = true
+        }else{
+          v.isCheck = false
+        }
+      })
+    },
+    test(){
+      this.list.map((v,i)=>{
+        if(v.isCheck){
+          console.log('被选中的值为:'+v.value)
+        }
+      })
+    }
+  }
+});
+</script>
+</body>  
+</html>  

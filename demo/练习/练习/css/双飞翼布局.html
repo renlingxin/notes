@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面试题</title>
+    <style>
+        .box {
+            width: 100px;
+            /* height: 80px; */
+            background-color: antiquewhite;
+            /* float: left; */
+            /* overflow: hidden; */
+            display: flex;
+        }
+
+        .name {
+            float: left;
+            width: 80px;
+          
+            height: 60px;
+            background-color: red;
+        }
+            #main {overflow: hidden;zoom: 1;}/*这里不需要加padding了*/
+            .m_content, .m_leftside, .m_rightside {float: left;}
+            .m_content {width: 100%;}
+            /*用左右边距将左右边栏的位置预留出来*/
+            .m_c_wrap {margin-left: 220px;margin-right:300px;}
+            .m_leftside {width: 220px;margin-left: -100%;}
+            .m_rightside {width: 300px;margin-left: -300px;}
+
+        /* .clear:after {
+            content: '';
+            display: block;
+            clear: both;
+        } */
+    </style>
+</head>
+
+<body>
+        <div id="main">
+                <div class="m_content">
+                    <!--正真的主体开始-->
+                    <div class="m_c_wrap">这里是主体</div>
+                </div>
+                <div class="m_leftside">这是左侧边栏</div>
+                <div class="m_rightside">这是右侧边栏</div>
+        </div>            
+    <!-- <div class="box">
+        <div class="name"></div>
+    </div> -->
+    <!-- <div id="box" style="padding:15px;margin:15px;">
+        <div class="icon">图标</div>
+    </div> -->
+</body>
+
+<!-- <script>
+    //  点击图标盒子时  设置border  点击空白时 去除 border
+    window.onload = function () {
+        const box = document.getElementById('box');
+
+        function isIcon(target) {
+            return target.className.includes('icon');
+        }
+        box.onclick = function (e) {
+            e.stopPropagation();
+            const target = e.target;
+            console.log(target)
+            if (isIcon(target)) {
+                target.style.border = '1px solid red';
+            }
+        }
+        const doc = document;
+        doc.onclick = function (e) {
+            const children = box.children;
+            for (let i = 0; i < children.length; i++) {
+                if (isIcon(children[i])) {
+                    children[i].style.border = 'none';
+                }
+            }
+        }
+    }
+</script> -->
+
+<!-- <script>
+    // 1 面试题   判断是否是回文字符串
+    // 回文字符串就是正读反读都一样的字符串 例如 ‘level’ ‘noon’
+    function isPromise(data) {
+        if (typeof data != 'string') {
+            return false;
+        }
+        return data.split('').reverse().join('') === data
+    }
+    console.log(isPromise('ho=h'))
+</script> -->
+
+</html>

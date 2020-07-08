@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>深拷贝与浅拷贝</title>
+</head>
+
+<body>
+
+</body>
+<!-- 浅拷贝 -->
+<script>
+    // 会改变原数组
+    // var obj = [0, 1, 'dsss'];
+    // var num = obj;
+    // num[1] = 2;
+    // console.log(num);
+    // console.log(obj);
+    var obj = {
+        a: 1,
+        arr: [2, 3]
+    };
+    var shallowObj = shallowCopy(obj);
+
+    function shallowCopy(src) {
+        var newobj = {};
+        // for...in 语句用于对数组或者对象的属性进行循环操作。
+        for (var prop in src) {
+            console.log(prop.a);
+            // 方法会返回一个布尔值，
+            // 指示对象自身属性中是否具有指定的属性（也就是是否有指定的键）
+            console.log(src.hasOwnProperty(prop));
+            if (src.hasOwnProperty(prop)) {
+                newobj[prop] = src[prop];
+            }
+        }
+        return newobj;
+    }
+    console.log(obj);
+    console.log(shallowObj);
+    //第一级目录不会因为新数组的改变而改变
+    shallowObj.a = 5;
+    console.log(obj);
+    console.log(shallowObj);
+    //第二级目录会因为新数组的改变而改变
+    shallowObj.arr[0] = 5;
+    console.log(obj);
+    console.log(shallowObj);
+    console.log('---------------------------')
+    // slice对数组浅拷贝
+    var banner=[1,2,15,8]
+    var num1 = banner.slice();
+    console.log(num1)
+
+    
+</script>
+<!-- 深拷贝 -->
+<script>
+    console.log('---------------------------')
+    // 递归方法
+    var array = {
+        a: 1,
+        arr: [1, 2],
+        nation: '中国',
+        birthplaces: ['北京', '上海', '广州']
+    };
+
+    function copy(obj) {
+        // constructor   构造函数
+        var newobj = obj.constructor === Array ? [] : {};
+        if (typeof obj !== 'object') {
+            return;
+        }
+        for (var i in obj) {
+            newobj[i] = typeof obj[i] === 'object' ? copy(obj[i]) : obj[i];
+        }
+        return newobj
+    }
+    var copyArray = copy(array)
+    copyArray.arr[0] = 100;
+    console.log(array);
+    console.log(copyArray);
+    console.log('---------------------------')
+    // 第二种方法
+    var array1 = [{
+            number: 1111
+        },
+        {
+            number: 2222
+        },
+        {
+            number: 3333
+        }
+    ];
+    var copyArray = JSON.parse(JSON.stringify(array))
+    copyArray.a = 100;
+    console.log(array); //  [{number: 1}, { number: 2 }, { number: 3 }]
+    console.log(copyArray); // [{number: 100}, { number: 2 }, { number: 3 }]
+</script>
+
+</html>

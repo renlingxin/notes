@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>directive</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- color 的值取自data -->
+        <p v-red="color">自定义指令1</p>
+        <p v-green="">自定义指令2</p>
+
+        <ul>
+            <li v-for="item in newlist">
+                <span v-substr v-red="color">{{item.title}}</span>--------{{item.time}}</li>
+        </ul>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    // Vue.directive 自定义指令
+    // el: 指令所绑定的元素，可以用来直接操作DOM。
+    // Binding:  一个对象，包含指令的很多信息。
+    // Vnode: Vue编译生成的虚拟节点。
+
+    Vue.directive('red', function (el, binding, vnode) {
+        console.log(el);
+        console.log(binding);
+        console.log(vnode);
+        el.style = 'color:' + binding.value;
+    })
+    Vue.directive('green', function (el, binding) {
+        console.log(el);
+        console.log(binding);
+        el.style = 'color:green';
+        el.style = 'font-size:55px'
+    })
+    Vue.directive('substr', function (el, binding) {
+        el.innerHTML = el.innerHTML.substring(0, 8) + '...'
+    })
+
+
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            color: 'red',
+            newlist: [{
+                    "id": 1,
+                    "title": "图文故事丨他们，习近平在指示批示中高度评价",
+                    "time": "2019 - 05 - 25"
+                },
+                {
+                    "id": 1,
+                    "title": "记者追访：老英雄",
+                    "time": "2019 - 05 - 26"
+                },
+                {
+                    "id": 1,
+                    "title": "瞄准“两不愁三保障” 用心化解贫困之冰",
+                    "time": "2019 - 05 - 27"
+                },
+                {
+                    "id": 1,
+                    "title": "学习张富清奉献精神 凝聚新时代奋斗力量价",
+                    "time": "2019 - 05 - 28"
+                },
+                {
+                    "id": 1,
+                    "title": "南方迎强降雨多预警齐发 河北北京局地有雷暴大风",
+                    "time": "2019 - 05 - 29"
+                }
+            ]
+        },
+        methods: {
+
+        }
+    });
+</script>
+
+</html>

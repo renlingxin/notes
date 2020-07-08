@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // es6中的let    
+    // 一  切断了全局变量和window属性的映射机制
+    let t = 10;
+    console.log(t);
+    console.log(window.t);
+    // es6中没有单独的创建函数
+    let fn = () => {
+
+    }
+    //  二  相同的作用域中，基于let不能声明相同名字定的变量
+    // 虽然没有变量提升机制，但是在当前代码执行之前，浏览器会做一个重复性检测：自上而下查找当前作用域所有变量，发现重复，抛出异常不再执行代码，变量没有提前声明定义，但是浏览器已经记住变量了
+    var a = 13;
+    var a = 24;
+    console.log(a);
+
+    // let b =13;
+    // console.log(b);
+    // let b= 24;
+    // console.log(b);//Uncaught SyntaxError: Identifier 'b' has already been declared
+   
+    // c = 13;// Uncaught ReferenceError: c is not defined
+    // console.log(c);
+    // let c = 24;//浏览器已经记住c了
+    // console.log(c);
+
+    let e = 23;
+    let d = 25;
+    let fn1 = () => {
+        let e = d = 30;//let e =30;   d=30;=>此处将全局中的d改为了30
+        console.log(e, d);
+    }
+    fn1();
+    console.log(e, d);
+</script>
+
+</html>

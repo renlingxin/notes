@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>例子2</title>
+    <style>
+        body {
+            width: 1000px;
+            height: 500px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<!--  最简单的发布订阅模式 -->
+<!-- <script>
+    // 订阅信息
+    document.body.addEventListener('click', function () {
+        alert(1);
+    },false);
+    // 订阅信息
+    document.body.addEventListener('click', function () {
+        alert(2);
+    });
+
+    // 发布消息
+    document.body.click();
+    // document.body订阅了click事件，然后当它被点击（发布）的时候，接收到了信息。
+</script> -->
+<!-- 封装后的发布订阅模式 -->
+<script>
+    var event = {
+
+        clientList: [],
+        listen: function (key, fn) {
+
+            if (!this.clientList[key]) {
+                this.clientList[key] = [];
+            }
+            this.clientList[key].push(fn);
+        },
+        trigger: function () {
+            var key = Array.prototype.shift.call(arguments);
+            var fns = this.clientList[key];
+            if (!fns || fns.length === 0) {
+                return false;
+            }
+            for (var i = 0, fn; fn = fns[i++];) {
+                fn.apply(this, arguments);
+            }
+        }
+    }
+
+    function installEvent(obj) {
+        for (var i in event) {
+            obj[i] = event[i];
+        }
+    }
+
+    var salesOffices = {};
+    installEvent(salesOffices);
+
+    salesOffices.listen('squareMeter88', function (price) {
+        console.log(`price=${price}`);
+    });
+    salesOffices.trigger('squareMeter88', 200000);
+</script>
+
+</html>

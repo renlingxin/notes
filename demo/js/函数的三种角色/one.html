@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数的三种角色</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function fn() {
+        var n = 10;
+        this.m = 100;
+    }
+    fn.prototype.aa = function () {
+        console.log('aa');
+    }
+    fn.bb = function () {
+        console.log('bb');
+    }
+    // 普通函数执行
+    fn();//   this => window 有一个私有变量n 和原型以及属性bb没有关系
+    // 构造函数执行
+    var f = new fn;//   this =f
+    console.log(f.n);//undefined n是私有变量和实例没有关系
+    console.log(f.m);//=>100 实例的私有属性
+    f.aa();//实例通过__proto__找到fn.prototype上的方法
+    console.log(f.bb)//bb是把fn当做普通对象设置的属性而已，和实例没有关系
+    // 普通对象
+    fn.bb();
+
+</script>
+
+</html>

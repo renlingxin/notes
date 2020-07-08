@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <html>
+
+    <body>
+        <div id='app'>
+            <ul v-for="item in quest">
+                <li>
+                    <p>{{item.name}}</p>
+                    <input type="radio" name="test" v-for="(item,index) in list" :value="item.value"
+                        v-model="checkedValue">{{item.one}}
+                </li>
+
+
+            </ul>
+
+            <button @click="test">获取选中的值</button>
+        </div>
+
+    </body>
+    <script src="./js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    checkedValue: '',
+                    list: [{
+                            value: 1
+                        }, {
+                            value: 2
+                        }, {
+                            value: 3
+                        },
+                        {
+                            value: 4
+                        }
+                    ],
+                    quest: [{
+                            id: 1,
+                            name: "老师上课经常迟到吗？",
+                            one: "经常",
+                            two: "不经常",
+                            three: "还好",
+                            four: "凑活"
+                        },
+                        {
+                            id: 2,
+                            name: "老师上课经迟到吗？",
+                            one: "经常",
+                            two: "不常",
+                            three: "还好",
+                            four: "凑活"
+                        },
+                        {
+                            id: 3,
+
+                            name: "老师上课经常迟到吗？",
+                            one: "经常",
+                            two: "不经常",
+                            three: "还好",
+                            four: "凑活"
+                        },
+                        {
+                            id: 4,
+                            name: "老师上课经常迟到吗？",
+                            one: "经常",
+                            two: "不经常",
+                            three: "还好",
+                            four: "凑活"
+                        }
+                    ]
+                }
+            },
+            methods: {
+                test() {
+                    console.log('被选中的值为:' + this.checkedValue)
+                },
+                name() {
+                    return createElement('h1', this.checkedValue)
+                }
+            },
+            created() {
+                console.log(this.name())
+            },
+        });
+    </script>
+
+    </html>

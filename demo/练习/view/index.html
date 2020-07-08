@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习</title>
+</head>
+
+<body>
+    <div>任岭鑫</div>
+    时间是：
+    <span id="info"></span>
+    <button id="btn">点击生成</button>
+</body>
+<script>
+    var info = document.querySelector('#info');
+    var btn = document.getElementById('btn');
+    btn.onclick = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/text');
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            console.log(xhr.readyState);
+            console.log(xhr.responseText);
+            var arr = xhr.responseText.split('^_^');
+            console.log(arr);
+            console.log(arr[arr.length - 2]);
+            info.innerHTML = arr[arr.length - 2];
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// var a =12;
+// if(true){
+//     console.log(a);//Uncaught ReferenceError: a is not defined  在这里并没有报重名错误
+//     let a =13;//基于let创建变量，会把大部分{}当做一个私有的块级作用域类似于函数的私有作用域，在这里检测语法规范，看一下是否是基于新语法创建的变量，如果是按照新语法规范来进行解析
+// }
+console.log(b);
+console.log(typeof b);//暂时性死区：在原有浏览器渲染机制下，基于typeof等逻辑运算符检测一个未被声明的变量，不会报错，返回undefined
+var b;
+
+console.log(e);
+console.log(typeof e);
+let e;//如果当前变量时基于es6语法处理，在没有声明这个变量的时候，使用typeof检测会直接报错，不会是undefined，解决了原有的死区问题
+</script>
+</html>

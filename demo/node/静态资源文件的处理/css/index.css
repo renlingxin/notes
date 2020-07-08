@@ -1,0 +1,15 @@
+*{
+padding: 0;
+margin: 0;
+}
+html ,body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: aliceblue;
+}
+.box{
+    width: 300px;
+    height: 300px;
+    background: #e3bd83;
+    border: 2px solid #000000;
+}

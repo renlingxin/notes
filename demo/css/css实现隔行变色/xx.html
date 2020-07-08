@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .ren {
+        width: 300px;
+        margin: 20px auto;
+        border: 1px dashed red;
+    }
+
+    .ren span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
+<body>
+    <!-- 行内标签span不适用-->
+    <span style="width: 100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+        Moment.js 是一个 JavaScript 日期处理类库ggggggg
+    </span>
+    <div class="ren">
+        <span>Moment.js 是一个 JavaScript 日期处理类库ggggggg</span>
+        <div>
+            <p>点击数：0000</p>
+            <p>发表时间：55555</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function Person() {
+
+    }
+    // 创建实例
+    var person = new Person();
+
+    // instanceof 检测当前实例是否属于 构造函数Person
+    console.log(person instanceof Person)
+
+    Person.prototype.name = 'ren'
+    // 实例会自动继承构造函数的prototype属性
+    console.log(person)
+    // 实例没有prototype
+    console.log(person.prototype)
+
+    // 两者是等价的  实例通过 __proto__ 访问构造函数的prototype
+    console.log(person.__proto__ === Person.prototype)
+
+    // 原型通过constructor访问构造函数  
+    // constructor 是原型的一个属性，Constructor 指的才是真正的构造函数
+    console.log(Person.prototype.constructor === Person)
+    // 没有从实例直接访问到构造函数的属性或方法
+    console.log(person.__proto__.constructor === Person)
+
+    // Reflect.ownKeys 返回所有属性的数组  person本身没有name属性
+    console.log(Reflect.ownKeys(person))
+    // 通过__proto__向上查找  输出的是构造函数原型中的属性
+    res = person.name
+    console.log(res)
+
+    // 如果这样设置 实例的__proto__会将构造函数中的同名属性的值进行修改
+    person.__proto__.name = 'ling'
+    console.log(Person.prototype)
+
+    // 给当前实例设置属性 
+    person.name = 'xin'
+    console.log(Reflect.ownKeys(person))
+    console.log(person.name)
+
+    // 原型链
+    function People() {
+
+    }
+    People.prototype = new Person();
+    People.prototype.name = 'xie'
+
+    var p = new People();
+    console.log(p instanceof Person, p instanceof People)
+    // p 会顺着 __proto__逐层向上查找name属性 先查People 再查 Person 最后查 object
+    console.log(p.name)
+</script>
+
+</html>

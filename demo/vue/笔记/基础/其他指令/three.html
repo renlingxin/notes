@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>extend</title>
+</head>
+
+<body>
+    <!-- Vue.extend 返回的是一个“扩展实例构造器”,也就是预设了部分选项的Vue实例构造器。
+        经常服务于Vue.component用来生成组件 -->
+    <div id="app">
+        <p></p>
+        <span class="banner"></span>
+        <cd></cd>
+    </div>
+</body>
+
+</html>
+<script src="vue.js"></script>
+<script>
+    let author = Vue.extend({
+        template: `
+           <dl>
+             <dt>名字：{{name}}</dt>
+             <dd>年龄：{{age}}</dd>
+           </dl>
+          
+         `,
+        data() {
+            return {
+                name: '张三',
+                age: 125
+            }
+        }
+    });
+    // 分别将内容放置在这三个容器中
+    new author().$mount('cd');  
+    new author().$mount('p');
+    new author().$mount('.banner');
+    
+</script>

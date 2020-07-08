@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上传文件</title>
+</head>
+
+<body>
+    <div id="app">
+
+
+
+    </div>
+</body>
+<!-- 1 先引入vue.js -->
+<script src="./js/vue.js"></script>
+<!-- 2 引包  引入核心的插件 -->
+<script src="./node_modules/axios/dist/axios.js"></script>
+
+<script type="text/javascript">
+    var App = {
+        data() {
+            return {
+                file: {},
+                rate: ''
+            }
+        },
+        template: `
+        <div>
+            上传进度       {{rate}}%      
+           <input type="file" name="file" @change="changeHandler"></input>
+           <button @click="sendAjax">发送请求</button>
+        </div>
+        
+        `,
+        methods: {
+            changeHandler(e) {
+                console.log(e);
+                console.log(e.target.files[0]);
+                this.file = e.target.files[0];
+            },
+            sendAjax() {
+                // 请求 1 get:/ 
+                // 请求 2 post:/add
+                this.$axios.defaults.baseURL = 'http://10.1.9.33:8888/'; //设置默认值   
+
+                var fd = new FormData();
+                fd.append('file', this.file);
+
+
+                this.$axios.post('/upload', fd, {
+                        onUploadProgress: (progressEvent) => {
+                            // 对原生进度事件的处理
+                            console.log(progressEvent);
+                            // loaded: 35557, total: 35557   一个是正在 一个是总共
+
+                            var progress = (progressEvent.loaded / progressEvent.total) * 100
+                            console.log(progress);
+                            // 将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新
+                            // 因为数据是根据请求之后获取的，所以应该放到请求的回调函数里面
+                            // this.nextTick(callback)， 当数据发生变化， 更新后执行回调。
+                            // this.$nextTick(callback)， 当dom发生变化， 更新后执行的回调。
+                            this.$nextTick(function () {
+                                this.rate = Math.ceil(progress); //向上取整数
+                            })
+                        },
+                    })
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+
+
+
+            }
+        }
+
+    }
+    // 在局部的时候将axios挂载到全局
+    Vue.prototype.$axios = axios
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+
+            }
+        },
+        template: `<App/>`,
+        components: {
+            App
+        }
+
+
+    })
+</script>
+
+
+</html>

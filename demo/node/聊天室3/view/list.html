@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #ren {
+        display: none;
+    }
+</style>
+
+<body>
+    当前在线人数：
+    <span id="online"></span>
+    <hr/>
+    <button id="male">男生组</button> <button id="female">女生组</button>
+    <hr/>
+    组聊：<input type="text" name="" id="groupMsg"><button id="sendGroupMsg">发起组聊</button>
+    
+    <hr/> 对谁：
+    <!-- 选中的option的value会自动赋值给select的value -->
+    <select id="twoho" onchange="privateTo = this.value"></select>
+    说：
+    <input type="text" name="" id="privateMsg">
+    <button id="sendPrivateMsg">发起私聊</button>
+    <hr/>
+    <div id="box">
+        <ul id="ul">
+
+        </ul>
+    </div>
+    {{username}} 您好 请说话：
+    <input type="text" name="newContent" id="newContent">
+    <button id="btn">发送</button>
+    <input type="text" value="{{id}}" id="ren">
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="list_socket.js"></script>
+<script src="list.js"></script>
+<script>
+</script>
+
+</html>

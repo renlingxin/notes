@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定时器setInterval</title>
+</head>
+
+<body>
+    <button onclick="begin()">开始</button>
+    <button onclick="remolve()">停止</button>
+    <p id="btn"></p>
+</body>
+
+
+
+<script>
+    let i = 0;
+    let time = null;
+    var btn = document.getElementById('btn');
+    function begin() {
+        time = setInterval(add, 1000)
+    }
+    function add() {
+        i++;
+        btn.innerHTML = i
+        console.log(i)
+    }
+    function remolve() {
+        clearInterval(time);
+    }
+</script>
+
+</html>

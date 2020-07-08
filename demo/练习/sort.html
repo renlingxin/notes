@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- <script>
+var num = [52,2,85,8,88,88]
+let num1 = Array.from(new Set(num))
+var num2= num1.sort((a,b)=>{
+    return b-a
+});
+console.log(num2);
+</script> -->
+<!-- <script>
+    let num = [88, 8, 8, 8, 8, 7, 8, 7, 5, 4, 82, 8, 6, 8, 89];
+
+    function bother(num) {
+        let res = [];
+        for (let i = 0; i < num.length; i++) {
+            for (let k = i + 1; k < num.length; k++) {
+                if (num[i] === num[k]) {
+                    i++;
+                    k = i;
+                }
+            }
+            res.push(num[i]);
+        }
+        return res;
+    }
+    let res = bother(num);
+    console.log(res);
+    let too = res.sort((a, b) => {
+        return a - b;
+    })
+    console.log(too);
+</script> -->
+<!-- <script>
+let num =[5,5,48,4845,1511,55,5,5,5,555,4.4,4.4]
+
+let num1 = [...(new Set(num))]
+var num2= num1.sort((a,b)=>{
+    return a-b
+});
+console.log(num2);
+</script> -->
+<!-- <script>
+    var num = [{
+        id: 1,
+        name: 'ren'
+    }, {
+        id: 2,
+        name: 'ling'
+    }, {
+        id: 1,
+        name: 'xin'
+    }, {
+        id: 3,
+        name: 'zhangsan'
+    }]
+
+    function bother(num) {
+        let res = [];
+        for (let i = 0; i < num.length; i++) {
+            for (let k = i + 1; k < num.length; k++) {
+                if (num[i].id === num[k].id) {
+                    i++;
+                    k = i;
+                }
+            }
+            res.push(num[i]);
+        }
+        return res;
+    }
+    let res = bother(num);
+    console.log(res);
+</script> -->
+<!-- 深拷贝浅拷贝 -->
+<!-- <script>
+    var obj = {
+        name: 'renlingxin',
+        age: [5.5, 8]
+    }
+
+    function kaoBei(obj) {
+        // 验证构造函数
+        let res = obj.constructor === Array ? [] : {};
+        for (item in obj) {
+            // 验证属性是否存在
+            if (obj.hasOwnProperty(item)) {
+                res[item] = typeof obj[item] === 'object' ? kaoBei(obj[item]) : obj[item];
+            }
+        }
+        return res;
+    }
+    let res = kaoBei(obj);
+    console.log(res);
+</script> -->
+<!-- <script>
+    var obj = {
+        name: 'renlingxin',
+        age: [5.5, 8]
+    }
+
+    function goTo(obj) {
+        console.log(JSON.stringify(obj));
+        let res = JSON.parse(JSON.stringify(obj))
+        return res;
+    }
+    let res = goTo(obj);
+    console.log(res);
+</script> -->
+
+</html>

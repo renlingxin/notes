@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var a = 12,
+        b = 13,
+        c = 14;
+    function fn(a) {
+        //形参赋值    var a= 12;
+        // 变量提升 var b;
+        // 在私有作用域中，只有以下两种情况是私有变量
+        // 1 声明过的变量带（var function）
+        // 2 形参也是私有变量
+
+        console.log(a, b, c);
+        var b = c = a = 20;
+        console.log(a, b, c);
+    }
+    fn(a);//把fn执行（小括号中的实参：值）执行fn把全局变量a的值12当做实参传递给函数的形参 
+    console.log(a, b, c);
+
+    // 练习题
+    var ary = [12, 23];
+    function fb(ary) {
+        console.log(ary);
+        ary[0] = 100;
+        ary = [100];
+        ary[0] = 0;
+        console.log(ary);
+    }
+    fb(ary);
+    console.log(ary);
+    //上级作用域的查找  当前函数执行，形成一个私有作用域a，a的上级作用域是谁，和他在哪执行的没有关系，和他在哪创建（定义）的有关系，在哪创建的，他的上级作用域就是谁
+    var q = 12;
+    function tr() {
+        // arguments =>实参集合
+        // arguments.callee  =>当前函数本身
+        // arguments.callee.caller =>当前函数执行的宿主环境
+        console.log(arguments.callee);
+        console.log(arguments.callee.caller);
+    }
+    function sum() {
+        var q = 123;
+        tr();
+    }
+    sum();
+    // 练习题
+    var n = 10;
+    function tt() {
+        var n = 20;
+        function f() {
+            n++;
+            console.log(n);
+        }
+        f();
+        // f();
+        return f;
+    }
+    tt();
+    var x = tt();
+    x();
+    x();
+    console.log(n);
+</script>
+
+</html>

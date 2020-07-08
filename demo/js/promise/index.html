@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        setTimeout是异步，那么，不管前面的代码怎么样，他条件满足了就会执行，但上面的代码，由于任务队列里有一个死循环，而后面的弹出代码在队列的后面，循环不息，所以后面的永远不会被执行到。
+ 
+        理解setTimeout,我个人认为就是理解浏览器的执行模型。
+ 
+        浏览器是基于一个事件循环的模型，在这里面，可以有多个任务队列，比如render是一个队列，响应用户输入是一个，script执行是一个。任务队列里放的是任务，同一个任务来源的任务肯定在同一个任务队列里。
+        任务有优先级，鼠标或键盘响应事件优先级高，大概是其他任务的3倍。
+    </p>
+</body>
+<!-- 
+面试题总结
+1、promise构造函数是同步执行，.then是异步执行
+2、微任务比宏任务优先等级要高。当微任务执行时，会一直执行，直到将队列中的所有微任务执行完。
+3、当微任务执行中再次遇到微任务会将这个微任务放到微任务队列的末尾，在这次执行中一起执行完。
+
+
+
+
+ -->
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var Single = (function () {
+        var instance = null;
+
+        function Single(name) {
+            this.name = name;
+        }
+        return function (name) {
+            if (!instance) {
+                instance = new Single(name);
+            }
+            return instance;
+        };
+    })();
+    var oA = new Single('hi');
+    var oB = new Single('hello');
+    console.log(oA);
+    console.log(oB);
+    console.log(oA === oB);
+</script>
+
+</html>

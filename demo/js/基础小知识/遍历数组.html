@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>遍历数组</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var array = [{
+            number: '111'
+        },
+        {
+            number: '222'
+        },
+        {
+            number: '333'
+        }
+    ]
+    var obj = {
+        a: 1,
+        arr: [1, 2],
+        nation: '中国',
+        birthplaces: ['北京', '上海', '广州']
+    }
+    //1  for...in 语句用于对数组或者对象的属性进行循环操作。  遍历key  多用来遍历对象
+    for (item in array) {
+        if (array.hasOwnProperty(item) == true) {
+
+            console.log(item + '-------' + array[item].number)
+        }
+    }
+    console.log('----------------------------------------------------------')
+    //    遍历对象
+    for (item in obj) {
+        if (obj.hasOwnProperty(item) == true) {
+
+            console.log(item + '------' + obj[item])
+        }
+    }
+    console.log('----------------------------------------------------------')
+    //2  for...of 语句用于对数组或者对象的值进行循环操作。  遍历value    es6新增
+    //    一般用来遍历数组 不能用来遍历对象
+    for (item of array) {
+        console.log(item);
+    }
+    // 获得索引
+    for (let index of array.keys()) {
+        console.log(index);
+    }
+    // Object.entries() 可以把一个对象的键值以数组的形式遍历出来，结果和 for...in 一致，但不会遍历原型属性。
+    console.log(Object.entries(obj))
+    for (let [index, item] of Object.entries(obj)) {
+        console.log(item + '---' + index);
+        
+    }
+   
+    //3  forEach循环，循环数组中每一个元素并采取操作， 没有返回值， 可以不用知道数组长度  item是内容 index是索引 
+    console.log('----------------------------------------------------------')
+    array.forEach((item, index) => {
+        console.log(item, index);
+
+    })
+    //4  map函数，遍历数组每个元素，并回调操作，需要返回值，返回值组成新的数组，原数组不变
+    console.log('----------------------------------------------------------')
+    var tt = array.map((item, index) => {
+        console.log(item, index);
+        return item;
+    });
+    console.log(tt);
+    //5  filter函数， 过滤通过条件的元素组成一个新数组， 原数组不变
+    console.log('----------------------------------------------------------')
+    var tune = [1, 55, 888, 'deada']
+    var rr = tune.filter((item, index) => {
+        console.log(item, index)
+        return typeof item === 'number'
+    })
+    console.log(rr);
+    // 6. some函数，遍历数组中是否有符合条件的元素，返回Boolean值
+    console.log('----------------------------------------------------------')
+    var tune1 = ['fafad', 1, 55, 888, 'deada']
+    var rr = tune1.some((item, index) => {
+
+        return typeof item === 'number'
+    })
+    console.log(tune1, rr);
+    // 7. every函数， 遍历数组中是否每个元素都符合条件， 返回Boolean值
+    console.log('----------------------------------------------------------')
+    var tune1 = ['fafad', 1, 55, 888, 'deada']
+    var oo = tune1.every((item, index) => {
+
+        return typeof item === 'number'
+    })
+    console.log(tune1, oo);
+</script>
+
+</html>

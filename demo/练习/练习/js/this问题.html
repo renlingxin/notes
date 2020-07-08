@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //1  函数运行时 未指定this 那么函数默认this是window
+    var name = 'ren';
+
+    function time() {
+        var name = 'xin'
+        console.log(this.name)
+    }
+    time();
+
+    var person = {
+        names: 'renlingxin',
+        set: function () {
+            console.log(this.names)
+        }
+    }
+    var person1 = {
+        names: 'xielixin',
+        set: function () {
+            console.log(this.names)
+        }
+    }
+    //2  函数被谁调用 当前this就指向调用对象
+    person.set()
+    person1.set()
+    // 当前结果为 undefind 因为 fun执行时 this指向是全局 window 而 window中并没有names
+    var fun = person.set;
+    fun();
+
+
+    //3  call apply bind 强制改变当前this指向
+    function people(e, d) {
+        console.log(e + this.name)
+        console.log(d)
+    }
+    var obj = {
+        name: '天王'
+    }
+    // call 可跟多个参数
+    people.call(obj, '我是', '你是谁啊')
+    // apply 的第二个参数必须是数组
+    people.apply(obj, ['我是', 'huaaefa'])
+
+    // 使用 bind 绑定之后 在使用call 不会再改变this的指向
+ 
+    function callage() {
+        console.log(this.age)
+    }
+  
+    var bto = {
+        age: 1411
+    }
+    var bto2 = {
+        age: 'ffafasf'
+    }
+    // 每个对象都有 __proto__ 属性，但只有函数对象才有 prototype 属性
+    console.log(bto.prototype)
+    console.log(bto.__proto__)
+    
+   // bind()方法调用并改变函数运行时的上下文的之后，返回一个新的函数，在我们需要调用的地方去调用他。
+    var func = callage.bind(bto)
+    console.log(callage.prototype)
+    // func 没有原型
+    console.log(func.prototype)
+    func();
+    func.call(bto2)
+</script>
+
+</html>

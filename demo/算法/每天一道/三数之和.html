@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两数之和以及三数之和</title>
+</head>
+
+<body>
+    <!-- 
+        给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+
+        注意：答案中不可以包含重复的三元组。
+
+        例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+            满足要求的三元组集合为：
+            [
+                [-1, 0, 1],
+                [-1, -1, 2]
+            ]
+     -->
+</body>
+<!-- 两数之和 -->
+<script>
+    let num = [-1, 0, 1, -1, 2, -4];
+    // 取出某一个数，将他和其他数进行一一对比
+    var twosum = function (arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = 0; j < arr.length; j++) {
+                if (arr[i] + arr[j] === 0) {
+                    return [arr[i], arr[j]]
+                }
+            }
+        }
+    }
+    console.log(twosum(num));
+</script>
+<!-- 两数之和优化 -->
+<script>
+    let num1 = [-1, 0, 1, -1, 2, -4];
+    // 取出某一个数，将他和其他数进行一一对比
+    var twosum1 = function (arr) {
+        console.log(arr)
+        let res = {};
+        for (let i = 0; i < arr.length - 1; i++) {
+            console.log(121212)
+            res[0 - arr[i]] = arr[i]
+        }
+        console.log(res)
+        for (let j = 0; j < arr.length - 1; j++) {
+            if(res[arr[j]] !== undefined){
+                return [arr[j],res[arr[j]]]
+            }
+        }
+    }
+    console.log(twosum1(num1));
+</script>
+<!-- 三数之和 -->
+<script>
+    let nums = [-1, 0, 1, -1, 2, -4];
+    // 取出某一个数，将他和其他数进行一一对比
+    var threesum = function (arr) {
+        let res = []
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = 0; j < arr.length; j++) {
+                for (let x = 0; x < arr.length; x++) {
+                    if (arr[i] + arr[j] + arr[x] === 0) {
+                        res.push([arr[i], arr[j], arr[x]])
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    console.log(threesum(nums));
+</script>
+
+</html>

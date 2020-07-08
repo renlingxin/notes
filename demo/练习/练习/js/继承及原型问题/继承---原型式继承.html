@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<!-- 基本思想
+基本思想：
+不使用严格意义上的构造函数，借助原型可以基于已有的对象创建新的对象，同时还不必因此创建自定义类型。
+在object函数内部，先创建了一个临时的构造函数，然后将传入的对象作为这个构造函数的原型，最后返回这个临时类型的一个新实例。
+从本质上讲，object()对传入其中的对象执行了一次浅复制。
+-->
+<script>
+function object(e){
+    function F(){
+   
+    }
+    F.prototype = e;
+    return new F();
+}
+var person = {
+    name:'Tom',
+    friends:['ren','ling','xin']
+};
+
+var instan1 = object(person);
+instan1.name = 'gref';
+instan1.friends.push('111');
+
+var instan2 = object(person);
+instan2.name = 'lina';
+instan2.friends.push('222');
+
+console.log(instan1.friends)
+console.log(instan2.friends)
+console.log(person.friends)
+
+
+// 缺点 1. 和原型链继承一样，所有子类实例共享父类的引用类型。
+
+
+</script>
+
+</html>

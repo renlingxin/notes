@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生复制功能实现</title>
+</head>
+
+<body>
+    <textarea id="content">任岭鑫</textarea>
+    <hr />
+    <button id="clone">复制</button>
+</body>
+<script>
+    window.onload = function () {
+        let btn = document.getElementById('clone');
+        // 复制
+        btn.onclick = function ctnClone() {
+            let content = document.querySelector("textarea")
+            // 选中需要操作的内容
+            content.select();
+            // 操作页面中选中区域的数据   ---- copy是执行复制操作
+            document.execCommand('copy');
+        }
+        // 改变背景颜色(未实现，待开发)
+        // backContent.click = function colorChange() {
+        //     document.execCommand('backColor', true, 'red');
+        // }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用 vue-router</title>
+</head>
+<style>
+a{
+    text-decoration: none;
+}
+
+
+</style>
+<body>
+    <div id="app">
+
+
+    </div>
+</body>
+<!-- 1 先引入vue.js -->
+<script src="./js/vue.js"></script>
+<!-- 2 引包  引入核心的插件 -->
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+
+</html>
+<script>
+    // 地址栏  路由范式
+    // (1) xxxxxx.html#/user/1    params  动态路由参数
+    // (2) oooooo.html#/user?userId=1    query
+
+
+
+    // 声明组件
+    var Song = {
+        template: `
+        <div>
+        <hr/>
+        <h1>我是歌曲组件</h1>
+        </div>
+          
+          `,
+        created() {
+            console.log(this.$router);
+            console.log(this.$route);
+        },
+    }
+    var Moive = {
+        template: `
+        <div>
+                <hr/>
+                <h1>我是电影组件</h1>
+        </div>
+         
+          `,
+        //   组件创建之后
+        created() {
+            console.log(this.$router);
+            console.log(this.$route);
+        },
+    }
+    var Home = {
+        template: `
+          <div>
+                <hr/>
+          首页内容
+          <hr/>
+          <router-link to="/home/song">歌曲</router-link>
+          <router-link to="/home/moive">电影</router-link>
+
+          <router-view></router-view>
+          </div>
+          `
+    }
+    // 3 让vue 使用该VueRouter创建
+    // 如果Vue 是一个局部作用域的对象  那么必须Vue.(VueRouter)
+    // Vue.use(VueRouter);
+    // 4 创建路由对象
+    var router = new VueRouter({
+        // 配置路由对象
+        routes: [
+            // 路由匹配的规则
+            {
+                // 动态路由参数   以冒号开头
+                path: '/home',
+                name: 'home',
+                component: Home,
+                children: [{
+                        path: 'song',
+                        component: Song
+                    },
+                    {
+                        path: 'moive',
+                        component: Moive
+                    }
+                ]
+
+            }
+        ]
+    });
+    // 抛出两个全局的组件    router-link  默认会被渲染成A标签  to默认会被渲染成 href属性
+    //    router-view  所有路由组件的出口，就是所有的组件都渲染到这
+    // 抛出了两个对象  $router   $route=>(路由信息对象)挂载到了Vue实例化对象
+
+
+
+
+
+
+    var App = {
+        template: `
+          <div>
+                <router-link :to="{name:'home'}">首页</router-link>
+               
+                <router-view></router-view>
+          </div>
+          `
+    }
+
+    //   Cannot read property 'matched' of undefined    没有将创建的路由器对象挂载到当前实例中
+    // 5 将配置好的路由对象关联到vue实例化对象中
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            }
+        },
+        router: router,
+        methods: {
+
+        },
+        template: `
+            <App/>`,
+        components: {
+            App
+        }
+
+    })
+</script>

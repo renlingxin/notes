@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>component2</title>
+</head>
+<body>
+    
+    <div id="app">
+        <pq></pq>
+    </div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    // 父子组件的关系
+    let city={
+        template:`
+            <h2>地址：石家庄桥西区河北工程技术学院</h2>
+        `
+    }
+    let pq={
+        template:`
+                <dl>
+                    <dt>作者名称：佩奇</dt>
+                    <dd>作者blog：https://baidu.com</dd>
+                    <city></city>
+                </dl> 
+        `,
+        components:{
+            city
+        }
+    }
+   
+    const app=new Vue({
+        el:'#app',
+        data:{
+
+        },
+        components:{
+            pq
+          
+        }
+    });
+
+
+
+</script>

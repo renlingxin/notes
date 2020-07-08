@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var xhr = new XMLHttpRequest;
+    //  true表示异步
+    xhr.open('get', '', true);
+    // readyState 发生改变 就会触发 xhr.onreadystatechange方法
+    // status http状态码
+    xhr.onreadystatechange = function () {
+        if (xhr.status === 200 && xhr.readyState === 4) {
+            console.log(Response)
+        }
+    }
+    xhr.send(null)
+
+    // xhr.readyState  是状态码  代表当前ajax的进度
+    // 0   当前请求还没有完成
+    // 1   url地址已经打开  发送前的配置已经完成
+    // 2   响应头信息已经接受
+    // 3   主要返回的内容正在服务器进行准备处理
+    // 4   响应主体的内容已经成功返回到客户端  传输完成
+</script>
+
+</html>

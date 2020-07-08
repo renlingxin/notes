@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#box',
+        // template 优先级高于el 如果template里面没有内容才会显示el里面的内容
+        template: `
+        <ul>
+            <li v-for="(item,index) in nums">
+
+            {{item.name}}
+            <li v-for="(value,key) in object">   {{key}}-----{{value}} </li>
+            
+            </li>
+        </ul>
+        
+        
+        `
+
+            ,
+        data: {
+            nums: [{
+                    id: 1,
+                    name: 'ren',
+                    price: 15
+                },
+                {
+                    id: 2,
+                    name: 'ling',
+                    price: 17
+                },
+                {
+                    id: 3,
+                    name: 'xin',
+                    price: 16
+                },
+            ],
+
+
+
+            // v-for="(value,key) in object"     括号里的值 第一个是属性值，第二个属性名
+            object: {
+                name: 'reningxin',
+                age: 48,
+                aihao: '学习'
+            }
+        }
+    });
+</script>
+
+</html>

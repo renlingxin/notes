@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>每天一道 ---- 字符串求和</title>
+</head>
+<!-- 
+    要求：
+    给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
+
+    注意：
+
+    num1 和num2 的长度都小于 5100.
+    num1 和num2 都只包含数字 0-9.
+    num1 和num2 都不包含任何前导零。
+    你不能使用任何內建 BigInteger 库， 也不能直接将输入的字符串转换为整数形式。
+ -->
+
+<body>
+
+</body>
+<script>
+    /**
+     * @param {string} num1
+     * @param {string} num2
+     * @return {string}
+     */
+    //  扩展：～按位非操作符 --- 返回数值的反码 按位非是底层的操作 速度快    js高级编程 40 页
+    var addStrings = function (num1, num2) {
+        // 转化数组
+        let a = num1.split('')
+        let b = num2.split('')
+        let c = 0
+        let res = ''
+
+        // 两者对应后位数相加
+        while (a.length || b.length || c) {
+            console.log(222222)
+            c += ~~a.pop() + ~~b.pop() // pop() 返回的是被删除的最后一项  
+            console.log(c)
+
+            res = c % 10 + res //0-9 并且转换成字符串
+            console.log(res)
+
+            c = c > 9
+        }
+        return res
+    };
+    console.log(addStrings('233', '3'));
+</script>
+
+</html>
