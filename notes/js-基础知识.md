@@ -13,7 +13,7 @@
 
 ### 数组 对象深拷贝
 
-##### es6剩余运算符
+##### es6剩余运算符  -- 浅拷贝
 
 ```javascript
 let numList = [1,4,23,{name:'renlingxin'}];

@@ -68,3 +68,52 @@ const getNow = () => {
 console.log(getNow())
 console.log(Date.now())
 console.log(new Date().getTime())
+
+
+// 数据操作
+function fn1() {
+    let _fun = arguments
+    return (m) => {
+        for (let i = 0; i < _fun.length; ++i) {
+            m = _fun[i](m)
+        }
+        return m
+    }
+}
+
+let f1 = (x) => x + x
+let f2 = (x) => x * x
+let f3 = (x) => x + x
+
+console.log(fn1(f1, f2, f3)(4))
+// var _res = []
+// _res[9] = undefined
+// console.log(_res)
+
+// forEach 循环
+Array.prototype._forEach = function (callback) {
+    let self = this
+    for (let i = 0; self.length; ++i) {
+        if (self[i] && Number(self[i]) !== 0) {
+            callback(self[i], i, self)
+        } else {
+            return
+        }
+    }
+}
+let _arr = [1, 2, 6, 8, {
+    name: 'renlingxin'
+}]
+// _arr.forEach((item,index)=>{
+//     if(item === 6){
+//         return
+//     }
+//     console.log(item)
+// })
+_arr._forEach((item, index) => {
+    if (index === 4) {
+        item = 'xxxx'
+    }
+    console.log(item,index)
+})
+// p().then(f1, f2).then(f3, f4).then(f5, f6)

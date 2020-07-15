@@ -147,7 +147,24 @@ function bubblesort3(obj) {
     return obj
 }
 console.log('插入排序', bubblesort3(arr))
-
+// 4 快速排序
+function bubblesort4(obj) {
+    if (obj.length === 0) {
+        return []
+    }
+    let lefts = [];
+    let rights = [];
+    let pivot = obj[0]
+    for (let i = 1; i < obj.length; ++i) {
+        if (obj[i] < pivot) {
+            lefts.push(obj[i])
+        } else {
+            rights.push(obj[i])
+        }
+    }
+    return bubblesort4(lefts).concat(pivot, bubblesort4(rights))
+}
+console.log('快速排序', bubblesort4(arr))
 
 
 // 1431 拥有最多糖果的孩子
@@ -404,18 +421,18 @@ let b = '1'
 
 // api  解法
 
-var addBinary = function(a, b) {
-    let _res = parseInt(a,2)+parseInt(b,2)
+var addBinary = function (a, b) {
+    let _res = parseInt(a, 2) + parseInt(b, 2)
     return _res.toString(2)
 };
-console.log('addBinary', addBinary(a,b))
+console.log('addBinary', addBinary(a, b))
 
 // 牛逼解法
 
-var addBinary1 = function(a, b) {
+var addBinary1 = function (a, b) {
     let ans = "";
     let ca = 0;
-    for(let i = a.length - 1, j = b.length - 1;i >= 0 || j >= 0; i--, j--) {
+    for (let i = a.length - 1, j = b.length - 1; i >= 0 || j >= 0; i--, j--) {
         let sum = ca;
         sum += i >= 0 ? parseInt(a[i]) : 0;
         sum += j >= 0 ? parseInt(b[j]) : 0;
@@ -427,11 +444,11 @@ var addBinary1 = function(a, b) {
 
     return ans.split('').reverse().join('');
 };
-console.log('addBinary1', addBinary1(a,b))
+console.log('addBinary1', addBinary1(a, b))
 
 
 // 循环效率比较
-let both =Array.from(Array(1000000),(v,a)=>a+1)
+let both = Array.from(Array(1000000), (v, a) => a + 1)
 
 let oldnow = new Date().getTime()
 // console.log(both, now)
@@ -444,3 +461,13 @@ const ins = [1, 2, 3, null, null, 4, 5]
 
 // const path = require('path')
 // console.log(path)
+function get(value) {
+    let wordreg = /[a-z]/g
+    let commareg = /[,]/g
+    let _commalen = value.match(commareg)
+    value = value.replace(commareg, '')
+    let _wordlen = value.match(wordreg)
+    value = value.replace(wordreg, '')
+    return value.length + Math.floor(_commalen.length/2) + Math.floor(_wordlen.length/2)
+}
+console.log('fdffffffff', get('ssssss方法十三点,,，'))

@@ -9,7 +9,7 @@
 查询数组
     indexOf/lastindexOf
     includes
-    find/fiter
+    find/filter
     findIndex
 转换数组
     map

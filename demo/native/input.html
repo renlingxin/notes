@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>input属性</title>
 </head>
+<style>
+    input {
+        border: 0px;
+        /* 去除选中状态边框 */
+        /* （轮廓）是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。 */
+        /* 可以按顺序设置如下属性：
+            outline-color
+            outline-style
+            outline-width */
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+</style>
 
 <body>
     input 属性
@@ -74,15 +87,24 @@
             11 hidden 隐藏<br>
             <input type="hidden" placeholder="请输入数字" style="width:120px">
         </li>
+        <li>
+            <input type="text" name="" id="" placeholder="试试原生事件" onkeydown="return keyDown(event)">
+        </li>
     </ul>
 
 </body>
 <script>
+    function keyDown(e) {
+        console.log(e)
+    }
     // getElementsByName 获取的是一个数组
     let file = document.getElementsByName('img')[0]
     file.addEventListener('change', function (event) {
         console.log(this.files)
     }, false)
+    // window.addEventListener('onkeydown',function(e){
+    //     console.log('1111', e)
+    // },false)
 </script>
 
 </html>

@@ -33,7 +33,7 @@
         console.log('函数中的（es5）', this)
         console.log('严格模式-----函数中的（es5）this:', undefined)
     }
-    again()
+    window.again()
 
     let _a = () => {
         console.log('函数中的(es6)', this)
@@ -57,6 +57,13 @@
         adds.apply(this, ['renlingxin'])
     }
     console.log(new update())
+
+    function log(msg) {
+        console.log.apply(this, arguments)
+    }
+    log('name', 'ren')
+
+
 </script>
 
 </html>
