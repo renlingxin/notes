@@ -11,6 +11,7 @@ nrm是一个 npm registry 管理工具，nrm能够查看当前和切换当前使
 ```
   npm i nstall -g nrm   //安装nrm
   nrm ls    //查看registry
+  nrm add 镜像名 镜像url // 添加镜像源
   nrm use taobao. //切换淘宝镜像
 ```
 **在mac下安装 nrm 在命令行前加 sudo **
