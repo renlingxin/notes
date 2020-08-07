@@ -131,8 +131,24 @@
     let boo1:Boolean = true
     
 ```
+### 类型断言  => 告诉 ts ‘这个类型我知道你别管’
 
-### 接口 --- interface 
+```javascript
+
+    // 1. <>
+
+    let _time:any = '20200806'
+    let _tiemLength:number = (<String>_time).length
+
+    // 2. as
+
+    let _time1:any = '20200806'
+    let _tiemLength1:number = (_time as String).length
+
+```
+
+
+### 接口 --- interface  接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。
 
 1. 必须的属性验证
 
@@ -175,6 +191,15 @@
 let obj: Point =  {X : 10, Y : 20}
 OBJ.X = 'SSS'  // ERROR
 ```
-**补充** readonly 和 const
+####  readonly 和 const
 
 readonly  用于属性的指定   const 用于定义变量
+
+###  declare --- 声明文件就是给js代码补充类型标注. 这样在ts编译环境下就不会提示js文件"缺少类型".
+
+```javascript
+
+declare var __DEV__: boolean
+declare var __COMMIT__: string
+
+```

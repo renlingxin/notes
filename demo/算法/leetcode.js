@@ -471,3 +471,27 @@ function get(value) {
     return value.length + Math.floor(_commalen.length/2) + Math.floor(_wordlen.length/2)
 }
 console.log('fdffffffff', get('ssssss方法十三点,,，'))
+
+
+// 比较两个数是否完全相等
+
+// 输入:       1         1
+//           / \       / \
+//          2   3     2   3
+
+//         [1,2,3],   [1,2,3]
+
+// 递归-解法
+var isSameTree = function(p, q) {
+    if(p == null && q == null) {
+        return true;
+    }
+    if(p == null || q == null) {
+        return false;
+    }
+    if(p.val != q.val) {
+        return false;
+    }
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+console.log(isSameTree())

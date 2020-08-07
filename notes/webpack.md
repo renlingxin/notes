@@ -205,53 +205,111 @@ https://www.cnblogs.com/miracle77hp/articles/11163532.html
 
 ##### 常用命令总结
 git status      查看文件状态
+
 git add .  添加全部修改文件到 暂存区
+
 git commit -m   提交暂存区的文件到本地的版本库
+
 git push    推送当前分支到远程仓库
+
 git clone   将远程仓库克隆到本地
+
 git diff 分支名  xxx   查看当前分支与某分支不同的xxx文件详情
+
 git diff 分支名 --stat   查看当前分支与某分支不同的文件
+
 git branch -a   查看远程分支+本地分支
+
 git branch   查看本地分支
+
 git branch -d     删除分支
+
 git checkout 分支名
+
 git checkout -b 分支名
+
 git stash    暂时将未提交的变化移除  稍后再移入
+
 git stash list   查看移除的内容列表
+
 git stash pop   将移除的内容移入
+
 git log  查看当前分支的版本历史
+
 git log -S [xxx]   搜索提交历史，根据关键词
+
 git log -p [file]   查看指定文件相关的每一次diff
+
 git shortlog -sn  查看所有提交过的用户  按提交次数降序
+
 git reflog   展示已经执行过的所有动作的日志
+
 git reset HEAD@{1}  回退到执行的这一步
+
 git merge 分支名    合并指定分支到当前分支
+
 git init    初始化
+
 git tag   列出所有的标签      tag会记录版本的commit号，方便后期回溯
+
 git tag -l ' v0.3.* ‘ 加 -l 命令过滤 tag
+
 git branch -m old_br new_br  更改分支名
+
 git tag tagName 本地创建 tag
+
 git tag -a tagName -m ' 备注信息 ' 创建tag并添加备注信息
+
 git show tagName 查看tag的详细信息
+
 git push origin tagName 将本地创建的tag同步到远程
+
 git tag -d tagName 删除本地分支
+
 git push origin :refs/tags/tagName 删除远程tag
+
 git reset --soft HEAD^    不删除工作空间改动的代码  撤销commit 不撤销add.(软重置)
+
 git reset --mixed HEAD^  默认参数  不删除工作空间改动代码 并且撤销add.  === git reset HEAD^
+
 git reset --hard HEAD^  删除工作空间改动代码 撤销commit 撤销add.(硬重置)
+
 git revert ec5be  撤销修改：通过对特定的提交执行还原操作，创建一个包含已还原修改的新提交
+
 git cherry-pick ec5be 挑选其他分支上更改（ec5be）到当前分支
+
 git fetch origin master 下载远程分支master上的最新修改
+
 git pull  等价于 git fetch 和 git merge   拉取线上分支最新内容，并且自动合并
+
 git merge 分支名 => 合并： 将一个分支的修改应用到当前分支
+
 git rebase  => 变基: 将当前分支的提交复制到指定的分支之上。(融入)
+
 变基与合并有一个重大的区别：Git 不会尝试确定要保留或不保留哪些文件。我们执行 rebase 的分支总是含有我们想要保留的最新近的修改！这样我们不会遇到任何合并冲突，而且可以保留一个漂亮的、线性的 Git 历史记录。
+
 HEAD => 本质上仅仅是个指向 commit 对象的可变指针,每个仓库只有一个HEAD  git checkout 就是在改变HEAD指向
+
 git config -l  => 查看配置信息
+
 git config --global user.name  '' => 修改name
+
 git config --global user.email  '' => 修改邮箱
+
 cd ~/.ssh => 查看本地ssh信息   .pub结尾的文件是公钥
+
 ssh-keygen -t rsa -C "your.email@example.com"  => 生成密钥
+
+**git -- commit 提交规范**
+1. feat：新功能 
+2. fix：修复bug 
+3. doc：文档改变
+4. style：代码格式改变
+5. refactor：某个已有功能重构
+6. perf：性能优化
+7. test：增加测试
+8. build：改变了build工具 如 grunt换成了 npm
+9. revert：撤销上一次的commit
 
 **git密钥规则**
 
