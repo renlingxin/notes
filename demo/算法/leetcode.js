@@ -468,7 +468,7 @@ function get(value) {
     value = value.replace(commareg, '')
     let _wordlen = value.match(wordreg)
     value = value.replace(wordreg, '')
-    return value.length + Math.floor(_commalen.length/2) + Math.floor(_wordlen.length/2)
+    return value.length + Math.floor(_commalen.length / 2) + Math.floor(_wordlen.length / 2)
 }
 console.log('fdffffffff', get('ssssss方法十三点,,，'))
 
@@ -482,16 +482,50 @@ console.log('fdffffffff', get('ssssss方法十三点,,，'))
 //         [1,2,3],   [1,2,3]
 
 // 递归-解法
-var isSameTree = function(p, q) {
-    if(p == null && q == null) {
+var isSameTree = function (p, q) {
+    if (p == null && q == null) {
         return true;
     }
-    if(p == null || q == null) {
+    if (p == null || q == null) {
         return false;
     }
-    if(p.val != q.val) {
+    if (p.val != q.val) {
         return false;
     }
     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 };
 console.log(isSameTree())
+
+
+// 计数二进制子串
+// 给定一个字符串 s，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。
+
+// 重复出现的子串要计算它们出现的次数。
+
+// 示例 1 :
+
+// 输入: "00110011"
+// 输出: 6
+// 解释: 有6个子串具有相同数量的连续1和0：“0011”，“01”，“1100”，“10”，“0011” 和 “01”。
+
+// 请注意，一些重复出现的子串要计算它们出现的次数。
+
+// 另外，“00110011”不是有效的子串，因为所有的0（和1）没有组合在一起。
+
+var countBinarySubstrings = function (s) {
+    let last, cur, res;
+    last = res = 0;
+    cur = 1;
+    for (let i = 1; i < s.length; i++) {
+        if (s[i] == s[i - 1]) {
+            cur++;
+        } else {
+            last = cur;
+            cur = 1;
+        }
+        if (last >= cur) {
+            res++;
+        }
+    }
+    return res;
+};
