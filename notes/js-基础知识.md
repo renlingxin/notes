@@ -825,3 +825,130 @@ Array.from() 方法从一个类似数组或可迭代对象创建一个新的，�
 Array.from('ren') // ['r','e','n']
 Array.from([1, 2, 3], x => x + x) // [2, 4, 6]
 ```
+
+
+### padStart padEnd (ES2017)
+
+```javascript
+
+    '1'.padStart(2,'0')
+    '1'.padEnd(2,'0')
+    
+    
+    function PrefixZero(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
+    
+```
+### if  else if  else
+
+```javascript
+let rs = ['111','222','333']
+if(rs.includes('111')){
+    //do something
+    console.log(111)
+} else if (rs.incluedes('222')){
+    //do something
+    console.log(222)
+}else{
+    console.log(333)
+}
+// 111 
+```
+
+### in hasownproperty 的区别
+
+in操作符只要通过对象能访问到属性就返回true。hasOwnProperty()只在属性存在于实例中时才返回true。
+
+```javascript
+function person(){
+
+}
+person.prototype.name = 'ren'
+
+let p1 = new person()
+
+p1.name // 'ren'
+
+'name' in p1 // true
+p1.hasownperty('name') //false
+
+```
+### script 标签 属性
+
+```javascript
+
+<script src="path/to/myModule.js" defer></script>
+<script src="path/to/myModule.js" async></script>
+
+```
+> es6  阮一峰
+defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的。
+
+
+
+### es6  => export export default import  common.js => module.export exports require
+
+** es6 模块 使用  =>  前提是必须开启 本地服务器 （ http-server ）**
+
+```javascript
+// a.js
+export default {
+    init: function () {
+        this.handleAddListener('load', function () {
+            console.log("页面加载了")
+        })
+    },
+    handleAddListener: function (type, fn) {
+        if (window.addEventListener) {
+            window.addEventListener(type, fn)
+        } else {
+            //IE
+            window.attachEvent('on' + type, fn)
+        }
+    }
+}
+
+
+//b.js
+import sayBaBa from './a.js'
+sayBaBa.init()
+
+
+//index.html => 引入方式  type="module"
+// 浏览器对于带有type="module"的<script>，都是异步加载，不会造成堵塞浏览器，即等到整个页面渲染完，再执行模块脚本，等同于打开了<script>标签的defer属性，如果有多个 按先后顺序依次执行
+
+<script src="./b.js" type="module"></script>
+
+```
+
+** module.exports exports require **
+
+exports === module.exports
+
+```javascript
+//a.js
+module.exports = {
+    sayName:function(){
+        console.log('name','任岭鑫')
+    }
+}
+
+
+//b.js
+let say = require('./a')
+say.sayName()
+
+```
+
+#### 两者的差异
+1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+```javascript
+
+
+```
+
+
+2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+

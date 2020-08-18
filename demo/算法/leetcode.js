@@ -529,3 +529,58 @@ var countBinarySubstrings = function (s) {
     }
     return res;
 };
+
+
+// 43. 字符串相乘
+// 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
+
+// 示例 1:
+
+// 输入: num1 = "2", num2 = "3"
+// 输出: "6"
+
+var multiply = function(num1, num2) {
+    if(num1 == '0' || num2 == '0') return '0';
+    num1 = num1 + '';
+    num2 = num2 + '';
+    let l1 = num1.length,l2 = num2.length, 
+        store = new Array(l1 + l2 - 1).fill(0), t = 0, r = '';
+    for( let i = 0; i < l2; i++ ){
+      for( let j = 0; j < l1; j++ ){
+        store[i + j] += (+num2[i] * + num1[j])
+      }
+    }
+    let k = store.length;
+    while(k--){
+      t += store[k];
+      r = t % 10 + r;
+      t = t / 10 | 0;
+    }
+    return t > 0 ? (t + r) : r;
+  }
+
+
+//   查找数组中的重复项
+
+// 	128 ms	43.2 MB
+var findRepeatNumber = function(nums) {
+    let _other = {}
+    for(let i=0;i<=nums.length;i++){
+        if(_other[nums[i]] !== undefined){
+            return nums[i]
+        }
+        _other[nums[i]] = i
+    }
+};
+//	96 ms	43.5 MB
+var findRepeatNumber = function(nums) {
+    let _other = {}
+    let _index = 0
+    while(_index < nums.length){
+        if(_other[nums[_index]] !== undefined){
+            return nums[_index]
+        }
+        _other[nums[_index]] = _index
+        _index++
+    }
+};
