@@ -943,8 +943,60 @@ say.sayName()
 
 #### 两者的差异
 1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+
+** es6 **
+
 ```javascript
 
+    //a.js
+    export var age = 23;
+    export function editAge() {
+        age++;
+    }
+
+    //b.js
+    import {
+    age,
+    editAge,
+    init
+    } from './a.js'
+
+    init()
+
+    // es6 模块 之间传递的值 是一个引用 在其他模块中的数据操作 可能会影响到 数据源  另一种理解 他是可以动态的更新 模块中引用的数据
+    console.log(age) // 23
+    editAge()
+    console.log(age) //24
+    
+```
+
+** commonJS **
+
+```javascript
+    //a.js
+
+    let age = 22;
+
+    let name = 'renlingxin'
+
+    // let person
+    function setAge() {
+        age++
+    }
+    function getName(){
+        return name
+    }
+
+    //b.js
+
+    let say = require('./a')
+
+    // commonJS 传递的值是一个拷贝 在其他模块的改变不会影响到 数据源
+    console.log(say.age); // 22
+
+    say.setAge()
+
+    console.log(say.age) // 22
 
 ```
 

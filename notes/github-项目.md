@@ -4,3 +4,4 @@ ISSUES: https://github.com/klren0312/daliy_knowledge/issues
 
 Vue3 : https://github.com/vuejs/vue-next/
 
+vs code 设置 => workbench 
