@@ -5,6 +5,7 @@
   npm install -g cnpm --registry=https://registry.npm.taobao.org   //安装cnpm
   npm config set registry https://registry.npm.taobao.org    //切换淘宝镜像
   cnpm install [name]    //使用cnpm命令安装模块
+  npm install express@12.2.0 //安装指定版本
 ```
 ##### nrm 方式
 nrm是一个 npm registry 管理工具，nrm能够查看当前和切换当前使用的registry.最常用的还是切换淘宝镜像源。

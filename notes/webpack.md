@@ -1,5 +1,9 @@
 ## webpack
 
+### 资料
+
+>
+> webpack  webpack-dev-server 版本不兼容 问题 => https://blog.csdn.net/sxs7970/article/details/88746939
 
 ### 概念
 #### 一  入口 --- entry

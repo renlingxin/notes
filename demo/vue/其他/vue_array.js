@@ -6,21 +6,45 @@ let arrayProtos = Object.create(arrayProto)
 // console.log(arrayProto,arrayProtos)
 
 const myMethods = [
-    'push', 'pop', 'shift', 'unshift','reverse','sort','splice'
+    'push', 'pop', 'shift', 'unshift', 'reverse', 'sort', 'splice'
 ].forEach(item => {
     const oldMethods = arrayProto[item]
-    Object.defineProperty(arrayProtos, item, {
-        value: function (...arg) {
-            const res = oldMethods.apply(this, arg)
-            console.log('我拦截了原生的方法')
-            return res
-        }
+    def(arrayProtos, item, function (...arg) {
+        const res = oldMethods.apply(this, arg)
+        console.log('我拦截了原生的方法')
+        return res
     })
 })
 
 
 let arr = ['1']
-arr.__proto__ = arrayProtos
+
+function putArray(arr, arrayProtos) {
+
+    if (false) {
+        console.log(arr)
+        arr.__proto__ = arrayProtos
+    } else {
+        let arrayKeys = Object.getOwnPropertyNames(arrayProtos)
+        for (let i = 0; i < arrayKeys.length; ++i) {
+            let key = arrayKeys[i];
+            def(arr, key, arrayProtos[key])
+        }
+    }
+}
+
+
+// 设置响应属性
+function def(target, key, value) {
+    Object.defineProperty(target, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    })
+}
+putArray(arr, arrayProtos)
+
 
 arr.push(32)
 

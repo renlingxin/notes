@@ -503,40 +503,77 @@ name.replace(/(\w+)\s*, \s*(\w+)/, "$1 $2");
 ### Math
 
 1. Math.abs()  ==> 返回绝对值
+
 2. Math.sqrt() ==> 返回平方根
+
 3. Math.min(a,b) ==> 返回a,b中的最小值
+
 4. Math.max(a,b) ==>返回a,b中的最大值
+
 ```javascript
-//求数组中的最大值和最小值
+
+    //求数组中的最大值和最小值
     let num  = [1,2,56,4,3,2];  
     Math.max.apply(this,num) //56
     Math.min.apply(this,num) //1
     Math.max(...num)
     Math.min(...num)
+    
 ```
 
 5. Math.pow(x,y) => 返回x的y次幂的值
+
+
 ```javascript
-Math.pow(2,4) => 16
+
+    Math.pow(2,4) => 16
+    
 ```
 6. Math.random 随机0<=n<1的数字
 ```javascript
-Math.random()*10   //获取0 <=n < 10之间的数
-Math.random()*10+1  //获取1 <= n < 10之间的数
+
+    Math.random()*10   //获取0 <=n < 10之间的数
+    Math.random()*10+1  //获取1 <= n < 10之间的数
+
 ```
+
 7. Math.floor()向下取整
 ```javascript
-Math.floor(1.8) //1
+
+    Math.floor(1.8) //1
+    
 ```
+
+```javascript
+
+    //随机生成十二位 字符串
+    function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return `${s4()}${s4()}${s4()}`;
+    }
+
+```
+
 8. Math.ceil()向上取整
+
 ```javascript
-Math.ceil(1.2) //2
+
+    Math.ceil(1.2) //2
+    
 ```
-生成n-m的随机整数
+
+9. 生成n-m的随机整数
+
 ```javascript
-Math.floor(Math.random() * (m-n+1) + n)
-Math.round(Math.random() * (m-n) + n)
-Math.ceil(Math.random() * (m-n) + n-1 )
+
+    Math.floor(Math.random() * (m-n+1) + n)
+    Math.round(Math.random() * (m-n) + n)
+    Math.ceil(Math.random() * (m-n) + n-1 )
+    
 ```
 
 ### 自执行函数
