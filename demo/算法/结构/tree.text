@@ -1,0 +1,2 @@
+修改命令提示符
+默认的命令提示符为 user@userdemackbookPro，这样的提示符配合 powerlevel9k 主题太过冗长，因此我选择将该冗长的提示符去掉，在 ~/.zshrc 配置文件后面追加如下内容：
