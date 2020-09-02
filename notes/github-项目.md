@@ -6,3 +6,4 @@ Vue3 : https://github.com/vuejs/vue-next/
 
 vs code 设置 => workbench 
 
+lottie (搞动画的)=> https://www.yuque.com/lottie/document/readme
