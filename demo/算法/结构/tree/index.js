@@ -59,8 +59,8 @@ function inOrder(node) {
 function preOrder(node) {
     if (!(node === null)) {
         console.log(node.show() + '')
-        inOrder(node.left);
-        inOrder(node.right);
+        preOrder(node.left);
+        preOrder(node.right);
     }
 }
 
@@ -70,8 +70,8 @@ function preOrder(node) {
 
 function postOrder(node) {
     if (!(node === null)) {
-        inOrder(node.left);
-        inOrder(node.right);
+        postOrder(node.left);
+        postOrder(node.right);
         console.log(node.show() + '')
     }
 }
@@ -85,6 +85,6 @@ tree.insert(13)
 tree.insert(9)
 tree.insert(4)
 
-// inOrder(tree.root)
-preOrder(tree.root)
+inOrder(tree.root)
+// preOrder(tree.root)
 // postOrder(tree.root)

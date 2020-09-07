@@ -203,6 +203,11 @@ babel官方预设的一些插件集，称之为preset，这样我们只需要使
 
 **cnpm不支持package-lock.json**
 
+#### 一  扩展--6-- devServer
+
+hot => 启用 webpack 的模块热替换特性
+hotOnly => 当编译失败时，不刷新页面 适用脚手架
+
 ## GIT
 https://www.cnblogs.com/miracle77hp/articles/11163532.html
 工作区 -- 暂存区 -- 本地仓库 -- 远程仓库 

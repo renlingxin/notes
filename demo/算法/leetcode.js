@@ -50,7 +50,7 @@ var twoSums = function (nums = [2, 11, 7, 15], target = 9) {
 };
 console.log('twoSums:', twoSums())
 
-// while + 对象 差值法
+// while + 对象 差值法 96 ms  38.6 MB
 var twoSum2 = function (nums = [2, 7, 11, 15], target = 9) {
     let _ball = {}
     let _res = 0
@@ -66,6 +66,19 @@ var twoSum2 = function (nums = [2, 7, 11, 15], target = 9) {
 
     return _res
 };
+
+var twoSum = function(nums, target) {
+    let _obj = {}
+    let temp = null
+    for(let i =0;i<nums.length;i++){
+        temp = target - nums[i]
+        if(_obj[temp] !== undefined){
+            return [_obj[temp],i]
+        }
+        _obj[nums[i]] = i
+    }
+};
+
 console.log('twosum2:', twoSum2())
 
 // 直接操作nums
@@ -82,7 +95,7 @@ var twoSum3 = function (nums = [2, 7, 11, 15], target = 9) {
 console.log('twosum3:', twoSum3())
 
 
-// es6写法   --- map
+// es6写法   --- map  96 ms  38.5 MB
 var twoSum4 = function (nums = [2, 7, 11, 15], target = 9) {
     let _scool = new Map()
     for (let i = 0; i < nums.length; i++) {
@@ -618,3 +631,40 @@ var countSubstrings = function (s) {
     return ans;
 };
 console.log(countSubstrings('abcaaaaaaa'))
+
+
+// 347. 前 K 个高频元素
+// 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
+// 示例 1:
+
+// 输入: nums = [1,1,1,2,2,3], k = 2
+// 输出: [1,2]
+
+
+// 暴力解法1
+var topKFrequent = function(nums, k) {
+    // 记录元素出现次数
+    let obj = {}
+    for(let i=0;i<=nums.length-1;i++){ 
+        if(obj[nums[i]] === undefined){
+            obj[nums[i]] = 0
+        }
+        obj[nums[i]]++
+    }
+    return [...new Set(nums)].sort((a,b)=>{return obj[b] - obj[a]}).slice(0,k)
+};
+console.log(topKFrequent([1,1,1,2,2,3],2))
+
+// 暴力解法2
+var topKFrequent1 = function(nums, k) {
+    // 记录元素出现次数
+    let obj = {}
+    for(let i=0;i<=nums.length-1;i++){ 
+        if(obj[nums[i]] === undefined){
+            obj[nums[i]] = 0
+        }
+        obj[nums[i]]++
+    }
+    return [...new Set(nums)].sort((a,b)=>{return obj[b] - obj[a]}).slice(0,k)
+};
+console.log(topKFrequent1([1,1,1,2,2,3],2))

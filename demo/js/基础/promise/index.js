@@ -1,3 +1,7 @@
+const {
+    Interface
+} = require("readline")
+
 let p1 = new Promise((resolve, reject) => {
     setTimeout(function () {
         reject(22)
@@ -66,3 +70,40 @@ let n = new gettype((a, b) => {
         b('22222')
     }, 2000)
 })
+
+async function getname() {
+    let res = [{
+        a: 2
+    }, {
+        a: 3
+    }, {
+        a: 4
+    }]
+    res.forEach(async item => {
+        await setTimeout(() => {
+            // console.log(item)
+        }, 1000)
+    })
+}
+getname()
+
+function test() {
+    let arr = [3, 2, 1]
+    arr.forEach(async item => {
+        const res = await fetch(item)
+        console.log(res)
+    })
+    console.log('end')
+}
+
+function fetch(x) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(x)
+        }, 500 * x)
+    })
+}
+test()
+// for (let i = 0; i < Infinity; ++i) {
+//     console.log('初极狭，才通人，复行数十步，豁然开朗')
+// }
