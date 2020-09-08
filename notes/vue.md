@@ -947,6 +947,54 @@ vue组件之间通信方式 ： https://segmentfault.com/a/1190000019208626
 
 
 
+## 九、vue2 中的一些bug
+```javascript
+
+//template
+<template>
+{{ obj.name }}----{{ arr }}
+</template>
+
+//data
+data: {
+      obj: {
+        name: 'res'
+      },
+      arr: ['name', { name: '111' }],
+}
+
+//methods
+
+update(){
+      // 数组问题  
+      
+      //数组清空
+      this.arr.length = 0;
+      console.log(this.arr);//监听不到
+      // 手动刷新
+      this.arr.__ob__.dep.notify() //响应式元素上的__ob__ 绑定着当前元素的observer 我们可以手动让dep通知watcher更新;
+      
+      
+      //数组对象中的修改 
+      this.arr[1].name = 222;
+      console.log(this.arr);//可以监听 源码中对数组中的对象进行了和对象一样的深度响应式处理
+      
+      //数组修改
+      this.arr[0] = '111111';
+      console.log(this.arr);//监听不到 object.defineproperty 无法操作数组
+      
+      // 数组新增
+      this.arr[1] = 'fdfsdf';
+      console.log(this.arr);//监听不到 object.defineproperty 无法操作数组
+
+      // 对象问题
+      delete this.obj.name;
+      console.log(this.obj);//监听不到  object.defineproperty 只能对set get 进行拦截 对其他状态是无感的
+}
+
+```
+
+
 
 
 
