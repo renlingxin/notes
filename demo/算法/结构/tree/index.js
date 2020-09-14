@@ -44,8 +44,9 @@ function insert(data) {
     }
 }
 
-
-// 中序遍历  => 升序
+// 递归： 未知推已知 隐式的栈
+// 时间复杂度 和 空间复杂度 O(n)
+// 中序遍历  => 升序  左根右
 
 function inOrder(node) {
     if (!(node === null)) {
@@ -77,6 +78,24 @@ function postOrder(node) {
 }
 
 
+
+// 已知推未知 维护显式的栈
+var inorderTraversal = function(root) {
+    const res = [];
+    const stk = [];
+    while (root || stk.length) {
+        console.log('------', stk)
+        while (root) {
+            stk.push(root);
+            root = root.left;
+        }
+        root = stk.pop();
+        res.push(root.data);
+        root = root.right;
+    }
+    return res;
+};
+
 let tree = new BST();
 
 tree.insert(23)
@@ -88,3 +107,5 @@ tree.insert(4)
 inOrder(tree.root)
 // preOrder(tree.root)
 // postOrder(tree.root)
+
+console.log(inorderTraversal(tree.root));

@@ -67,13 +67,13 @@ var twoSum2 = function (nums = [2, 7, 11, 15], target = 9) {
     return _res
 };
 
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
     let _obj = {}
     let temp = null
-    for(let i =0;i<nums.length;i++){
+    for (let i = 0; i < nums.length; i++) {
         temp = target - nums[i]
-        if(_obj[temp] !== undefined){
-            return [_obj[temp],i]
+        if (_obj[temp] !== undefined) {
+            return [_obj[temp], i]
         }
         _obj[nums[i]] = i
     }
@@ -230,7 +230,7 @@ function tryTree(srcList) {
     })
     return destList
 }
-console.log(JSON.stringify(tryTree(_str), null, 2))
+// console.log(JSON.stringify(tryTree(_str), null, 2))
 
 // tree   2
 let _arr = [{
@@ -620,8 +620,8 @@ var countSubstrings = function (s) {
     for (let i = 0; i < 2 * n - 1; ++i) {
         let l = i / 2,
             r = i / 2 + i % 2;
-        console.log('l=>', l)
-        console.log('r  =>', r)
+        // console.log('l=>', l)
+        // console.log('r  =>', r)
         while (l >= 0 && r < n && s.charAt(l) == s.charAt(r)) {
             --l;
             ++r;
@@ -642,29 +642,100 @@ console.log(countSubstrings('abcaaaaaaa'))
 
 
 // 暴力解法1
-var topKFrequent = function(nums, k) {
+var topKFrequent = function (nums, k) {
     // 记录元素出现次数
     let obj = {}
-    for(let i=0;i<=nums.length-1;i++){ 
-        if(obj[nums[i]] === undefined){
+    for (let i = 0; i <= nums.length - 1; i++) {
+        if (obj[nums[i]] === undefined) {
             obj[nums[i]] = 0
         }
         obj[nums[i]]++
     }
-    return [...new Set(nums)].sort((a,b)=>{return obj[b] - obj[a]}).slice(0,k)
+    return [...new Set(nums)].sort((a, b) => {
+        return obj[b] - obj[a]
+    }).slice(0, k)
 };
-console.log(topKFrequent([1,1,1,2,2,3],2))
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2))
 
 // 暴力解法2
-var topKFrequent1 = function(nums, k) {
-    // 记录元素出现次数
-    let obj = {}
-    for(let i=0;i<=nums.length-1;i++){ 
-        if(obj[nums[i]] === undefined){
-            obj[nums[i]] = 0
+// var topKFrequent1 = function(nums, k) {
+//     // 记录元素出现次数
+//     let obj = {}
+//     for(let i=0;i<=nums.length-1;i++){ 
+//         if(obj[nums[i]] === undefined){
+//             obj[nums[i]] = 0
+//         }
+//         obj[nums[i]]++
+//     }
+//     return [...new Set(nums)].sort((a,b)=>{return obj[b] - obj[a]}).slice(0,k)
+// };
+// console.log(topKFrequent1([1,1,1,2,2,3],2))
+
+
+// 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+
+// 示例:
+
+// 输入: n = 4, k = 2
+// 输出:
+// [
+//   [2,4],
+//   [3,4],
+//   [2,3],
+//   [1,2],
+//   [1,3],
+//   [1,4],
+// ]
+
+// 力扣上的
+const combine = (n, k) => {
+    const res = [];
+
+    const helper = (start, path) => { // start是枚举选择的起点 path是当前构建的路径（组合）
+        // console.log('path',path)
+        if (path.length == k) {
+            res.push(path.slice()); // 拷贝一份path，推入res
+            return; // 结束当前递归
         }
-        obj[nums[i]]++
+        for (let i = start; i <= n; i++) { // 枚举出所有选择
+            path.push(i); // 选择
+            helper(i + 1, path); // 向下继续选择
+            path.pop(); // 撤销选择
+
+        }
+    };
+
+    helper(1, []); // 递归的入口，从数字1开始选
+    return res;
+}
+// 1 2 3 4
+console.log('combine',combine(4,3))
+
+// 力扣官方的
+var combine1 = function(n, k) {
+    const temp = [];
+    const ans = [];
+    // 初始化
+    // 将 temp 中 [0, k - 1] 每个位置 i 设置为 i + 1，即 [0, k - 1] 存 [1, k]
+    // 末尾加一位 n + 1 作为哨兵
+    for (let i = 1; i <= k; ++i) {
+        temp.push(i);
     }
-    return [...new Set(nums)].sort((a,b)=>{return obj[b] - obj[a]}).slice(0,k)
+    temp.push(n + 1);
+    
+    let j = 0;
+    while (j < k) {
+        ans.push(temp.slice(0, k));
+        j = 0;
+        // 寻找第一个 temp[j] + 1 != temp[j + 1] 的位置 t
+        // 我们需要把 [0, t - 1] 区间内的每个位置重置成 [1, t]
+        while (j < k && temp[j] + 1 == temp[j + 1]) {
+            temp[j] = j + 1;
+            ++j;
+        }
+        // j 是第一个 temp[j] + 1 != temp[j + 1] 的位置
+        ++temp[j];
+    }
+    return ans;
 };
-console.log(topKFrequent1([1,1,1,2,2,3],2))
+console.log('combine1',combine1(4,3))

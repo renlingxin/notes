@@ -989,6 +989,7 @@ update(){
 
       // 对象问题
       delete this.obj.name;
+      this.obj.age = '111'
       console.log(this.obj);//监听不到  object.defineproperty 只能对set get 进行拦截 对其他状态是无感的
 }
 
