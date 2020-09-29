@@ -328,3 +328,76 @@ ssh-keygen -t rsa -C "your.email@example.com"  => 生成密钥
 1. 远程服务器持有公钥，当有用户进行登录，服务器就会随机生成一串字符串，然后发送给正在进行登录的用户。
 2. 用户收到远程服务器发来的字符串，使用与远程服务器公钥配对的私钥对字符串进行加密，再发送给远程服务器。
 3. 服务器使用公钥对用户发来的加密字符串进行解密，得到的解密字符串如果与第一步中发送给客户端的随机字符串一样，那么判断为登录成功。
+
+**git远程操作**
+
+1. git clone 
+
+```javascript
+git clone -b <分支名> xxx => 指定clone分支
+```
+2. git remote  为了便于管理，Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名。
+```javascript
+git remote => 展示主机名
+git remote -v => 展示远程主机名 网址
+git remote show <主机名> => 展示主机的详细信息
+git remote add <主机名> <网址> => 添加主机名
+git remote rm <主机名> => 删除
+git remote rename <原主机名> <新主机名> => 给主机名改个名字
+```
+
+3. git pull
+
+
+```javascript
+git pull <远程主机名> <远程分支名>:<本地分支名> => git pull 完整格式 取回远程分支名并且与本地指定分支合并 上面的操作等同于执行 git fetch git merge 
+
+git pull -p => 在本地删除远程已经删除的分支
+```
+
+git 会在本地分支与线上分支之间建立一种追踪关系（tracking)；在git clone的时候，所有本地分支默认与远程同名分支建立追踪关系；git 也提供了手动修改追踪关系的方法
+
+```javascript
+git branch --set-upstream rlx origin/dev => 将本地分支rlx 与 远程分支dev建立联系
+```
+
+4. git push
+```javascript
+ git push <远程主机名> <本地分支名>:<远程分支名> => git push 完整格式
+ git push origin :master => push 空的内容到远程 相当于删除远程分支 
+ git push origin master => 推送内容 远程分支没有就新建
+```
+
+扩展：
+
+不带任何参数的git push，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用git config命令。
+
+```javascript
+  $ git config --global push.default matching
+  $ git config --global push.default simple
+```
+5. git fetch 取回远程分支的最新更新
+```javascript
+git fetch <远程主机名> => 拉取更新
+git fetch <远程主机名> <分支名> => 取回指定分支内容更新
+```
+
+**git稀疏检出(sparse checkout)**
+> 稀疏检出就是本地版本库检出时不检出全部，只将指定的文件从本地版本库检出到工作区，而其他未指定的文件则不予检出（即使这些文件存在于工作区，其修改也会被忽略）
+
+```javascript
+  // 初始化git 
+  git init
+  git remote add rlx https://github.com/babel/babel.git
+  // 打开 开关 
+  git config core.sparsecheckout true
+  // 指定目录
+  echo "src/rlx" >> .git/info/sparse-checkout
+  // 获取代码
+  git pull rlx master
+```
+
+
+
+
+

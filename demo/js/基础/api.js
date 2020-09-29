@@ -40,11 +40,11 @@ console.log(arr1.AgainSort())
 
 // arr => concat()
 
-const dictsMap = function (dict,arr) {
-    if(!dict instanceof Array || !arr instanceof Array){
-        return 
+const dictsMap = function (dict, arr) {
+    if (!dict instanceof Array || !arr instanceof Array) {
+        return
     }
-    console.log(JSON.stringify(arguments, null ,2))
+    console.log(JSON.stringify(arguments, null, 2))
     let result = dict;
     for (let i = 1; i < arguments.length; i++) {
         if (i == arguments.length - 1) {
@@ -59,11 +59,11 @@ const dictsMap = function (dict,arr) {
     }
     return result;
 }
-dictsMap(['aa'],[22])
+dictsMap(['aa'], [22])
 
 console.log(process.env.NODE_ENV)
 const getNow = () => {
-     return String(Date.now())
+    return String(Date.now())
 }
 console.log(getNow())
 console.log(Date.now())
@@ -114,6 +114,21 @@ _arr._forEach((item, index) => {
     if (index === 4) {
         item = 'xxxx'
     }
-    console.log(item,index)
+    console.log(item, index)
 })
 // p().then(f1, f2).then(f3, f4).then(f5, f6)
+
+function add() {
+    const _args = [...arguments];
+    console.log(arguments)
+    function fn() {
+        console.log(arguments)
+        _args.push(...arguments);
+        return fn;
+    }
+    fn.toString = function () {
+        return _args.reduce((sum, cur) => sum + cur);
+    }
+    return fn;
+}
+add(1)(2)(4)
