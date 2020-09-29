@@ -130,7 +130,7 @@ interface checkType1 {
   readonly area: Number;
 }
 function getNum1(target: checkType1) {
-  target.width = "ddd";
+  // target.width = "ddd";
 }
 getNum1({ width: "333", area: 222 });
 

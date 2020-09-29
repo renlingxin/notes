@@ -709,10 +709,10 @@ const combine = (n, k) => {
     return res;
 }
 // 1 2 3 4
-console.log('combine',combine(4,3))
+console.log('combine', combine(4, 3))
 
 // 力扣官方的
-var combine1 = function(n, k) {
+var combine1 = function (n, k) {
     const temp = [];
     const ans = [];
     // 初始化
@@ -722,7 +722,7 @@ var combine1 = function(n, k) {
         temp.push(i);
     }
     temp.push(n + 1);
-    
+
     let j = 0;
     while (j < k) {
         ans.push(temp.slice(0, k));
@@ -738,4 +738,32 @@ var combine1 = function(n, k) {
     }
     return ans;
 };
-console.log('combine1',combine1(4,3))
+console.log('combine1', combine1(4, 3))
+
+// 素数  筛法   除了1和它本身以外不再有其他因数的自然数。
+
+function prime(max) {
+    let isNoPrime = [true, true];
+    let n = 1;
+    while (++n < max) {
+        if (!isNoPrime[n]) {
+            console.log(n)
+            for (let v = n * 2; v < max; v += n) {
+                isNoPrime[v] = true
+            }
+        }
+    }
+}
+prime(20)
+
+
+// 判断一个数  是不是素数
+function isprime(num) {
+    for (let i = 1; i < num; i++) {
+        if (num % i === 0 && i !== 1) {
+            return false
+        }
+    }
+    return true;
+}
+console.log(isprime(17))
