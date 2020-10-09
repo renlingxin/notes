@@ -5,14 +5,14 @@ function _promise(exec) {
     self.status = 'pending'
 
     function resolve(value) {
-        // const run = () => {
-            console.log(111111)
+        const run = () => {
             if (self.status === 'pending') {
+                console.log(self.status,value)
                 self.value = value
                 self.status = 'resolved'
             }
-        // }
-        // setTimeout(run, 0);
+        }
+        setTimeout(run, 0);
     }
 
     function reject(reason) {
@@ -31,7 +31,6 @@ function _promise(exec) {
 _promise.prototype.then = function (success, fail) {
     let self = this
     return new _promise((resolve, reject) => {
-        console.log(self)
         if (self.status === 'resolved' && self.value) {
             resolve(self.value)
             success(self.value)
@@ -72,9 +71,9 @@ _promise.all = function (_promiseArr) {
     })
 }
 let p1 = new _promise((resolve, reject) => {
-    // setTimeout(function () {
+    setTimeout(function () {
         resolve(555555)
-    // }, 2000)
+    }, 2000)
     // reject(11)
 })
 
@@ -116,6 +115,6 @@ let p1 = new _promise((resolve, reject) => {
 p1.then(res => {
     console.log('success =>', res)
 })
-// p1.catch(err=>{
-//     console.log(err)
-// })
+p1.catch(err=>{
+    console.log(err)
+})

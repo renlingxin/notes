@@ -948,6 +948,8 @@ vue组件之间通信方式 ： https://segmentfault.com/a/1190000019208626
 
 
 ## 九、vue2 中的一些bug
+
+
 ```javascript
 
 //template
@@ -995,10 +997,37 @@ update(){
 
 ```
 
+## 十、通过model属性指定接收属性名以及响应名
 
+```javascript
+ {
+    model: {
+      prop: 'v', // default: value
+      event: 'i', // default: input
+    },
+    props: {
+      v: Number,
+    },
+    data() {
+      return {
+        count: this.v,
+      };
+    },
+    mothods:{
+      push(){
+        this.$emit('i', ++count);
+      }
+    }
+ }
 
+```
 
+## vu2 源码目录
 
-
-
+compiler =》编译相关
+core - components =》 内置组件
+instance =》 渲染的辅助函数
+platform =》 平台渲染相关（web weex）
+server =》 服务端渲染相关
+sfc =》 解析器把vue 文件编译成对象
 
