@@ -157,6 +157,7 @@ let _o2 = {
 }
 console.log('Object.is:', Object.is(_o1.t, _o2.t))
 console.log('--------------------------------')
+
 /**
  *对象方法  --- 10  object.isExtensible
  * 判断一个对象是否是可扩展的
@@ -167,4 +168,17 @@ let _g = {
 Object.freeze(_g)
 console.log(Object.isExtensible(_g))
 console.log('--------------------------------')
+
+
+/**
+ *对象方法  --- 11  object.keys 和 for in 的区别
+ */
+
+Object.prototype.sn = 'fdf'
+
+let obj = {a:22,b:343}
+
+for(item in obj){console.log(item)} // a b sn  最主要的区别在于 for in 会遍历原型链
+
+Object.keys(obj) // ["a", "b"]
 

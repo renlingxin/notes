@@ -1,4 +1,5 @@
 ### TypeScript
+
 * 强类型的引入能让我们在写代码的时候从值优先的思维转变成类型优先；
 * 强类型的引入能帮助开发工具（IDE 等）更好地为开发者提供便利性能力，如智能补全、类型检测、编译时检查等等；
 * TypeScript 可以让 JavaScript 更好地与其他语言进行交互，甚至转换为其他语言；
@@ -203,3 +204,34 @@ declare var __DEV__: boolean
 declare var __COMMIT__: string
 
 ```
+
+
+### 泛型
+工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。是否支持多种数据类型就是其指标之一。我们定一个 temp 函数，返回其输入。
+
+```typescript
+
+  // 我们不知其类型
+  function temp (s) {
+      return s;
+  }
+  // 我们不能保证其输出类型与输入一致
+  function temp (s: any): any {
+      return s;
+  }
+  // 利用泛型限定类型必须一致
+  function temp<T> (s: T): T {
+      return s;
+  }
+
+```
+
+
+
+
+
+
+
+
+
+

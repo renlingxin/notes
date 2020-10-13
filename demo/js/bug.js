@@ -33,7 +33,7 @@ function promiseValit(data) {
 
 async function test(m, n) {
     let num = Math.floor(Math.random() * (m - n + 1) + n)
-    let _res = await promiseValit(num).then(res=>{
+    let _res = await promiseValit(num).then(res => {
         console.log('result', res)
         return res
     }).catch(console.log)
@@ -54,7 +54,7 @@ let bas = '22'
 // let bas = 44444
 console.log(bas)
 
-let pro = new Promise((resolve,reject)=>{
+let pro = new Promise((resolve, reject) => {
     try {
         console.log(res)
         let res = ''
@@ -64,9 +64,27 @@ let pro = new Promise((resolve,reject)=>{
         // console.log(e)
     }
 })
-pro.then(res=>{
-    console.log(res)
-})
-.catch(err=>{
-    console.log(err)
-})
+pro.then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
+
+// 实现只执行一次的函数
+function getname(fn) {
+    let one = false
+    return function () {
+        if (!one) {
+            one = true
+            fn.apply(this, arguments)
+        }
+    }
+}
+
+function name() {
+    console.log(2222222)
+}
+const once = getname(name)
+once()

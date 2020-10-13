@@ -1021,6 +1021,20 @@ update(){
  }
 
 ```
+## 十一、v-bind.sync 
+
+```javascript
+//对某一个 prop 进行“双向绑定”
+
+//父组件中引用
+<ChildComponent :title="pageTitle" @update:title="pageTitle = $event" />
+//上面缩写为.sync
+<ChildComponent :title.sync="pageTitle" />
+
+//在子组件中响应
+this.$emit('update:title', newValue)
+
+```
 
 ## vu2 源码目录
 

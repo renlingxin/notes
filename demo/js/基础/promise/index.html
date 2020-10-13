@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <input type="text" name="" id="input">
+    <span id="span"></span>
 </body>
 <script src="./index.js"></script>
+
+<script>
+    let _input = document.getElementById('input')
+    let _span = document.getElementById('span')
+    _input.oninput = function (e) {
+        obj.value = e.target.value;
+    }
+    let obj = {
+        value: ''
+    };
+    let target = ''
+
+    Object.defineProperty(obj, 'value', {
+        set(newvalue) {
+            target = newvalue
+            _span.innerHTML = newvalue
+            _input.value = newvalue
+        },
+        get() {
+            return target
+        }
+    })
+</script>
+
 </html>

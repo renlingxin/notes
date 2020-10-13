@@ -1,6 +1,4 @@
-const {
-    Interface
-} = require("readline")
+
 
 let p1 = new Promise((resolve, reject) => {
     setTimeout(function () {

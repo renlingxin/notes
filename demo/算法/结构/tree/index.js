@@ -309,23 +309,74 @@ console.log('maxDepth2', maxDepth2(tree.root))
 
 const convertBST = (root) => {
     let sum = 0;
-  
+
     const inOrder = (root) => {
-      if (root == null) { // 遍历到null节点，开始返回
-        return;
-      }
-      if (root.right) {   // 先进入右子树
-        inOrder(root.right);
-      }
-  
-      sum += root.val;    // 节点值累加给sum
-      root.val = sum;     // 累加的结果，赋给root.val
-      
-      if (root.left) {    // 然后才进入左子树
-        inOrder(root.left);
-      }
+        if (root == null) { // 遍历到null节点，开始返回
+            return;
+        }
+        if (root.right) { // 先进入右子树
+            inOrder(root.right);
+        }
+
+        sum += root.val; // 节点值累加给sum
+        root.val = sum; // 累加的结果，赋给root.val
+
+        if (root.left) { // 然后才进入左子树
+            inOrder(root.left);
+        }
     };
-  
+
     inOrder(root); // 递归的入口，从根节点开始
     return root;
-  }
+}
+
+
+
+//  给你一棵所有节点为非负值的二叉搜索树，请你计算树中任意两节点的差的绝对值的最小值。
+var getMinimumDifference = function (root) {
+    let _res = []
+    let _put = []
+    const gets = function (root) {
+        _res.push(root.val)
+        if (root.left) {
+            gets(root.left)
+        }
+        if (root.right) {
+            gets(root.right)
+        }
+    }
+    gets(root)
+    let temp = null
+    for (let i = 0; i < _res.length; i++) {
+        temp = _res[i]
+        let other = []
+        for (let j = i + 1; j < _res.length; j++) {
+            other.push(Math.abs(_res[i] - _res[j]))
+        }
+        _put.push(Math.min.apply(this, other))
+    }
+    console.log(_res)
+    console.log(_put)
+    return Math.min.apply(this, _put)
+};
+
+// 官方解法  中序遍历
+var getMinimumDifference1 = function (root) {
+    let ans = Number.MAX_SAFE_INTEGER,
+        pre = -1;
+    const dfs = (root) => {
+        if (root === null) {
+            return;
+        }
+        dfs(root.left);
+        if (pre == -1) {
+            pre = root.val;
+        } else {
+            ans = Math.min(ans, root.val - pre);
+            pre = root.val;
+        }
+        dfs(root.right);
+    }
+    dfs(root);
+    return ans;
+};
