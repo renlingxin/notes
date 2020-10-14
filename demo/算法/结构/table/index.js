@@ -21,6 +21,8 @@ class LinkedList {
     find(target) {
         let current = this.head
         while (current.element !== target) {
+            // 查不到就返回最后一个
+            if(!current.next) return current
             current = current.next
         }
         return current
@@ -29,14 +31,24 @@ class LinkedList {
     insert(newEle, oldEle) {
         let newNode = new Node(newEle);
         let oldNode = this.find(oldEle)
-        oldNode.next = newNode
+        // console.log(oldNode)
+        // 你可以注释了这行试试
+        if(oldNode.next === null){
+            oldNode.next =  newNode
+            return
+        }
+        // 注释了之后把下面两行换个位置
         newNode.next = oldNode.next
+        oldNode.next = newNode
     }
     // 显示链表中的元素
     display() {
         let current = this.head;
         while (current.element !== null) {
             console.log(current.element)
+            if(!current.next){
+                return
+            }
             current = current.next;
         }
     }
@@ -56,3 +68,30 @@ class LinkedList {
        }
     }
 }
+
+let t = new LinkedList()
+t.insert(1,'head')
+t.insert(2,1)
+t.insert(5,1)
+// t.insert(5,3)
+// t.display()
+
+console.log(t)
+
+
+// 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+
+// 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+
+var swapPairs = function(head) {
+    if (head === null|| head.next === null) {
+        return head;
+    }
+    const newHead = head.next;
+    head.next = swapPairs(newHead.next);
+    newHead.next = head;
+    return newHead;
+};
+let res = swapPairs(t.head)
+// t.display()
+console.log(JSON.stringify(res))
