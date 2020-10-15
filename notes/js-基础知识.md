@@ -1258,8 +1258,9 @@ a -- b  // -- 为非法操作符
 new 1;  // 1 不是构造函数
 add();  //add时未定义的方法
 ```
-### 实现只执行一次的函数
 
+
+### 实现只执行一次的函数
 
 ```javascript
 
@@ -1272,9 +1273,11 @@ function getname (fn) {
     }
   }
 }
+let one = getname(fn)
+one()
+one()
 
 ```
-
 
 
 
