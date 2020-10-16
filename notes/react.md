@@ -13,6 +13,30 @@
   npm run start     //启动
   npm run build     //生成dist 打包
 ```
+### 知识点
+1. State 与 props 类似，但是 state 是私有的，并且完全受控于当前组件。
+
+```react
+export default class app extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      pname: 'xxxx',
+      page: 43,
+    }
+  }
+  render() {
+    return (
+    <div>
+    {/* 不能像vue 直接展示对象数据 需要指定key 如 this.state.pname */}
+    我是爷爷组件；我的state:<span>{this.state}</span>
+    </div>);
+  }
+}
+
+
+```
+
 
 ### react reactDom
 

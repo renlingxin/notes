@@ -346,17 +346,17 @@ var getMinimumDifference = function (root) {
         }
     }
     gets(root)
-    let temp = null
+    // let temp = null
     for (let i = 0; i < _res.length; i++) {
-        temp = _res[i]
+        // temp = _res[i]
         let other = []
         for (let j = i + 1; j < _res.length; j++) {
             other.push(Math.abs(_res[i] - _res[j]))
         }
         _put.push(Math.min.apply(this, other))
     }
-    console.log(_res)
-    console.log(_put)
+    console.log('_res',_res)
+    console.log('_put',_put)
     return Math.min.apply(this, _put)
 };
 
