@@ -75,6 +75,24 @@ visibility:hidden依然在页面中占据位置
     /* 旋转的圈圈 */
     ursor:wait;
 ```
+### caret-color
+
+```css
+caret-color: #fece20; //caret-color属性用来定义插入光标（caret）的颜色，
+```
+### input tel
+
+```html
+<!-- 跟 在不支持的设备里 会默认使用text  -->
+<!-- 尽管 tel 类型的输入在功能上和 text 输入一致, 但它们确实有用; 其中最明显的就是移动浏览器— 特别是在手机上 — 可能会选择提供为输入电话号码而优化的自定义键盘。使用 -->
+<input type="tel" />
+
+<style>
+input::placeholder => 默认样式
+</style>
+
+```
+
 
 ## html
 #### 转义字符
@@ -88,4 +106,10 @@ visibility:hidden依然在页面中占据位置
 
 
 #### marquee 标签
+
+### autofocus="autofocus"
+文本输入字段被设置为当页面加载时获得焦点：
+
+
+
 

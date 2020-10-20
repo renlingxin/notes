@@ -747,14 +747,16 @@ function prime(max) {
     let n = 1;
     while (++n < max) {
         if (!isNoPrime[n]) {
-            console.log(n)
+            // console.log(n)
             for (let v = n * 2; v < max; v += n) {
                 isNoPrime[v] = true
             }
         }
     }
+    return isNoPrime
 }
-prime(20)
+// console.log('prime',prime(20))
+
 
 
 // 判断一个数  是不是素数
@@ -766,4 +768,51 @@ function isprime(num) {
     }
     return true;
 }
-console.log(isprime(17))
+console.log('isprime',isprime(17))
+
+
+function intersection(...arrays) {
+    let result = []
+    let temp = arrays[0]
+    let _index = 0
+    while (_index < temp.length) {
+        let show = true
+        for (let i = 1; i < arrays.length; i++) {
+            if (!arrays[i].includes(temp[_index])) {
+                show = false
+            }
+        }
+        if (show) {
+            result.push(temp[_index])
+        }
+        _index++
+    }
+    return result
+}
+
+function intersection1(...arrays) {
+    let _arr = arrays.flat(2)
+    let result = []
+    let _res = _arr.reduce((pre, cru) => {
+        if (cru in pre) {
+            pre[cru]++
+        } else {
+            pre[cru] = 0
+        }
+        return pre
+    }, {})
+    Object.keys(_res).forEach(item => {
+        if (_res[item] === arrays.length - 1) {
+            result.push(item)
+        }
+    })
+    return result
+}
+const arr1 = [1, 2, 3, 4, 1, 5]
+const arr2 = [4, 2, 1, 5, 6, 7]
+const arr3 = [2, 4, 7, 8, 3]
+
+// 输出 [2,4]
+console.log(intersection(arr1, arr2, arr3))
+// 输出 [2,4]
+console.log(intersection1(arr1, arr2, arr3))

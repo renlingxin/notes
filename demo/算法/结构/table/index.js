@@ -123,3 +123,48 @@ var swapPairs1 = function (head) {
 let res1 = swapPairs1(t.head)
 
 console.log(JSON.stringify(res1, null, 2))
+
+// 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+
+// 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+
+// 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+// 示例：
+
+// 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+// 输出：7 -> 0 -> 8
+// 原因：342 + 465 = 807
+
+var addTwoNumbers = function (l1, l2) {
+    let t = getVal(l1)
+    let s = getVal(l2)
+    console.log(Number(t), Number(s))
+    return change(Number(t) + Number(s))
+};
+const getVal = (target) => {
+    let _res = ''
+    while (target !== null) {
+        _res += target.val
+        target = target.next
+    }
+    return _res.split('').reverse().join('')
+}
+const change = (val) => {
+    //807
+    val += ''
+    let _len = val.length
+    let _index = 0
+    let list = null
+    while (_index < _len) {
+        let g = new ListNode(val[_index])
+        if (!list) {
+            list = g
+        } else {
+            g.next = list
+            list = g
+        }
+        _index++
+    }
+    return list
+}
