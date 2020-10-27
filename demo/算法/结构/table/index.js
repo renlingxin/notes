@@ -168,3 +168,87 @@ const change = (val) => {
     }
     return list
 }
+
+// 将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…=
+// 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+// 示例 1:
+// 给定链表 1->2->3->4, 重新排列为 1->4->2->3.
+// 示例 2:
+// 给定链表 1->2->3->4->5, 重新排列为 1->5->2->4->3.
+
+
+// 自己写的笨方法
+var reorderList = function(head) {
+    const getval = (target) => {
+        let arr = []
+        while(target !== null){
+            arr.push(target.element)
+            target = target.next
+        }
+        return arr
+    }
+    let old = getval(head)
+    const getarr = (arr) => {
+        let newarr = []
+        let left = 0
+        let right = arr.length-1
+        while(left<=right && newarr.length<arr.length){
+            newarr.push(arr[left])
+            if(newarr.length < arr.length){
+                newarr.push(arr[right])
+            }
+            left++
+            right--
+        }
+        return newarr
+    }
+    let newarr = getarr(old)
+
+    const change = (target) => {
+        let list = null
+        for(let i=target.length-1;i>=0;i--){
+            let other = new Node(target[i])
+            if(!list){
+                list = other
+            }else{
+                other.next = list
+                list = other
+            }
+        }
+        return list
+    }
+    let res1 = change(newarr)
+    // return res1
+    console.log(res1)
+};
+console.log('aaaa',reorderList(t.head))
+
+// 力扣上 大神写的
+var reorderList1 = function(head, s = [], tmp) {
+    // 这里
+    while (head){
+        tmp = head.next, 
+        head.next = null, 
+        s.push(head)
+        head = tmp
+    }
+    // 示例
+    [ [1], [2], [3], [4], [5] ]
+    // s[0].next = s[1]
+    // s[1].next= s[3]
+    // console.log(s)
+
+    // 这里的 调换 用到了 双指针和耦合引用（就是对象的浅拷贝）
+    var i = -1, j = s.length
+    while (++i < --j){
+        s[i].next = s[j]
+        j !== i + 1 && (s[j].next = s[i + 1])
+    }
+    // 结果
+    [ [1,5,2,4,3], [2,4,3], [3], [4,3], [5,2,4,3] ]
+    return s[0] 
+};
+
+
+
+
