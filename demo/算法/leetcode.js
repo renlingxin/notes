@@ -179,6 +179,18 @@ function bubblesort4(obj) {
 }
 console.log('快速排序', bubblesort4(arr))
 
+// 时间排序
+
+let res = [6, 1, 3, 4]
+
+function time(val) {
+    setTimeout(() => {
+        console.log(val)
+    }, val)
+}
+for (let i = 0; i < res.length; i++) {
+    time(res[i])
+}
 
 // 1431 拥有最多糖果的孩子
 
@@ -768,7 +780,7 @@ function isprime(num) {
     }
     return true;
 }
-console.log('isprime',isprime(17))
+console.log('isprime', isprime(17))
 
 
 function intersection(...arrays) {
@@ -816,3 +828,132 @@ const arr3 = [2, 4, 7, 8, 3]
 console.log(intersection(arr1, arr2, arr3))
 // 输出 [2,4]
 console.log(intersection1(arr1, arr2, arr3))
+
+
+// 移动0
+// 输入: [0,1,0,3,12]
+// 输出: [1,3,12,0,0]
+
+var moveZeroes = function (nums) {
+    let _index = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== 0) {
+            nums[_index++] = nums[i]
+        }
+    }
+    for (let i = _index; i < nums.length; i++) {
+        nums[i] = 0
+    }
+    console.log('jieguo', nums)
+};
+moveZeroes([0, 1, 0, 3, 12])
+
+var moveZeroes1 = function (nums) {
+    let _left = 0 //记录非零处理到的下标处
+    let _right = 0 //记录从下标0处理到的位置
+    const swap = (left, right) => {
+        let temp = null
+        temp = nums[right]
+        nums[right] = nums[left]
+        nums[left] = temp
+
+    }
+    // 把非0的数字一个一个往前挤
+    while (_right < nums.length) {
+        if (nums[_right] !== 0) {
+            swap(_left, _right)
+            _left++
+        }
+        _right++
+    }
+    console.log('jieguo1', nums)
+};
+moveZeroes1([0, 1, 0, 3, 12])
+
+
+// 射气球 力扣452 
+// 输入：points = [[10,16],[2,8],[1,6],[7,12]]
+// 输出：2
+// 解释：对于该样例，x = 6 可以射爆 [2,8],[1,6] 两个气球，以及 x = 11 射爆另外两个气球
+
+
+// 官方题解 排序+贪心算法
+
+
+//                    [10.........16]
+//    [2..........8]
+// [1.......6]
+//              [7.........12]
+
+var findMinArrowShots = function (points) {
+    if (!points.length) return 0
+    // 升序排序
+    points.sort((a, b) => {
+        return a[1] - b[1]
+    })
+    console.log(points)
+    // 每一个气球最大的比下一个气球最小的大  说明满足刺穿条件 ；如果连下一个最小的都比它大，那就真的没戏刺穿了；相应的箭+1
+    let _res = 1
+    let _point = points[0][1]; //先拿右边最小的做基准值
+    for (let i = 1; i < points.length; i++) {
+        if (_point < points[i][0]) {
+            _res++
+            _point = points[i][1]
+        }
+    }
+    return _res
+};
+console.log('findMinArrowShots()', findMinArrowShots(
+    [
+        [10, 16],
+        [2, 8],
+        [1, 6],
+        [7, 12]
+    ]
+))
+
+// 四数相加
+// 给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。
+
+// 为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1 。
+
+// 例如:
+
+// 输入:
+// A = [ 1, 2]
+// B = [-2,-1]
+// C = [-1, 2]
+// D = [ 0, 2]
+
+// 输出:
+// 2
+
+// 解释:
+// 两个元组如下:
+// 1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
+// 2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
+
+
+var fourSumCount = function (A, B, C, D) {
+    // 先记录AB两个数组的所有组合
+    let _map = new Map()
+    let _res = 0
+    for (let a of A) {
+        for (let b of B) {
+            _map.set((a + b), (_map.get(a + b) || 0) + 1)
+        }
+    }
+    // 遍历CD两个数组 cd元素和的负值已经存在说明条件成立
+    for (let c of C) {
+        for (let d of D) {
+            if (_map.has(-(c + d))) {
+                _res += _map.get(-(c + d))
+            }
+        }
+    }
+    return _res
+};
+console.log(fourSumCount([1, 2]
+    [-2, -1]
+    [-1, 2]
+    [0, 2]))

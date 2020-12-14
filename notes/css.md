@@ -110,6 +110,6 @@ input::placeholder => 默认样式
 ### autofocus="autofocus"
 文本输入字段被设置为当页面加载时获得焦点：
 
-
+document.styleSheets
 
 

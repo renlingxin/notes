@@ -170,6 +170,20 @@ class myVue {
             // 3 代理 this
             this.proxyData(this.$data)
         }
+        this.init()
+    }
+    init(){
+        this.proxyFn()
+    }
+    proxyFn(){
+        const _ev = new eventBus()
+        ['$emit','$on','$once','$off'].forEach(ele=>{
+            Object.defineProperty(this, ele, {
+                get() {
+                    return _ev[ele]
+                }
+            })  
+        })
     }
     proxyData(data) {
         console.log(data)

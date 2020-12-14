@@ -397,7 +397,11 @@ git fetch <远程主机名> <分支名> => 取回指定分支内容更新
   git pull rlx master
 ```
 
+### package.json
 
+1. dependencies 和 devDependencies 
+devDependencies 是一些在开发环境需要用到的
+dependencies 是生产环境需要的
 
 
 

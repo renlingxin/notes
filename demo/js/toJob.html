@@ -60,7 +60,7 @@
 
     function A() {}
     const a = new A()
-    console.log(A.prototype,a)
+    console.log(A.prototype, a)
     // Function 没有prototype
     // a.a()
     a.b()
@@ -83,6 +83,15 @@
         return x + y
     }
     console.log(d(20))
+</script>
+
+<script>
+    let _audio = document.createElement('audio')
+    _audio.src = 'https://yaya.cdnjtzy.com/5a6e2a25cf280334ef50821b826bec6b.mp3'
+    console.log('dadadad', _audio.duration)
+    _audio.oncanplay = function () {
+        // console.log('dadadad', _audio.duration)
+    }
 </script>
 
 </html>

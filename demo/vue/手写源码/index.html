@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -23,10 +23,13 @@
         <p v-html="formdata.catchs"></p>
         <button v-on:click="onchange">按钮on</button>
         <button @click="onchange">按钮@</button>
+        <button @click="eventClick">eventBus@</button>
+        <button @click="eventClear">注销事件@</button>
     </div>
 </body>
 <script src="./Observer.js"></script>
 <script src="./myVue.js"></script>
+<script src="./event.js"></script>
 <!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
 
 <script>
@@ -48,9 +51,24 @@
                 // console.log(this)
                 // this.$data.formdata.name = '<h1>aaaa</h1>'
                 this.msg = '11111'
+            },
+            eventClick(){
+                this.$emit('click')
+            },
+            eventClear(){
+                this.$off('click')
+                console.log(_ev);
             }
         }
     })
+    function to(){alert('click响应到了')}
+    function to1(){alert('click1响应到了')}
+    function once(){alert('once响应到了')}
+
+    let _ev = new eventBus()
+    _ev.$on('click',to)
+    _ev.$on('click',to1)
+    _ev.$once('gettime',once)
 </script>
 
 </html>

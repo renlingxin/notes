@@ -1036,6 +1036,20 @@ this.$emit('update:title', newValue)
 
 ```
 
+## 十二、事件修饰符
+
+```javascript
+
+  修饰符名称	 作用
+  .stop	    阻止事件进行传递
+  .prevent	阻止事件的默认行为
+  .capture	使该事件最先触发
+  .self	    限制事件是由自身触发才进行处理，即事件冒泡触发该事件无效
+  .once	    规定该事件只会触发一次
+  .passive	会立即触发事件的默认行为，即不会被event.preventDefault()影响
+
+```
+
 ## vu2 源码目录
 
 compiler =》编译相关
@@ -1044,4 +1058,11 @@ instance =》 渲染的辅助函数
 platform =》 平台渲染相关（web weex）
 server =》 服务端渲染相关
 sfc =》 解析器把vue 文件编译成对象
+
+**vue2痛点** 
+
+1. 递归，消耗大
+2. 数组需要额外实现
+3. 增加、删除属性，需要使用额外的API
+4. Map Set Class等数据类型，无法响应式
 

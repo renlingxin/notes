@@ -178,10 +178,10 @@ const change = (val) => {
 
 
 // 自己写的笨方法
-var reorderList = function(head) {
+var reorderList = function (head) {
     const getval = (target) => {
         let arr = []
-        while(target !== null){
+        while (target !== null) {
             arr.push(target.element)
             target = target.next
         }
@@ -191,10 +191,10 @@ var reorderList = function(head) {
     const getarr = (arr) => {
         let newarr = []
         let left = 0
-        let right = arr.length-1
-        while(left<=right && newarr.length<arr.length){
+        let right = arr.length - 1
+        while (left <= right && newarr.length < arr.length) {
             newarr.push(arr[left])
-            if(newarr.length < arr.length){
+            if (newarr.length < arr.length) {
                 newarr.push(arr[right])
             }
             left++
@@ -206,11 +206,11 @@ var reorderList = function(head) {
 
     const change = (target) => {
         let list = null
-        for(let i=target.length-1;i>=0;i--){
+        for (let i = target.length - 1; i >= 0; i--) {
             let other = new Node(target[i])
-            if(!list){
+            if (!list) {
                 list = other
-            }else{
+            } else {
                 other.next = list
                 list = other
             }
@@ -221,34 +221,43 @@ var reorderList = function(head) {
     // return res1
     console.log(res1)
 };
-console.log('aaaa',reorderList(t.head))
+console.log('aaaa', reorderList(t.head))
 
 // 力扣上 大神写的
-var reorderList1 = function(head, s = [], tmp) {
+var reorderList1 = function (head, s = [], tmp) {
     // 这里
-    while (head){
-        tmp = head.next, 
-        head.next = null, 
-        s.push(head)
+    while (head) {
+        tmp = head.next,
+            head.next = null,
+            s.push(head)
         head = tmp
     }
     // 示例
-    [ [1], [2], [3], [4], [5] ]
+    [
+        [1],
+        [2],
+        [3],
+        [4],
+        [5]
+    ]
     // s[0].next = s[1]
     // s[1].next= s[3]
     // console.log(s)
 
     // 这里的 调换 用到了 双指针和耦合引用（就是对象的浅拷贝）
-    var i = -1, j = s.length
-    while (++i < --j){
+    var i = -1,
+        j = s.length
+    while (++i < --j) {
         s[i].next = s[j]
         j !== i + 1 && (s[j].next = s[i + 1])
     }
     // 结果
-    [ [1,5,2,4,3], [2,4,3], [3], [4,3], [5,2,4,3] ]
-    return s[0] 
+    [
+        [1, 5, 2, 4, 3],
+        [2, 4, 3],
+        [3],
+        [4, 3],
+        [5, 2, 4, 3]
+    ]
+    return s[0]
 };
-
-
-
-
