@@ -844,9 +844,9 @@ var moveZeroes = function (nums) {
     for (let i = _index; i < nums.length; i++) {
         nums[i] = 0
     }
-    console.log('jieguo', nums)
 };
-moveZeroes([0, 1, 0, 3, 12])
+console.log('moveZeroes',moveZeroes([0, 1, 0, 3, 12]))
+
 
 var moveZeroes1 = function (nums) {
     let _left = 0 //记录非零处理到的下标处
@@ -866,9 +866,9 @@ var moveZeroes1 = function (nums) {
         }
         _right++
     }
-    console.log('jieguo1', nums)
 };
-moveZeroes1([0, 1, 0, 3, 12])
+console.log('moveZeroes1',moveZeroes1([0, 1, 0, 3, 12]));
+
 
 
 // 射气球 力扣452 
@@ -953,7 +953,39 @@ var fourSumCount = function (A, B, C, D) {
     }
     return _res
 };
-console.log(fourSumCount([1, 2]
-    [-2, -1]
-    [-1, 2]
-    [0, 2]))
+console.log('fourSumCount',fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]))
+
+
+// 在柠檬水摊上，每一杯柠檬水的售价为 5 美元。
+// 顾客排队购买你的产品，（按账单 bills 支付的顺序）一次购买一杯。
+// 每位顾客只买一杯柠檬水，然后向你付 5 美元、10 美元或 20 美元。你必须给每个顾客正确找零，也就是说净交易是每位顾客向你支付 5 美元。
+// 注意，一开始你手头没有任何零钱。
+// 如果你能给每位顾客正确找零，返回 true ，否则返回 false 。
+
+var lemonadeChange = function (bills) {
+    let _len = bills.length
+    let five = 0
+    let ten = 0
+    for (let i = 0; i < _len; i++) {
+        if (bills[i] == 5) {
+            five += 1
+        } else if (bills[i] == 10) {
+            if (five == 0) {
+                return false
+            }
+            five -= 1
+            ten += 1
+        } else {
+            if (ten > 0 && five > 0) {
+                ten -= 1
+                five -= 1
+            } else if (five >= 3) {
+                five -= 3
+            } else {
+                return false
+            }
+        }
+    }
+    return true
+};
+console.log('lemonadeChange', lemonadeChange([5, 5, 5, 10, 20]));

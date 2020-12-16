@@ -402,6 +402,13 @@ git fetch <远程主机名> <分支名> => 取回指定分支内容更新
 1. dependencies 和 devDependencies 
 devDependencies 是一些在开发环境需要用到的
 dependencies 是生产环境需要的
+2. 
+
+- `^`：比如`^1.2.5`，代表版本范围`1.*.*`最新
+- `~`：比如`~1.2.5`，代表版本范围`1.2.*` 最新
+
+- 默认使用前缀`~`：`npm config set save-prefix '~'`
+- 不使用前缀，保存确切版本 ：`npm config set save-exact true`
 
 
 

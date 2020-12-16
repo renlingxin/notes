@@ -1279,6 +1279,79 @@ one()
 
 ```
 
+### 一些不经意的知识点
+
+1. 函数作用域
+
+```javascript
+
+  //1. 函数作用域里声明的变量会在函数执行完成后销毁
+  function test(){
+   var b = 'hi'//这是在函数作用域里的变量提升 提升在当前函数作用域
+  }
+  test()
+  console.log(b)//报错Uncaught ReferenceError: time is not defined
+  
+  //2. 快手面试
+    //第一种情况
+      var x = 10
+      function d(y) {
+          var x = 20;
+          return b(y)
+      }
+      //函数b执行的时候 上一层作用域就是全局 所以取到了10
+      function b(y) {
+          return x + y
+      }
+      console.log(d(20)) //30
+      
+      //第二种情况
+      var x = 10
+      function d(y) {
+          var x = 20;
+          //函数b执行的时候 上一层作用域是d 所以取到了20
+          function b(y) {
+              return x + y
+          }
+          return b(y)
+      }
+      console.log(d(20)) //40
+      //第三种情况
+      var x = 10
+      function d(y) {
+          var x = 20;
+          //这里的x和y会直接在当前的作用域中找
+          return x+y
+      }
+      console.log(d(20)) //40
+    
+```
+2. 箭头函数和settimeout
+
+```javascript
+
+    var name = 'dd'
+
+    function getname() {
+        console.log('xx',this.name); //renlingxin
+        setTimeout(function name(params) {
+            console.log('this', this.name);
+        },100)
+    }
+    function getname1() {
+        setTimeout(() => {
+            console.log('this', this.name);
+        }, 100)
+    }
+    getname.call({
+        name: 'renlingxin'
+    }) // dd
+    getname1.call({
+        name: 'renlingxin'
+    }) //renlingxin
+    
+
+```
 
 
 

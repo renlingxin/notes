@@ -1,3 +1,4 @@
+// import { define } from './utils'
 const compilerUtil = {
     getValue(expr, vm) {
         // console.log(expr.split('.'))
@@ -162,6 +163,7 @@ class myVue {
         this.$el = options.el
         this.$data = options.data()
         this.$options = options
+        this._event = null
         if (this.$el) {
             // 1 实现数据观察者
             new Observer(this.$data)
@@ -172,30 +174,20 @@ class myVue {
         }
         this.init()
     }
-    init(){
-        this.proxyFn()
+    init() {
+        this.proxyEvent()
     }
-    proxyFn(){
+    // 代理事件函数
+    proxyEvent() {
+        this._event = Object.create(null)
         const _ev = new eventBus()
-        ['$emit','$on','$once','$off'].forEach(ele=>{
-            Object.defineProperty(this, ele, {
-                get() {
-                    return _ev[ele]
-                }
-            })  
-        })
+        let _arr = ['$emit', '$on', '$once', '$off']
+        define(_arr,_ev,this)
     }
+    // 代理数据
     proxyData(data) {
         console.log(data)
-        for (const key in data) {
-            Object.defineProperty(this, key, {
-                get() {
-                    return data[key]
-                },
-                set(newVal) {
-                    data[key] = newVal
-                }
-            })
-        }
+        let _key = Object.keys(data)
+        define(_key,data,this)
     }
 }

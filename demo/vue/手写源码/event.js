@@ -70,8 +70,6 @@ class eventBus {
         for (let i = 0, l = _tarEvent.length; i <= l - 1; i++) {
             try {
                 _tarEvent[i].apply(this)
-                // let _fn = _tarEvent[i]
-                // _fn && _fn()
             } catch (err) {
                 console.warn(`触发${value}这个事件没成功`)
             }
