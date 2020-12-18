@@ -16,7 +16,7 @@
 </body>
 <script src="./index.js"></script>
 <script>
-    let _copy = new copyTest()
+    let _copy = new copyTest({ btn:'#copyMy' })
     // _copy.install(this)
 
     function copys() {
@@ -27,7 +27,7 @@
     }
 
     function copyNative() {
-        this.$copyText('反对分身乏术的').then(() => {
+        _copy.$copyText('反对分身乏术的').then(() => {
             console.log('复制成功')
         }).catch(() => {
             console.error('没复制成功')
