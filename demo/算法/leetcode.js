@@ -845,7 +845,7 @@ var moveZeroes = function (nums) {
         nums[i] = 0
     }
 };
-console.log('moveZeroes',moveZeroes([0, 1, 0, 3, 12]))
+console.log('moveZeroes', moveZeroes([0, 1, 0, 3, 12]))
 
 
 var moveZeroes1 = function (nums) {
@@ -867,7 +867,7 @@ var moveZeroes1 = function (nums) {
         _right++
     }
 };
-console.log('moveZeroes1',moveZeroes1([0, 1, 0, 3, 12]));
+console.log('moveZeroes1', moveZeroes1([0, 1, 0, 3, 12]));
 
 
 
@@ -953,7 +953,7 @@ var fourSumCount = function (A, B, C, D) {
     }
     return _res
 };
-console.log('fourSumCount',fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]))
+console.log('fourSumCount', fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]))
 
 
 // 在柠檬水摊上，每一杯柠檬水的售价为 5 美元。
@@ -989,3 +989,185 @@ var lemonadeChange = function (bills) {
     return true
 };
 console.log('lemonadeChange', lemonadeChange([5, 5, 5, 10, 20]));
+
+
+
+// 统计最大组的数目
+// 给你一个整数 n 。请你先求出从 1 到 n 的每个整数 10 进制表示下的数位和（每一位上的数字相加），然后把数位和相等的数字放到同一个组中。
+// 请你统计每个组中的数字数目，并返回数字数目并列最多的组有多少个。
+
+// 示例 1：
+
+// 输入：n = 13
+// 输出：4
+// 解释：总共有 9 个组，将 1 到 13 按数位求和后这些组分别是：
+// [1,10]，[2,11]，[3,12]，[4,13]，[5]，[6]，[7]，[8]，[9]。总共有 4 个组拥有的数字并列最多。
+
+var countLargestGroup = function (n) {
+    let _obj = {}
+    let max = 0
+    let _res = 0
+    let i = 1
+    while (i <= n) {
+        // [...String(33)]   == (i += '').split('')
+        let sum = (i += '').split('').reduce((pre, cru) => {
+            return Number(pre) + Number(cru)
+        })
+        if (_obj[sum]) {
+            _obj[sum] += 1
+        } else {
+            _obj[sum] = 1
+        }
+        if (_obj[sum] >= max) {
+            max = _obj[sum]
+        }
+        i++
+    }
+    Object.keys(_obj).forEach(el => {
+        if (_obj[el] == max) {
+            _res += 1
+        }
+    })
+    console.log(_res)
+    return _res
+};
+console.log('countLargestGroup', countLargestGroup(13));
+
+
+// 746. 使用最小花费爬楼梯
+// 数组的每个索引作为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。
+
+// 每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。
+
+// 您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
+
+// 示例 1:
+
+// 输入: cost = [10, 15, 20]
+// 输出: 15
+// 解释: 最低花费是从cost[1]开始，然后走两步即可到阶梯顶，一共花费15。
+//  示例 2:
+
+// 输入: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+// 输出: 6
+// 解释: 最低花费方式是从cost[0]开始，逐个经过那些1，跳过cost[3]，一共花费6。
+
+
+var minCostClimbingStairs = function(cost) {
+    let l = cost.length
+    // let _arr = new Array(l+1)
+    // _arr[0] = _arr[1] = 0
+    let v = g = 0 //滚筒数组 就是用这两个值存着前一个和前两个值
+    for(let i=2;i<=l;i++){
+        // 动态规划的体现 在走一个台阶和两个台阶之间取最小值
+        next = Math.min(v+cost[i-1] , g+cost[i-2])
+        g= v
+        v= next
+    }
+    return v
+};
+
+
+
+
+// 387. 字符串中的第一个唯一字符
+// 示例：
+
+// s = "leetcode"
+// 返回 0
+
+// s = "loveleetcode"
+// 返回 2
+
+var firstUniqChar = function(s) {
+    let _b = []
+    for(let i=0;i<s.length;i++){
+        if(s.lastIndexOf(s[i]) === i && !_b.includes(s[i])){
+            return i
+        }
+        _b.push(s[i])
+    }
+    return -1
+
+};
+
+// 这个方法看不懂 跑不起来
+var firstUniqChar1 = function(s) {
+    const frequency = _.countBy(s);
+    for (const [i, ch] of Array.from(s).entries()) {
+        if (frequency[ch] === 1) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+console.log('firstUniqChar',firstUniqChar('loveleetcode'))
+// console.log('firstUniqChar1',firstUniqChar1('loveleetcode'))
+let r = ['fdfd','rrr',33]
+console.log('rrrrr',r.entries())
+
+// 3. 无重复字符的最长子串
+// 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+// 示例 1:
+
+// 输入: s = "abcabcbb"
+// 输出: 3 
+// 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+
+var lengthOfLongestSubstring = function(s) {
+    if(s.length == 0){
+        return 0
+    }
+
+    // let _res = ''
+    let _b = 0
+
+    // 1 
+    // for(let i=0;i<s.length;i++){
+    //     let temp = s[i]
+    //     for(let j=i+1;j<s.length;j++){
+    //         if(!temp.includes(s[j])){
+    //             temp += s[j]
+    //         }else{
+    //             break
+    //         }
+    //     }
+    //     _res = Math.max(_res,temp.length)
+    // }
+
+    // 2 使用了while 和官方的方法思路差不多 但是使用set会更快
+    // for(let i=0;i<s.length;i++){
+    //     let temp = s[i]
+    //     _b = i + 1
+    //     while(_b<s.length && temp.indexOf(s[_b]) === -1){
+    //         temp += s[_b]
+    //         _b++
+    //     }
+    //     _res = Math.max(_res,temp.length)
+    // }
+
+    // 3. 官方的题解   滑动窗口
+   // 哈希集合，记录每个字符是否出现过
+    const occ = new Set();
+    const n = s.length;
+    // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
+    let rk = -1, ans = 0;
+    for (let i = 0; i < n; ++i) {
+        if (i != 0) {
+            // 左指针向右移动一格，移除一个字符
+            occ.delete(s.charAt(i - 1));
+        }
+        while (rk + 1 < n && !occ.has(s.charAt(rk + 1))) {
+            // 不断地移动右指针
+            occ.add(s.charAt(rk + 1));
+            ++rk;
+        }
+        console.log(occ)
+        // 第 i 到 rk 个字符是一个极长的无重复字符子串
+        ans = Math.max(ans, rk - i + 1);
+    }
+    return ans;
+};
+console.log('lengthOfLongestSubstring',lengthOfLongestSubstring('abcabcbb'))

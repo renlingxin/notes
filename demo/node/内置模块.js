@@ -27,6 +27,7 @@ var server = http.createServer(function (request, response) {
     // fs.rendFileSync  同步读取指定文件夹中的内容（同步读取：文件中的内容读取不完不执行下面的操作）
     if (pathname === '/1.html') {
         var con = fs.readFileSync('./1.html', 'utf-8');
+        console.log('con',con)
         // response.write  向客户端返回内容
         // response.end()   告诉服务器响应结束  一定加
         response.write(con);

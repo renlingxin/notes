@@ -91,3 +91,105 @@ eggjs(阿里出品基于koa)
 koa
 express
 nestjs(angular风格)
+
+### npm 发布版本
+
+文章链接：
+https://blog.csdn.net/znyaiw/article/details/80199457
+https://blog.csdn.net/weixin_40817115/article/details/90384398
+
+版本号格式：主版本号.次版本号.修订号
+版本号递增规则：
+- 主版本号：做了不兼容修改或颠覆式的重写
+- 次版本号：向下兼容的功能性新增
+- 修订号：向下兼容的问题修正
+
+
+```javascript
+
+  //管理版本号常用命令
+  major: 主版本号
+  premajor: 预备主版本
+  minor: 次版本号
+  preminor: 预备次版本
+  patch: 修订号
+  prepatch: 预备修订版
+  prerelease: 预发布版本
+  
+```
+
+1. npm version prerelease
+
+```javascript
+
+npm version prerelease
+package.json 中的版本号1.0.0变为 1.0.1-0
+再次执行 npm version prerelease
+package.json 中的版本号1.0.1-0变为 1.0.1-1
+
+```
+
+> 5,6操作说明 当执行npm version prerelease时，如果没有预发布号，则增加minor，同时prerelease 设为0；如果有prerelease， 则prerelease 增加1。
+
+
+2. npm version prepatch
+
+```javascript
+
+  npm version prepatch
+  package.json 中的版本号1.0.1-1变为 1.0.2-0
+
+```
+
+> prepatch - 直接升级小号，增加预发布号为0。
+> 
+
+3. npm version preminor
+
+```javascript
+
+  npm version preminor
+  package.json 中的版本号1.0.2-0变为 1.1.0-0
+
+```
+
+> preminor - 直接升级中号，小号置为0，增加预发布号为0。
+
+4. npm version premajor
+
+```javascript
+
+  npm version premajor
+  package.json 中的版本号1.1.0-0变为 2.0.0-0
+
+```
+> premajor - 直接升级大号，中号、小号置为0，增加预发布号为0。
+
+5. npm version patch
+
+```javascript
+  npm version patch
+  package.json 中的版本号2.0.0-0变为 2.0.0;
+
+  再次执行npm version patch
+  package.json 中的版本号2.0.0变为 2.0.1;
+```
+
+> patch：如果有prerelease ，则去掉prerelease ，其他保持不变；
+如果没有prerelease ，则升级minor.
+
+6. npm version minor
+
+```javascript
+  npm version minor
+  package.json 中的版本号2.0.1变为 2.1.0;
+```
+>如果没有prerelease，直接升级minor， 同时patch设置为0；
+
+
+
+
+
+
+
+

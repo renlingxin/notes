@@ -29,6 +29,30 @@ let newObj = {...objs};
 let timeList = [12,5,34,4,{name:'admin'}];
 let news = JSON.parse(JSON.stringify(timeList));
 ```
+** 缺点
+
+1. undefined
+
+```javascript
+let s = {r:undefined}
+//undefined
+JSON.parse(JSON.stringify(s))
+//{}
+
+```
+
+2. 函数
+
+```javascript
+
+let t = {u:function(){}}
+//undefined
+//t
+//{u: ƒ}
+JSON.parse(JSON.stringify(t))
+//{}
+
+```
 
 ##### 递归方法
 
@@ -1278,6 +1302,26 @@ one()
 one()
 
 ```
+### web worker
+
+概念：为js创建多线程的运行环境，可以把一部分任务移交给web worker来执行
+
+阮一峰的笔记：http://www.ruanyifeng.com/blog/2018/07/web-worker.html
+
+**Web Worker 有以下几个使用注意点。**
+
+1. 同源限制
+分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源。
+2. DOM 限制
+Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用document、window、parent这些对象。但是，Worker 线程可以navigator对象和location对象。
+3. 通信联系
+Worker 线程和主线程不在同一个上下文环境，它们不能直接通信，必须通过消息完成。
+4. 脚本限制
+Worker 线程不能执行alert()方法和confirm()方法，但可以使用 XMLHttpRequest 对象发出 AJAX 请求。
+5. 文件限制
+Worker 线程无法读取本地文件，即不能打开本机的文件系统（file://），它所加载的脚本，必须来自网络
+
+
 
 ### 一些不经意的知识点
 
@@ -1354,12 +1398,125 @@ one()
 ```
 
 
+3. 小众思考题
 
+```javascript
 
+var a=?;
+if(a==1&&a==2&&a==3){
+     console.log('小样儿！');
+}
+ 
+ 问：当a等于什么的时候，if条件成立，并打印？
 
+//正确答案1：
 
+var a = {
+  num:1,
+  toString: function(){
+    return a.num++
+  }
+}
 
+//原理
 
+不同类型的值进行比较，JS会根据类型转换规则将它们转为同一个类型比较。比如上面Object 类型与 Number 类型进行比较，Object 类型会转换为 Number 类型。转换为时会尝试调用 Object.valueOf 和 Object.toString 来获取对应的数字基本类型。
+
+//正确答案2：
+var a=[1,2,3,4];
+a.join=a.shift;
+ if(a==1&&a==2&&a==3){
+     console.log("恭喜答对啦！");
+ }else{
+     console.log("还是错了小子！");
+ }
+//原理
+
+数组调用tostring方法的时候会间接调用join方法
+
+```
+
+4. 函数作用域 
+
+```javascript
+
+var x =1
+function t(a,b=function(){x=2}){
+    var x = 3
+    b()
+    console.log('t',x)//3
+}
+t()
+console.log('global',x)//2
+
+```
+
+5. 宏任务和微任务都有哪些
+
+**宏任务**
+* setTimeout
+* setInterval
+* setImmediate
+
+不是标准的一个方法，并且只有IE浏览器支持它。该方法用来把一些需要长时间运行的操作放在一个回调函数里，在浏览器完成后面的其他语句后，就立刻执行这个回调函数。（和setTimeout的时机略有不同）
+
+* MessageChannel
+
+创建一个通道 
+
+```html
+
+<body>
+    <button id="part1">点我给2发送信息</button><button id="part2">点我给1发送信息</button>
+</body>
+<script>
+    //创建MessageChannel实例  返回一个带有两个MessagePort属性的MessageChannel新对象。
+    let channel = new MessageChannel()
+    //两个端口通道
+    let port1 = channel.port1
+    let port2 = channel.port2
+    //onmessage 接受消息
+    port1.onmessage = function (e) {
+        console.log('port1：', e.data)
+    }
+    port2.onmessage = function (e) {
+        console.log('port2：', e.data)
+    }
+
+    let _part1 = document.getElementById('part1')
+    _part1.addEventListener('click', () => {
+        //postMessage发送消息
+        port1.postMessage('我是你爸爸')
+    }, false)
+
+    let _part2 = document.getElementById('part2')
+    _part2.addEventListener('click', () => {
+        port2.postMessage('我是你儿子')
+    }, false)
+</script>
+
+</html>
+
+```
+
+* requestAnimationFrame
+* 链接 => https://www.jianshu.com/p/fa5512dfb4f5
+
+```javascript
+
+// 1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+// 2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
+
+```
+
+* I/O
+* UI交互事件
+
+**微任务**
+* Promise.then
+* MutationObserver
+* Object.observe
+* process.nextTick
 
 
 

@@ -9,20 +9,20 @@ const path = require('path');   //path 在node.exe里面
 // 3段路径来自不同的用户的输入  拼接并修正路径：path.join(__dirname,'a','b'),以当前目录+/a/b;
 
 const myPath =path.join(__dirname,'/one','/two','/three');
-console.log(myPath);
+console.log('myPath',myPath);
 
 // 根据相对路径  返回绝对路径   对程序说  ./xxx.js非要一个绝对路径
 const str ='./abc/efg.js';
 let temp =path.resolve(str);
-console.log(temp);
+console.log('temp',temp);
 // 接收一个合法路径，转换成一个对象   path.parse() 方法返回一个对象
  let pathObj = path.parse(myPath)
- console.log(pathObj);
+ console.log('pathObj',pathObj);
  pathObj.base = 'three.txt';
- console.log(pathObj);
+ console.log('pathObj',pathObj);
 // 接收路径对象，转换成一个字符串路径
 let pathObj1 = path.format(pathObj)
- console.log(pathObj1);
+ console.log('pathObj1',pathObj1);
 
 
 

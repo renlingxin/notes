@@ -1,9 +1,11 @@
-// process => 进程 对象是一个全局变量，它提供有关当前 Node.js 进程的信息并对其进行控制。 作为一个全局变量，它始终可供 Node.js 应用程序使用，无需使用 require()。
+// process => 进程 对象是一个全局变量，它提供有关当前 Node.js 进程的信息并对其进行控制。 作为一个全局变量，
+// 它始终可供 Node.js 应用程序使用，无需使用 require()。
 console.log(process.env);//process.env  环境变量
 
 
 let stu = process.env.MYTEXT;
-if (stu === 'renlingxin'){
+let _user = process.env.USER;
+if (stu === 'renlingxin' || _user === 'renlingxin'){
     console.log('有这个环境变量，是本人没错了')
 }else{
     console.log('不是本人')

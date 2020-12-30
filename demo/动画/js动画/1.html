@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        #e {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+            zoom: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="e"></div>
+    <script>
+        let e = document.getElementById("e");
+        let flag = true;
+        let left = 0;
+        let ani = null
+
+        function render() {
+            if (flag == true) {
+                if (left >= 100) {
+                    flag = false
+                }
+                e.style.left = ` ${left++}px`
+            } else {
+                if (left <= 0) {
+                    flag = true
+                }
+                e.style.left = ` ${left--}px`
+            }
+        }
+        // 定时器控制的动画 对CPU和内存的占用大
+        // setInterval(function () {
+        //     render()
+        // }, 1000 / 60)
+
+        // 这个就相当于递归操作 再
+        // 1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+        // 2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
+        // (function animloop(time) {
+        //     console.log('time', time);
+        //     render()
+        //     ani = window.requestAnimationFrame(animloop);
+        //     // 到了50px这个位置就把他清除了
+        //     if(left === 50){
+        //         cancelAnimationFrame(ani)
+        //     }
+        // })();
+
+
+        // 改变执行的频率
+        let diff = 40
+        let last = Date.now();
+        (function animloop() {
+            let now = Date.now()
+            if(now - last > diff){
+                last = now
+                render()
+            }
+            window.requestAnimationFrame(animloop);
+        })();
+    </script>
+</body>
+
+</html>

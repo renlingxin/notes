@@ -1,6 +1,6 @@
 var url = require('url');
 var str = 'http://192.168.43.1:80/index.html?name=renlingxin&age=7';
-console.log(url.parse(str));//parse 解析 URL 字符串并返回 URL 对象
+console.log(url.parse(str)); //parse 解析 URL 字符串并返回 URL 对象
 
 //   protocol: 'http:',    =>传递协议
 //   slashes: true,
@@ -14,8 +14,8 @@ console.log(url.parse(str));//parse 解析 URL 字符串并返回 URL 对象
 //   pathname: '/index.html',           =>请求文件的路径及名称
 //   path: '/index.html?name=renlingxin&age=7', =>路径名称+传递过来的数据
 //   href: 'http://192.168.43.1:80/index.html?name=renlingxin&age=7' }
-console.log(url.parse(str, true));//增加true后，query是对象，内容已键值对的方式存储
+console.log(url.parse(str, true)); //增加true后，query是对象，内容已键值对的方式存储
 var url = url.parse(str, true),
     pathname = url.pathname,
     query = url.query;
-    console.log(query);
+console.log(query);
