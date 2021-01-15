@@ -1053,16 +1053,16 @@ console.log('countLargestGroup', countLargestGroup(13));
 // 解释: 最低花费方式是从cost[0]开始，逐个经过那些1，跳过cost[3]，一共花费6。
 
 
-var minCostClimbingStairs = function(cost) {
+var minCostClimbingStairs = function (cost) {
     let l = cost.length
     // let _arr = new Array(l+1)
     // _arr[0] = _arr[1] = 0
     let v = g = 0 //滚筒数组 就是用这两个值存着前一个和前两个值
-    for(let i=2;i<=l;i++){
+    for (let i = 2; i <= l; i++) {
         // 动态规划的体现 在走一个台阶和两个台阶之间取最小值
-        next = Math.min(v+cost[i-1] , g+cost[i-2])
-        g= v
-        v= next
+        next = Math.min(v + cost[i - 1], g + cost[i - 2])
+        g = v
+        v = next
     }
     return v
 };
@@ -1079,10 +1079,10 @@ var minCostClimbingStairs = function(cost) {
 // s = "loveleetcode"
 // 返回 2
 
-var firstUniqChar = function(s) {
+var firstUniqChar = function (s) {
     let _b = []
-    for(let i=0;i<s.length;i++){
-        if(s.lastIndexOf(s[i]) === i && !_b.includes(s[i])){
+    for (let i = 0; i < s.length; i++) {
+        if (s.lastIndexOf(s[i]) === i && !_b.includes(s[i])) {
             return i
         }
         _b.push(s[i])
@@ -1092,7 +1092,7 @@ var firstUniqChar = function(s) {
 };
 
 // 这个方法看不懂 跑不起来
-var firstUniqChar1 = function(s) {
+var firstUniqChar1 = function (s) {
     const frequency = _.countBy(s);
     for (const [i, ch] of Array.from(s).entries()) {
         if (frequency[ch] === 1) {
@@ -1102,10 +1102,10 @@ var firstUniqChar1 = function(s) {
     return -1;
 }
 
-console.log('firstUniqChar',firstUniqChar('loveleetcode'))
+console.log('firstUniqChar', firstUniqChar('loveleetcode'))
 // console.log('firstUniqChar1',firstUniqChar1('loveleetcode'))
-let r = ['fdfd','rrr',33]
-console.log('rrrrr',r.entries())
+let r = ['fdfd', 'rrr', 33]
+console.log('rrrrr', r.entries())
 
 // 3. 无重复字符的最长子串
 // 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -1116,8 +1116,8 @@ console.log('rrrrr',r.entries())
 // 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
 
 
-var lengthOfLongestSubstring = function(s) {
-    if(s.length == 0){
+var lengthOfLongestSubstring = function (s) {
+    if (s.length == 0) {
         return 0
     }
 
@@ -1149,11 +1149,12 @@ var lengthOfLongestSubstring = function(s) {
     // }
 
     // 3. 官方的题解   滑动窗口
-   // 哈希集合，记录每个字符是否出现过
+    // 哈希集合，记录每个字符是否出现过
     const occ = new Set();
     const n = s.length;
     // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
-    let rk = -1, ans = 0;
+    let rk = -1,
+        ans = 0;
     for (let i = 0; i < n; ++i) {
         if (i != 0) {
             // 左指针向右移动一格，移除一个字符
@@ -1170,4 +1171,83 @@ var lengthOfLongestSubstring = function(s) {
     }
     return ans;
 };
-console.log('lengthOfLongestSubstring',lengthOfLongestSubstring('abcabcbb'))
+console.log('lengthOfLongestSubstring', lengthOfLongestSubstring('abcabcbb'))
+
+
+// 斐波那契数列
+
+// 1. 这个方法时间复杂度和空间复杂度都要快一些   有的人叫它动态规划
+var fib = function (n) {
+    let _res = [0, 1]
+    if (n < 2) {
+        return _res[n]
+    }
+    for (let i = 2; i <= n; ++i) {
+        _res.push(_res[i - 1] + _res[i - 2])
+    }
+    return _res[n]
+};
+
+// 1.2 官方的这个写法比较秀 用到了类似于滚动数组的意思
+var fib = function(n) {
+    if (n < 2) {
+        return n;
+    }
+    let p = 0, q = 0, r = 1;
+    for (let i = 2; i <= n; i++) {
+        p = q;
+        q = r;
+        r = p + q;
+    }
+    return r;
+};
+// 2. 递归
+var fib1 = function (n) {
+    if (n < 2) {
+        return n
+    } else {
+        return fib(n - 1) + fib(n - 2)
+    }
+};
+
+// 830. 较大分组的位置
+// 在一个由小写字母构成的字符串 s 中，包含由一些连续的相同字符所构成的分组。
+// 例如，在字符串 s = "abbxxxxzyy" 中，就含有 "a", "bb", "xxxx", "z" 和 "yy" 这样的一些分组。
+// 分组可以用区间 [start, end] 表示，其中 start 和 end 分别表示该分组的起始和终止位置的下标。上例中的 "xxxx" 分组用区间表示为 [3,6] 。
+// 我们称所有包含大于或等于三个连续字符的分组为 较大分组 。
+// 找到每一个 较大分组 的区间，按起始位置下标递增顺序排序后，返回结果。
+
+var largeGroupPositions = function(s) {
+    let _res = []
+    for(let i=0;i<s.length;++i){
+        let _right = i
+        let j = i + 1
+        while(j<s.length && s[j] == s[i]){
+            _right++
+            j++
+        }
+        if((_right - i) >= 2){
+            _res.push([i,_right])
+            i = _right
+        }
+    }
+    return _res
+};
+
+// 官方的 时间复杂度：O(n)   空间复杂度：O(1) 但是上面的方法执行起来比官方的要快 内存上稍有劣势
+var largeGroupPositions1 = function(s) {
+    const ret = [];
+    const n = s.length;
+    let num = 1;
+    for (let i = 0; i < n; i++) {
+        if (i === n - 1 || s[i] !== s[i + 1]) {
+            if (num >= 3) {
+                ret.push([i - num + 1, i]);
+            }
+            num = 1;
+        } else {
+            num++;
+        }
+    }
+    return ret;
+};

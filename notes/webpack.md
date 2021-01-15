@@ -227,6 +227,8 @@ git diff 分支名  xxx   查看当前分支与某分支不同的xxx文件详情
 
 git diff 分支名 --stat   查看当前分支与某分支不同的文件
 
+git diff master  =>  查看当前分支与master分支的不同 
+
 git branch -a   查看远程分支+本地分支
 
 git branch   查看本地分支
@@ -237,7 +239,9 @@ git checkout 分支名
 
 git checkout -b 分支名
 
-git stash    暂时将未提交的变化移除  稍后再移入
+git stash    暂时将未提交的变化存储到堆栈中  稍后再移入
+
+git stash save <message> => 添加备注信息的暂存
 
 git stash list   查看移除的内容列表
 
@@ -292,6 +296,8 @@ git fetch origin master 下载远程分支master上的最新修改
 git pull  等价于 git fetch 和 git merge   拉取线上分支最新内容，并且自动合并
 
 git merge 分支名 => 合并： 将一个分支的修改应用到当前分支
+
+git merge --abort => 合并的时候遇见冲突 返回合并前的状态
 
 git rebase  => 变基: 将当前分支的提交复制到指定的分支之上。(融入)
 

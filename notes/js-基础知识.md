@@ -8,7 +8,10 @@
 
 
 
-
+### 元编程
+概念 => 对编程语言进行编程
+背景 => es6之前没有提供太多的元编程能力
+实例 => proxy
 
 
 ### 数组 对象深拷贝
@@ -1500,10 +1503,18 @@ console.log('global',x)//2
 ```
 
 * requestAnimationFrame
-* 链接 => https://www.jianshu.com/p/fa5512dfb4f5
+
+
+1. 概念 => 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+
+2. 链接 => https://www.jianshu.com/p/fa5512dfb4f5
+https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
+
+3. 传入的回调函数会接收到一个参数 这个参数 是一个十进制数 单位是毫秒 它的意义是当前被 requestAnimationFrame() 排序的回调函数被触发的时间。
 
 ```javascript
 
+相较于JS动画的优点
 // 1、requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
 // 2、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
 
@@ -1515,14 +1526,142 @@ console.log('global',x)//2
 **微任务**
 * Promise.then
 * MutationObserver
-* Object.observe
-* process.nextTick
+概念 =>监听DOM变化的，定义在DOM4中，对应的是DOM3中的  Mutation events 
+资料 => https://developer.mozilla.org/zh-cn/docs/web/api/mutationobserver
+      https://www.jianshu.com/p/b5c9e4c7b1e1
+
+```html
+<html>
+
+<body>
+    <div id="target">4343434</div>
+    <button id="btn">点我试试</button>
+</body>
+<script>
+    let _target = document.getElementById('target')
+
+    // childLIst 观察目标节点的子节点的新增和删除。
+    // attributes 观察目标节点的属性节点(新增或删除了某个属性,以及某个属性的属性值发生了变化)。
+    // characterData 如果目标节点为characterData节点(一种抽象接口,具体可以为文本节点,注释节点,以及处理指令节点)时,也要观察该节点的文本内容是否发生变化
+    // subtree 观察目标节点的所有后代节点(观察目标节点所包含的整棵DOM树上的上述三种节点变化)
+    // attributeOldValue 在attributes属性已经设为true的前提下, 将发生变化的属性节点之前的属性值记录下来(记录到下面MutationRecord对象的oldValue属性中)
+    // characterDataOldValue 在characterData属性已经设为true的前提下,将发生变化characterData节点之前的文本内容记录下来(记录到下面MutationRecord对象的oldValue属性中)
+    // attributeFilter 一个属性名数组(不需要指定命名空间),只有该数组中包含的属性名发生变化时才会被观察到,其他名称的属性发生变化后会被忽略想要设置那些删选参数的话，
+    
+    const config = {
+        attributes: true,
+        childList: true,
+        subtree: true
+    }
+
+
+    const callback = function (mutationsList, observer) {
+        // mutationsList 监听的类型 observer 实例化的观察器
+        console.log('mutationsList', mutationsList)
+        for (let item of mutationsList) {
+            if (item.type === 'childList') {
+                console.log('childList')
+            } else if (item.type === 'attributes') {
+                console.log('attributes');
+            }
+        }
+    }
+    // 创建一个观察器实例并传入回调函数
+    const observer = new MutationObserver(callback);
+    // 观察器的方法1 ---- 初始化观察器 传入目标DOM和监听类型
+    observer.observe(_target, config);
+
+    // 观察器的方法2 ---- 取消监听
+    // observer.disconnect()
 
 
 
+    function _c() {
+        _target.innerHTML = '更改了'
+    }
+    document.getElementById('btn').addEventListener('click', _c, false)
+</script>
+
+</html>
 
 
 
+```
+
+* Object.observe  废弃了 监听对象的变化 --- 异步的   
+* process.nextTick 
+
+概念 => 方法将 callback 添加到下一个时间点的队列 ；node 里面提供的 它的执行时间在下一轮异步任务的最前面 也就是早于settimeout setinterval  setImmediate
+
+6. weakmap weakset
+
+MDN: https://developer.mozilla.org/zhcn/docs/web/javascript/reference/global_objects/weakset
+https://developer.mozilla.org/zhCN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap
+
+1. weakmap
+提供的方法：
+set   get  has  delete 
+```javascript
+    // WeakMap  => 跟map差不多 但是他这个里面的键值都是弱引用的 也就是不用就销毁了
+    // 官方的说法 很真实 =>    在 JavaScript 里，map API 可以通过使其四个 API 方法共用两个数组(一个存放键,一个存放值)来实现。给这种 map 设置值时会同时将键和值添加到这两个数组的末尾。从而使得键和值的索引在两个数组中相对应。当从该 map 取值的时候，需要遍历所有的键，然后使用索引从存储值的数组中检索出相应的值。
+    // 但这样的实现会有两个很大的缺点，首先赋值和搜索操作都是 O(n) 的时间复杂度( n 是键值对的个数)，因为这两个操作都需要遍历全部整个数组来进行匹配。另外一个缺点是可能会导致内存泄漏，因为数组会一直引用着每个键和值。这种引用使得垃圾回收算法不能回收处理他们，即使没有其他任何引用存在了。
+    let t = new WeakMap()
+
+    function handler() {
+        alert('被点了')
+    }
+    let _weakmap = document.getElementById('weakmap')
+    t.set(_weakmap, handler)
+    t.has(_weakmap)
+    // t.delete(_weakmap)
+    _weakmap.addEventListener('click', t.get(_weakmap), false)
+
+```
+
+2. weakset
+
+```javascript
+
+    // WeakSet => 只有三个方法 add has delete 这个里面只能是存对象 Set里面是能存任意类型的 同样的它的引用也是一种弱引用
+    //  如果没有其他的对WeakSet中对象的引用，那么这些对象会被当成垃圾回收掉
+    let d = new WeakSet()
+    let o = {}
+    d.add(o)
+    d.add(o)
+    console.log(d);
+
+```
+
+```javascript
+    // MDN的官方实例  递归中 避免重复处理相同的内容
+    // 对 传入的subject对象 内部存储的所有内容执行回调
+    function execRecursively(fn, subject, _refs = null) {
+        if (!_refs)
+            _refs = new WeakSet();
+
+        // 避免无限递归
+        if (_refs.has(subject))
+            return;
+
+        fn(subject);
+        if ("object" === typeof subject) {
+            _refs.add(subject);
+            for (let key in subject)
+                execRecursively(fn, subject[key], _refs);
+        }
+    }
+
+    const foo = {
+        foo: "Foo",
+        bar: {
+            bar: "Bar"
+        }
+    };
+
+    foo.bar.baz = foo; // 循环引用!
+    execRecursively(obj => console.log(obj), foo);
+
+```
 
 
 

@@ -199,28 +199,33 @@ export class App2 extends Component {
         console.log('1:constructor钩子函数')
         super();
     }
+  //过时了 马上就要被废弃了
     componentWillMount(){
         // 一般用的比较少，它更多的是在服务端渲染时使用。它代表的过程是组件已经经历了constructor()初始化数据后，但是还未渲染DOM时。
         console.log('2:componentWillMount钩子函数');
     }
     componentDidMount(){
-        // dom、数据已经装载，一般在这请求接口
+        // dom、数据已经装载，一般在这请求接口   ---   会在组件挂载后（插入 DOM 树中）立即调用
         console.log('4:componentDidMount钩子函数');
     }
     componentWillUnmount(){
-        // 组件销毁
+        // 组件销毁  会在组件卸载及销毁之前直接调用
     }
     componentWillReceiveProps(nextProps){
     // 在接受父组件改变后的props需要重新渲染组件时用到的比较多
     }
     shouldComponentUpdate(nextProps,nextState){
-    // 用于控制组件渲染的声明周期   setState 后组件重新渲染 在这里return false 可以组织更新
+    // 用于控制组件渲染的声明周期   setState 后组件重新渲染 在这里return false 可以阻止更新也就是componentDidUpdate不会再运行
     }
     componentWillUpdate(nextProps,nextState){
         // shouldComponentUpdate 为true 后 进到这里
         console.log('componentwillupdate数据将要更改  钩子函数')
     }
     componentDidUpdate(prevProps,prevState){
+        //1. 会在更新后会被立即调用 2. 可以在这里直接调用setState 但是必须包含到条件语句中
+         if(this.props.xxx !== prevProps.xxx){
+           //做一些你想做的事情
+         }
         //组件渲染第一次会进到componentDidMount 之后的更新会进入到这里 prevProps prevState更新之前的数据
         console.log('componentDidUpdate数据已经更改 钩子函数')
     }

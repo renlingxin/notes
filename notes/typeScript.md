@@ -1,5 +1,8 @@
 ### TypeScript
 
+### 资料
+掘金 => https://juejin.cn/post/6914442673155735560
+
 * 强类型的引入能让我们在写代码的时候从值优先的思维转变成类型优先；
 * 强类型的引入能帮助开发工具（IDE 等）更好地为开发者提供便利性能力，如智能补全、类型检测、编译时检查等等；
 * TypeScript 可以让 JavaScript 更好地与其他语言进行交互，甚至转换为其他语言；
@@ -132,6 +135,9 @@
     let boo1:Boolean = true
     
 ```
+12. Unknown 
+Unknown 类型和any一样也是顶层类型，它可以接收任何类型，但它与 Any 的区别在于，它首次赋值后就确定了数据类型，不允许变量的数据类型进行二次变更。所以，在需要接收所有类型的场景下，优先考虑用 Unknown 代替 Any
+
 ### 类型断言  => 告诉 ts ‘这个类型我知道你别管’
 
 ```javascript
@@ -226,8 +232,32 @@ declare var __COMMIT__: string
 
 ```
 
+### 类型保护 就是在报错前处理了它 
+1. typeof
+2. in 
+3. instanceof 实例判断
+4. ts 语法 xxx is type 
+```typescript
 
+interface _params {
+	data: string;
+}
+// 检测 request 对象包含参数符合要求的情况下，才返回 url
+function validReqParams(p: unknown): p is _params {
+	return p && p.data
+}
 
+```
+
+###  修饰符
+
+修饰符 public、 private 和 protected和区别
+
+TypeScript 可以使用三种访问修饰符（Access Modifiers），分别是 public、private 和 protected。
+
+public 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 public 的
+private 修饰的属性或方法是私有的，不能在声明它的类的外部访问
+protected 修饰的属性或方法是受保护的，它和 private 类似，区别是它在子类中也是允许被访问的
 
 
 

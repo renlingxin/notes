@@ -133,3 +133,10 @@ console.log(User.#instances,u.#instances)
 
 //   new User('Sansa Stark'); // throws Error
 
+
+class t {
+  // constructor(){
+
+  // }
+  // private name:String;
+}
