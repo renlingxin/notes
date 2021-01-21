@@ -1251,3 +1251,61 @@ var largeGroupPositions1 = function(s) {
     }
     return ret;
 };
+
+
+// 628. 三个数的最大乘积
+// 给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+
+// 示例 1:
+
+// 输入: [ 4, 3, 2, -1, -98, -100 ]
+// 输出: 39200
+
+var maximumProduct = function(nums) {
+    nums.sort((a,b)=>{return b-a})
+    let _res = nums[nums.length-1] * nums[nums.length-2] * nums[0]
+    let _res1 = nums[0] * nums[1] * nums[2]
+    if( _res > _res1){
+        return _res
+    }
+    return _res1
+};
+// 时间复杂度：O(N\log N)O(NlogN)，其中 NN 为数组长度。排序需要 O(N\log N)O(NlogN) 的时间。
+
+// 空间复杂度：O(\log N)O(logN)，主要为排序的空间开销。
+
+
+// 官方的题解二  整体思路和上面的一样   名字叫线性扫描  时间复杂度和空间复杂度都好
+var maximumProduct1 = function(nums) {
+    // 最小的和第二小的
+        let min1 = Number.MAX_SAFE_INTEGER, min2 = Number.MAX_SAFE_INTEGER;
+        // 最大的、第二大的和第三大的
+        let max1 = -Number.MAX_SAFE_INTEGER, max2 = -Number.MAX_SAFE_INTEGER, max3 = -Number.MAX_SAFE_INTEGER;
+    
+        for (const x of nums) {
+            if (x < min1) {
+                min2 = min1;
+                min1 = x;
+            } else if (x < min2) {
+                min2 = x;
+            }
+    
+            if (x > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = x;
+            } else if (x > max2) {
+                max3 = max2;
+                max2 = x;
+            } else if (x > max3) {
+                max3 = x;
+            }
+        }
+    
+        return Math.max(min1 * min2 * max1, max1 * max2 * max3);
+    };
+
+// 时间复杂度：O(N)O(N)，其中 NN 为数组长度。我们仅需遍历数组一次。
+
+// 空间复杂度：O(1)O(1)。
+
