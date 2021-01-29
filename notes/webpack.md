@@ -1,4 +1,4 @@
-## webpack
+##                webpack
 
 ### 资料
 
@@ -235,7 +235,7 @@ git branch   查看本地分支
 
 git branch -d     删除分支
 
-git checkout 分支名
+git checkout 分支名 
 
 git checkout -b 分支名
 

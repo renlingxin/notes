@@ -112,3 +112,5 @@ cc.Node.EventType.TOUCH_CANCEL // 按下取消事件
 
 
 
+
+

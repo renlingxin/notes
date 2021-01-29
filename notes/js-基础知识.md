@@ -1618,6 +1618,24 @@ set   get  has  delete
 
 ```
 
+
+```javascript
+
+//weakmap 的
+let e = new WeakMap()
+e.set({},'111')
+console.log(e) //是空的  代码执行完就没了 因为空对象没有被任何别的地方引用
+
+let f = {
+    d: {}
+}
+e.set(f.d,'111') //这个就有了 因为d对象被f对象内部引用了 销毁不了
+
+
+
+
+```
+
 2. weakset
 
 ```javascript

@@ -1189,11 +1189,13 @@ var fib = function (n) {
 };
 
 // 1.2 官方的这个写法比较秀 用到了类似于滚动数组的意思
-var fib = function(n) {
+var fib = function (n) {
     if (n < 2) {
         return n;
     }
-    let p = 0, q = 0, r = 1;
+    let p = 0,
+        q = 0,
+        r = 1;
     for (let i = 2; i <= n; i++) {
         p = q;
         q = r;
@@ -1217,17 +1219,17 @@ var fib1 = function (n) {
 // 我们称所有包含大于或等于三个连续字符的分组为 较大分组 。
 // 找到每一个 较大分组 的区间，按起始位置下标递增顺序排序后，返回结果。
 
-var largeGroupPositions = function(s) {
+var largeGroupPositions = function (s) {
     let _res = []
-    for(let i=0;i<s.length;++i){
+    for (let i = 0; i < s.length; ++i) {
         let _right = i
         let j = i + 1
-        while(j<s.length && s[j] == s[i]){
+        while (j < s.length && s[j] == s[i]) {
             _right++
             j++
         }
-        if((_right - i) >= 2){
-            _res.push([i,_right])
+        if ((_right - i) >= 2) {
+            _res.push([i, _right])
             i = _right
         }
     }
@@ -1235,7 +1237,7 @@ var largeGroupPositions = function(s) {
 };
 
 // 官方的 时间复杂度：O(n)   空间复杂度：O(1) 但是上面的方法执行起来比官方的要快 内存上稍有劣势
-var largeGroupPositions1 = function(s) {
+var largeGroupPositions1 = function (s) {
     const ret = [];
     const n = s.length;
     let num = 1;
@@ -1261,11 +1263,13 @@ var largeGroupPositions1 = function(s) {
 // 输入: [ 4, 3, 2, -1, -98, -100 ]
 // 输出: 39200
 
-var maximumProduct = function(nums) {
-    nums.sort((a,b)=>{return b-a})
-    let _res = nums[nums.length-1] * nums[nums.length-2] * nums[0]
+var maximumProduct = function (nums) {
+    nums.sort((a, b) => {
+        return b - a
+    })
+    let _res = nums[nums.length - 1] * nums[nums.length - 2] * nums[0]
     let _res1 = nums[0] * nums[1] * nums[2]
-    if( _res > _res1){
+    if (_res > _res1) {
         return _res
     }
     return _res1
@@ -1276,36 +1280,233 @@ var maximumProduct = function(nums) {
 
 
 // 官方的题解二  整体思路和上面的一样   名字叫线性扫描  时间复杂度和空间复杂度都好
-var maximumProduct1 = function(nums) {
+var maximumProduct1 = function (nums) {
     // 最小的和第二小的
-        let min1 = Number.MAX_SAFE_INTEGER, min2 = Number.MAX_SAFE_INTEGER;
-        // 最大的、第二大的和第三大的
-        let max1 = -Number.MAX_SAFE_INTEGER, max2 = -Number.MAX_SAFE_INTEGER, max3 = -Number.MAX_SAFE_INTEGER;
-    
-        for (const x of nums) {
-            if (x < min1) {
-                min2 = min1;
-                min1 = x;
-            } else if (x < min2) {
-                min2 = x;
-            }
-    
-            if (x > max1) {
-                max3 = max2;
-                max2 = max1;
-                max1 = x;
-            } else if (x > max2) {
-                max3 = max2;
-                max2 = x;
-            } else if (x > max3) {
-                max3 = x;
-            }
+    let min1 = Number.MAX_SAFE_INTEGER,
+        min2 = Number.MAX_SAFE_INTEGER;
+    // 最大的、第二大的和第三大的
+    let max1 = -Number.MAX_SAFE_INTEGER,
+        max2 = -Number.MAX_SAFE_INTEGER,
+        max3 = -Number.MAX_SAFE_INTEGER;
+
+    for (const x of nums) {
+        if (x < min1) {
+            min2 = min1;
+            min1 = x;
+        } else if (x < min2) {
+            min2 = x;
         }
-    
-        return Math.max(min1 * min2 * max1, max1 * max2 * max3);
-    };
+
+        if (x > max1) {
+            max3 = max2;
+            max2 = max1;
+            max1 = x;
+        } else if (x > max2) {
+            max3 = max2;
+            max2 = x;
+        } else if (x > max3) {
+            max3 = x;
+        }
+    }
+
+    return Math.max(min1 * min2 * max1, max1 * max2 * max3);
+};
 
 // 时间复杂度：O(N)O(N)，其中 NN 为数组长度。我们仅需遍历数组一次。
 
 // 空间复杂度：O(1)O(1)。
 
+
+// 1337. 矩阵中战斗力最弱的 K 行
+// 给你一个大小为 m * n 的矩阵 mat，矩阵由若干军人和平民组成，分别用 1 和 0 表示。
+
+// 请你返回矩阵中战斗力最弱的 k 行的索引，按从最弱到最强排序。
+
+// 如果第 i 行的军人数量少于第 j 行，或者两行军人数量相同但 i 小于 j，那么我们认为第 i 行的战斗力比第 j 行弱。
+
+// 军人 总是 排在一行中的靠前位置，也就是说 1 总是出现在 0 之前。
+
+
+
+// 示例 1：
+
+// 输入：mat = 
+// [[1,1,0,0,0],
+//  [1,1,1,1,0],
+//  [1,0,0,0,0],
+//  [1,1,0,0,0],
+//  [1,1,1,1,1]], 
+// k = 3
+// 输出：[2,0,3]
+var kWeakestRows = function (mat, k) {
+    let _res = new Map()
+    for (let i = 0; i < mat.length; i++) {
+        let temp = mat[i].lastIndexOf(1) + 1
+        _res.set(i, temp)
+    }
+
+    let y = [..._res].sort((a, b) => {
+        return a[1] - b[1]
+    }).slice(0, k)
+
+    let t = []
+    y.forEach(e => t.push(e[0]))
+    return t
+};
+console.log('kWeakestRows', kWeakestRows([
+    [1, 1, 0, 0, 0],
+    [1, 1, 1, 1, 0],
+    [1, 0, 0, 0, 0],
+    [1, 1, 0, 0, 0],
+    [1, 1, 1, 1, 1]
+], 3));
+
+
+// 989. 数组形式的整数加法
+// 对于非负整数 X 而言，X 的数组形式是每位数字按从左到右的顺序形成的数组。例如，如果 X = 1231，那么其数组形式为 [1,2,3,1]。
+
+// 给定非负整数 X 的数组形式 A，返回整数 X+K 的数组形式。
+
+
+
+// 示例 1：
+
+// 输入：A = [1,2,0,0], K = 34
+// 输出：[1,2,3,4]
+// 解释：1200 + 34 = 1234
+
+var addToArrayForm = function (A, K) {
+    const res = [];
+    const n = A.length;
+    for (let i = n - 1; i >= 0; --i) {
+        let sum = A[i] + K % 10;
+        K = Math.floor(K / 10);
+        if (sum >= 10) {
+            K++;
+            sum -= 10;
+        }
+        res.push(sum);
+        console.log(sum, K)
+    }
+    for (; K > 0; K = Math.floor(K / 10)) {
+        res.push(K % 10);
+    }
+    res.reverse();
+    return res;
+};
+console.log('addToArrayForm', addToArrayForm([2, 1, 5], 806));
+
+
+// 1128. 等价多米诺骨牌对的数量
+// 给你一个由一些多米诺骨牌组成的列表 dominoes。
+
+// 如果其中某一张多米诺骨牌可以通过旋转 0 度或 180 度得到另一张多米诺骨牌，我们就认为这两张牌是等价的。
+
+// 形式上，dominoes[i] = [a, b] 和 dominoes[j] = [c, d] 等价的前提是 a==c 且 b==d，或是 a==d 且 b==c。
+
+// 在 0 <= i < j < dominoes.length 的前提下，找出满足 dominoes[i] 和 dominoes[j] 等价的骨牌对 (i, j) 的数量。
+
+
+
+// 示例：
+
+// 输入：dominoes = [[1,2],[2,1],[3,4],[5,6]]
+// 输出：1
+
+
+// 挨个比较
+var numEquivDominoPairs = function (dominoes) {
+    let _len = dominoes.length
+    let _res = 0
+    for (let i = 0; i < _len; i++) {
+        let j = i + 1
+        let a = dominoes[i]
+        while (j < _len) {
+            let b = dominoes[j]
+            if (a[0] == b[0] && a[1] == b[1]) {
+                _res += 1
+            } else if (a[0] == b[1] && a[1] == b[0]) {
+                _res += 1
+            }
+            j++
+        }
+    }
+    return _res
+};
+// 官方
+var numEquivDominoPairs1 = function (dominoes) {
+    const num = new Array(100).fill(0);
+    let ret = 0;
+    for (const domino of dominoes) {
+        const val = domino[0] < domino[1] ? domino[0] * 10 + domino[1] : domino[1] * 10 + domino[0];
+        ret += num[val];
+        num[val]++;
+    }
+    console.log('num', num);
+    return ret;
+};
+
+console.log('numEquivDominoPairs', numEquivDominoPairs([
+    [1, 2],
+    [2, 1],
+    [3, 4],
+    [5, 6]
+]))
+console.log('numEquivDominoPair1s', numEquivDominoPairs1([
+    [1, 2],
+    [2, 1],
+    [3, 4],
+    [5, 6]
+]))
+
+// 724. 寻找数组的中心索引
+// 给定一个整数类型的数组 nums，请编写一个能够返回数组 “中心索引” 的方法。
+
+// 我们是这样定义数组 中心索引 的：数组中心索引的左侧所有元素相加的和等于右侧所有元素相加的和。
+
+// 如果数组不存在中心索引，那么我们应该返回 -1。如果数组有多个中心索引，那么我们应该返回最靠近左边的那一个。
+
+function pivotIndex(nums) {
+    let _left = 0
+    for(let i=0;i<nums.length;i++){
+
+        let j = i+1
+        let right = 0
+        while(j<nums.length){
+            right+=nums[j]
+            j++
+        }
+        console.log(_left,right)
+        if(_left === right){
+            return i
+        }
+        _left+=nums[i]
+        // if(getsum(nums,0,i)===getsum(nums,i+1,nums.length)){
+        //     return i
+        // }
+    }
+    return -1
+};
+
+// const getsum = (arr,index,last) => {
+//     let _res = 0
+//     for(let i=index;i<last;i++){
+//         _res = _res+ arr[i]
+//     }
+//     return _res
+// }
+
+console.log('pivotIndexpivotIndex',pivotIndex([1, 7, 3, 6, 5, 6]))
+
+// 官方的题解  先算出总数 然后从左开始遍历求和  如果 2*sum 等于总数 === 当前索引下的左右和是相等的
+var pivotIndex = function(nums) {
+    const total = nums.reduce((a, b) => a + b, 0);
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (2 * sum + nums[i] === total) {
+            return i;
+        }
+        sum += nums[i];
+    }
+    return -1;
+};
