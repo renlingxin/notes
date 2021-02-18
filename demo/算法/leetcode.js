@@ -1468,19 +1468,19 @@ console.log('numEquivDominoPair1s', numEquivDominoPairs1([
 
 function pivotIndex(nums) {
     let _left = 0
-    for(let i=0;i<nums.length;i++){
+    for (let i = 0; i < nums.length; i++) {
 
-        let j = i+1
+        let j = i + 1
         let right = 0
-        while(j<nums.length){
-            right+=nums[j]
+        while (j < nums.length) {
+            right += nums[j]
             j++
         }
-        console.log(_left,right)
-        if(_left === right){
+        console.log(_left, right)
+        if (_left === right) {
             return i
         }
-        _left+=nums[i]
+        _left += nums[i]
         // if(getsum(nums,0,i)===getsum(nums,i+1,nums.length)){
         //     return i
         // }
@@ -1496,10 +1496,10 @@ function pivotIndex(nums) {
 //     return _res
 // }
 
-console.log('pivotIndexpivotIndex',pivotIndex([1, 7, 3, 6, 5, 6]))
+console.log('pivotIndexpivotIndex', pivotIndex([1, 7, 3, 6, 5, 6]))
 
 // 官方的题解  先算出总数 然后从左开始遍历求和  如果 2*sum 等于总数 === 当前索引下的左右和是相等的
-var pivotIndex = function(nums) {
+var pivotIndex = function (nums) {
     const total = nums.reduce((a, b) => a + b, 0);
     let sum = 0;
     for (let i = 0; i < nums.length; i++) {
@@ -1509,4 +1509,183 @@ var pivotIndex = function(nums) {
         sum += nums[i];
     }
     return -1;
+};
+
+
+
+// 888. 公平的糖果棒交换
+// 爱丽丝和鲍勃有不同大小的糖果棒：A[i] 是爱丽丝拥有的第 i 根糖果棒的大小，B[j] 是鲍勃拥有的第 j 根糖果棒的大小。
+
+// 因为他们是朋友，所以他们想交换一根糖果棒，这样交换后，他们都有相同的糖果总量。（一个人拥有的糖果总量是他们拥有的糖果棒大小的总和。）
+
+// 返回一个整数数组 ans，其中 ans[0] 是爱丽丝必须交换的糖果棒的大小，ans[1] 是 Bob 必须交换的糖果棒的大小。
+
+// 如果有多个答案，你可以返回其中任何一个。保证答案存在。
+
+
+
+// 示例 1：
+
+// 输入：A = [1,1], B = [2,2]
+// 输出：[1,2]
+
+// 公式如下 设结果数组为x,y
+// sumA − x+y = sumB + x−y
+// x = y + (sumA - sumB) / 2
+
+
+// 别人的方法  计算原始数组的差值 n 如果 两个数组的值差是 n/2 就满足条件
+var fairCandySwap = function (A, B) {
+
+    const asum = A.reduce((s, x) => s + x);
+    const bsum = B.reduce((s, x) => s + x);
+    const diff = asum - bsum;
+
+    for (let i = 0; i < A.length; i++) {
+        const num1 = A[i];
+        const num2 = num1 - diff / 2;
+        if (B.includes(num2)) {
+            return [num1, num2]
+        }
+    }
+};
+
+// 官方的解法更简洁一点
+var fairCandySwap1 = function (A, B) {
+    const sumA = _.sum(A),
+        sumB = _.sum(B);
+    const delta = Math.floor((sumA - sumB) / 2);
+    const rec = new Set(A);
+    var ans;
+    for (const y of B) {
+        const x = y + delta;
+        if (rec.has(x)) {
+            ans = [x, y];
+            break;
+        }
+    }
+    return ans;
+}
+console.log('fairCandySwap', fairCandySwap([1, 2],[2, 3]))
+console.log('fairCandySwap1', fairCandySwap1([1, 2],[2, 3]));
+
+
+// 给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+// 示例：
+// 输入：[1,12,-5,-6,50,3], k = 4
+// 输出：12.75
+// 解释：最大平均数 (12-5-6+50)/4 = 51/4 = 12.75
+
+var findMaxAverage = function(nums, k) {
+    let _res = Number.MIN_SAFE_INTEGER
+    let i = 0
+    while(i+k<=nums.length){
+        let temp = nums.slice(i,i+k)
+        let sum = temp.reduce((a,b)=>a+b)/k
+        if(sum>_res) _res = sum
+        i++
+    }
+    return _res
+};
+console.log(findMaxAverage([1,12,-5,-6,50,3],k))
+
+// 26. 删除排序数组中的重复项
+// 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+
+// 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+
+ 
+
+// 示例 1:
+
+// 给定数组 nums = [1,1,2], 
+
+// 函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 
+
+// 你不需要考虑数组中超出新长度后面的元素。
+
+// 最笨的方法 找到了就删除
+var removeDuplicates = function(nums) {
+    let n = nums[0]
+    let i = 1
+    while(i < nums.length){
+        if(nums[i] === n){
+            nums.splice(i,1)
+            i= i-1
+        } else {
+            n= nums[i]
+        }  
+        ++i
+    }
+};
+
+
+// 双指针 解法 时间复杂度和空间复杂度都比上面的好
+var removeDuplicates = function(nums) {
+    let p1 = 0 //在原数组上重新建立一个不重复的
+    let p2 = 0 // 当前原数组比较到的位置
+    while(p2 < nums.length){
+        if(nums[p1] !== nums[p2]){
+            p1++
+            nums[p1] = nums[p2]
+        }
+        ++p2
+    }
+    return p1+1
+};
+
+// 27. 移除元素
+// 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+
+// 不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+
+// 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+
+// 和上一个题类似 双指针解法
+var removeElement = function(nums, val) {
+    let p1 = 0 
+    let p2 = 0
+    while(p2 <= nums.length-1){
+        if(nums[p2] !== val){
+            nums[p1] = nums[p2]
+            p1++
+        }
+        ++p2
+    }
+    return p1
+};
+
+
+// 35. 搜索插入位置
+// 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+// 你可以假设数组中无重复元素。
+
+// 示例 1:
+
+// 输入: [1,3,5,6], 5
+// 输出: 2
+
+// 反向搜索
+var searchInsert = function(nums, target) {
+    let i = nums.length-1;
+    while(i >= 0 ){
+        if(nums[i] === target){
+            return i
+        }
+        if(nums[i]<target){
+            return i+1
+        }
+        --i
+    }
+    return 0
+};
+
+// 正向搜索
+
+var searchInsert1 = function(nums, target) {
+    let i = 0;
+    while (i < nums.length && nums[i] < target)
+        i++;
+    return i;
 };

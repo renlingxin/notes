@@ -373,6 +373,8 @@ git branch --set-upstream rlx origin/dev => 将本地分支rlx 与 远程分支d
  git push origin :master => push 空的内容到远程 相当于删除远程分支 
  git push origin master => 推送内容 远程分支没有就新建
 ```
+5. git cherry-pick 将其他分支的commit id ( git log 查看 ) 再次提交
+
 
 扩展：
 
@@ -389,6 +391,7 @@ git fetch <远程主机名> <分支名> => 取回指定分支内容更新
 ```
 
 **git稀疏检出(sparse checkout)**
+
 > 稀疏检出就是本地版本库检出时不检出全部，只将指定的文件从本地版本库检出到工作区，而其他未指定的文件则不予检出（即使这些文件存在于工作区，其修改也会被忽略）
 
 ```javascript
