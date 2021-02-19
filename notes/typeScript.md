@@ -129,11 +129,12 @@
 ```
 11. Boolean
 
-```javascript
+TypeScript 中的 boolean 是原始类型。 确保使用小写版本，并且不要引用 Boolean 的对象实例
 
-    let boo: Boolean = false
-    let boo1:Boolean = true
-    
+```javascript
+    let boo: boolean = false
+    let boo1:boolean = true
+    let boo2:Boolean = true  => 这样的话ts也可以正常编译 但是就是不规范别这么干
 ```
 12. Unknown 
 Unknown 类型和any一样也是顶层类型，它可以接收任何类型，但它与 Any 的区别在于，它首次赋值后就确定了数据类型，不允许变量的数据类型进行二次变更。所以，在需要接收所有类型的场景下，优先考虑用 Unknown 代替 Any
