@@ -13,7 +13,48 @@
 背景 => es6之前没有提供太多的元编程能力
 实例 => proxy
 
+### 数组去重
+资料：https://segmentfault.com/a/1190000016418021
+1. Set
 
+```javascript
+[...new Set(arr)]
+Array.from(new Set(arr))
+```
+2. indexof
+```javascript
+//1. indexOf
+function n(arr){
+  let res = []
+  for(let i=0;i<arr.length;i++){
+    //if(!res.includes(arr[i])){
+      //res.push(arr[i])
+    //}
+    if(res.indexOf(arr[i]) !== -1){
+      res.push(arr[i])
+    }
+  }
+  return res
+}
+//2. indexOf and filter
+let res = arr.filter((e,i)=>{
+  return arr.indexOf(e) === index
+})
+
+
+```
+3. 双层递归操作
+
+```javascript
+        for(var i=0; i<arr.length; i++){
+            for(var j=i+1; j<arr.length; j++){
+                if(arr[i]==arr[j]){         //第一个等同于第二个，splice方法删除第二个
+                    arr.splice(j,1);
+                    j--;
+                }
+            }
+        }
+```
 ### 数组 对象深拷贝
 
 ##### es6剩余运算符  -- 浅拷贝
@@ -22,7 +63,7 @@
 let numList = [1,4,23,{name:'renlingxin'}];
 let news = [...numList];
 
-let objs = {name:'jingchan',age:23};
+let objs = {name:'jingchan',age:23};   
 let newObj = {...objs};
 ```
 
@@ -305,6 +346,7 @@ time.toString();      //"Mon Oct 21 2019 14:35:58 GMT+0800 (中国标准时间)"
 1 toLocaleString() 会根据你机器的本地环境来返回字符串，它和toString()返回的值在不同的环境下使用的符号可能变化
 2 使用toString()方法是保险的方法，他不会因为本地环境（例如国家）改变而改变；
 3 为了返回时间类型的值，使用toLocaleString();
+
 ###   e 表示法
 ```javascript
 let a = 123e3;
@@ -343,6 +385,7 @@ Reflect.ownKeys(obj);  //['name']
 ### 函数
 **函数是对象，函数名是指针**
 函数的属性和方法有 length 和 prototype 
+
 ```javascript
 function add(name,age){};
 add.length;   //输出一个函数希望接收的命名参数的个数
@@ -456,11 +499,11 @@ fn1.call(fn2); // fn1--------- ƒ fn2(){console.log('fn2---------',this)}
 fn1.call.call(fn2) //fn2--------- Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
 ```
 ### String
-1. 	字符方法 chatAt()  和  chatCodeAt()
+1. 	字符方法 charAt()  和  charCodeAt()
 ```javascript
 var o = 'renlingxin';
-o.chatAt(1); //e  返回给定位置的字符
-o.chatCodeAt(1); //101 返回给定位置字符编码
+o.charAt(1); //e  返回给定位置的字符
+o.charCodeAt(1); //101 返回给定位置字符编码
 ```
 2. 字符串操作方法 
 **concat()**
@@ -507,7 +550,7 @@ name.split();//["renlingxin"]
 var one = 'one,two,three';
 one.split(',',2);// ["one", "two"]
 ```
-7. replace 方法扩展
+7. replace 方法扩展     replaceAll   替换全部
  ECMAScript v3 规定，replace() 方法的参数 replacement 可以是函数而不是字符串。在这种情况下，每个匹配都调用该函数，它返回的字符串将作为替换文本使用。
 ```javascript
 var f = 'ddd{{perso}}ddd'
@@ -521,6 +564,7 @@ uw=name.replace(/\b\w+\b/g, function(word){
 ```
 *其他示例*
 $1、$2、...、$99 	与 regexp 中的第 1 到第 99 个子表达式相匹配的文本。
+
 ```javascript
 //字母颠倒
 name = "Doe, John";
@@ -762,7 +806,7 @@ sort reverse splice  方法修改数组本身
 1.  数组方法  --- 1 array.prototype.flat (扁平化数组) Infinity -- 无穷大
 
 ```javascript
-
+ 
 let arr = [1, 2, 3, 2, [34, 243, 3, [56, 21, 89, [23]]]]
 console.log(arr.flat(2))
 console.log(arr.flat(5))

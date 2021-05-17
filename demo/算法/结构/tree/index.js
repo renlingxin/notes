@@ -380,3 +380,35 @@ var getMinimumDifference1 = function (root) {
     dfs(root);
     return ans;
 };
+// 872. 叶子相似的树
+// 请考虑一棵二叉树上所有的叶子，这些叶子的值按从左到右的顺序排列形成一个 叶值序列 。
+// 举个例子，如上图所示，给定一棵叶值序列为 (6, 7, 4, 9, 8) 的树。
+
+// 如果有两棵二叉树的叶值序列是相同，那么我们就认为它们是 叶相似 的。
+
+// 如果给定的两个根结点分别为 root1 和 root2 的树是叶相似的，则返回 true；否则返回 false 。
+//  1        1
+// 2 3      3 2   23和32不一样
+var leafSimilar = function(root1, root2) {
+    let arr = []
+    let arr1= []
+    let t = inOrder(root1,arr)
+    let y = inOrder(root2,arr1)
+    const max = Math.max(t.length,y.length)
+    for(let i =0;i<max;++i) {
+        if(t[i]!==y[i]){
+            return false
+        }
+    }
+    return true
+};
+function inOrder1(node,arr) {
+    if (!(node === null)) {
+        inOrder(node.left,arr);
+        inOrder(node.right,arr);
+        if(!node.left && !node.right){
+            arr.push(node.val)
+        }
+        return arr
+    }
+}

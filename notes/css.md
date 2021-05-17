@@ -93,6 +93,43 @@ input::placeholder => 默认样式
 
 ```
 
+### css 提升页面性能
+
+链接：https://juejin.cn/post/6942661408181977118
+
+1. content-visibility
+
+* display: none：隐藏元素并破坏其渲染状态。 这意味着取消隐藏元素与渲染具有相同内容的新元素一样昂贵
+* visibility: hidden：隐藏元素并保持其渲染状态。 这并不能真正从文档中删除该元素，因为它（及其子树）仍占据页面上的几何空间，并且仍然可以单击。 它也可以在需要时随时更新渲染状态，即使隐藏也是如此
+* content-visibility: hidden：隐藏元素并保留其渲染状态。这意味着该元素隐藏时行为和display: none一样，但再次显示它的成本要低得多
+
+* 适用场景  ---- 长列表渲染的时候
+
+
+### 定位居中
+1.
+```javascript
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin:auto;
+```
+2.
+```javascript
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+```
+
+
+
+
+
+
+
+
 
 ## html
 #### 转义字符
@@ -111,5 +148,9 @@ input::placeholder => 默认样式
 文本输入字段被设置为当页面加载时获得焦点：
 
 document.styleSheets
+
+
+
+
 
 

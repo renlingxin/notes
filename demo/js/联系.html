@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="test" onclick="handleClick">click me</button>
+</body>
+</html>
+<script>
+    var EventUtil = {
+        add:function(element,type,callback){
+            if(element.addEventListener){
+                element.addEventListener(type,callback,false)
+            }else if(element.attachEvent){
+                element.attachEvent('on'+type,callback)
+            }else{
+              element['on'+type] = callback  
+            }
+        }
+    }
+    button = document.getElementById('test');
+    function handleClick(){
+        console.log('click A')
+    }
+    function bindEvent(){
+        console.log('click B')
+    }
+    EventUtil.add(button,'click',function(){
+        console.log('click C')
+    })
+</script>

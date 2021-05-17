@@ -1566,8 +1566,8 @@ var fairCandySwap1 = function (A, B) {
     }
     return ans;
 }
-console.log('fairCandySwap', fairCandySwap([1, 2],[2, 3]))
-console.log('fairCandySwap1', fairCandySwap1([1, 2],[2, 3]));
+console.log('fairCandySwap', fairCandySwap([1, 2], [2, 3]))
+// console.log('fairCandySwap1', fairCandySwap1([1, 2], [2, 3]));
 
 
 // 给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
@@ -1576,25 +1576,25 @@ console.log('fairCandySwap1', fairCandySwap1([1, 2],[2, 3]));
 // 输出：12.75
 // 解释：最大平均数 (12-5-6+50)/4 = 51/4 = 12.75
 
-var findMaxAverage = function(nums, k) {
+var findMaxAverage = function (nums, k) {
     let _res = Number.MIN_SAFE_INTEGER
     let i = 0
-    while(i+k<=nums.length){
-        let temp = nums.slice(i,i+k)
-        let sum = temp.reduce((a,b)=>a+b)/k
-        if(sum>_res) _res = sum
+    while (i + k <= nums.length) {
+        let temp = nums.slice(i, i + k)
+        let sum = temp.reduce((a, b) => a + b) / k
+        if (sum > _res) _res = sum
         i++
     }
     return _res
 };
-console.log(findMaxAverage([1,12,-5,-6,50,3],k))
+console.log(findMaxAverage([1, 12, -5, -6, 50, 3], k))
 
 // 26. 删除排序数组中的重复项
 // 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
 // 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
 
- 
+
 
 // 示例 1:
 
@@ -1605,33 +1605,33 @@ console.log(findMaxAverage([1,12,-5,-6,50,3],k))
 // 你不需要考虑数组中超出新长度后面的元素。
 
 // 最笨的方法 找到了就删除
-var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     let n = nums[0]
     let i = 1
-    while(i < nums.length){
-        if(nums[i] === n){
-            nums.splice(i,1)
-            i= i-1
+    while (i < nums.length) {
+        if (nums[i] === n) {
+            nums.splice(i, 1)
+            i = i - 1
         } else {
-            n= nums[i]
-        }  
+            n = nums[i]
+        }
         ++i
     }
 };
 
 
 // 双指针 解法 时间复杂度和空间复杂度都比上面的好
-var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     let p1 = 0 //在原数组上重新建立一个不重复的
     let p2 = 0 // 当前原数组比较到的位置
-    while(p2 < nums.length){
-        if(nums[p1] !== nums[p2]){
+    while (p2 < nums.length) {
+        if (nums[p1] !== nums[p2]) {
             p1++
             nums[p1] = nums[p2]
         }
         ++p2
     }
-    return p1+1
+    return p1 + 1
 };
 
 // 27. 移除元素
@@ -1642,11 +1642,11 @@ var removeDuplicates = function(nums) {
 // 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
 
 // 和上一个题类似 双指针解法
-var removeElement = function(nums, val) {
-    let p1 = 0 
+var removeElement = function (nums, val) {
+    let p1 = 0
     let p2 = 0
-    while(p2 <= nums.length-1){
-        if(nums[p2] !== val){
+    while (p2 <= nums.length - 1) {
+        if (nums[p2] !== val) {
             nums[p1] = nums[p2]
             p1++
         }
@@ -1667,14 +1667,14 @@ var removeElement = function(nums, val) {
 // 输出: 2
 
 // 反向搜索
-var searchInsert = function(nums, target) {
-    let i = nums.length-1;
-    while(i >= 0 ){
-        if(nums[i] === target){
+var searchInsert = function (nums, target) {
+    let i = nums.length - 1;
+    while (i >= 0) {
+        if (nums[i] === target) {
             return i
         }
-        if(nums[i]<target){
-            return i+1
+        if (nums[i] < target) {
+            return i + 1
         }
         --i
     }
@@ -1683,9 +1683,537 @@ var searchInsert = function(nums, target) {
 
 // 正向搜索
 
-var searchInsert1 = function(nums, target) {
+var searchInsert1 = function (nums, target) {
     let i = 0;
     while (i < nums.length && nums[i] < target)
         i++;
     return i;
 };
+
+
+
+// 滑动窗口 ！！！！！！！！！！
+// 1004. 最大连续1的个数 III
+// 给定一个由若干 0 和 1 组成的数组 A，我们最多可以将 K 个值从 0 变成 1 。
+
+// 返回仅包含 1 的最长（连续）子数组的长度。
+
+
+
+// 示例 1：
+
+// 输入：A = [1,1,1,0,0,0,1,1,1,1,0], K = 2
+// 输出：6
+// 解释： 
+// [1,1,1,0,0,1,1,1,1,1,1]
+// 粗体数字从 0 翻转到 1，最长的子数组长度为 6。
+
+// 官方题解   滑动数组
+var longestOnes = function (A, K) {
+    const n = A.length;
+    let left = 0,
+        lsum = 0,
+        rsum = 0;
+    let ans = 0;
+    for (let right = 0; right < n; ++right) {
+        rsum += 1 - A[right];
+        while (lsum < rsum - K) {
+            lsum += 1 - A[left];
+            ++left;
+        }
+        ans = Math.max(ans, right - left + 1);
+    }
+    return ans;
+};
+console.log('longestOnes', longestOnes([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0]));
+
+
+// def findSubArray(nums):
+//     N = len(nums) # 数组/字符串长度
+//     left, right = 0, 0 # 双指针，表示当前遍历的区间[left, right]，闭区间
+//     sums = 0 # 用于统计 子数组/子区间 是否有效，根据题目可能会改成求和/计数
+//     res = 0 # 保存最大的满足题目要求的 子数组/子串 长度
+//     while right < N: # 当右边的指针没有搜索到 数组/字符串 的结尾
+//         sums += nums[right] # 增加当前右边指针的数字/字符的求和/计数
+//         while 区间[left, right]不符合题意：# 此时需要一直移动左指针，直至找到一个符合题意的区间
+//             sums -= nums[left] # 移动左指针前需要从counter中减少left位置字符的求和/计数
+//             left += 1 # 真正的移动左指针，注意不能跟上面一行代码写反
+//         # 到 while 结束时，我们找到了一个符合题意要求的 子数组/子串
+//         res = max(res, right - left + 1) # 需要更新结果
+//         right += 1 # 移动右指针，去探索新的区间
+//     return res
+
+
+// 766. 托普利茨矩阵
+// 给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。
+
+// 如果矩阵上每一条由左上到右下的对角线上的元素都相同，那么这个矩阵是 托普利茨矩阵 。
+
+
+
+// 示例 1：
+// 1 2 3 4
+// 5 1 2 3 
+// 9 5 1 2
+
+// 输入：matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]
+// 输出：true
+// 解释：
+// 在上述矩阵中, 其对角线为: 
+// "[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]"。 
+// 各条对角线上的所有元素均相同, 因此答案是 True 。
+
+// 解题的重点是判断 每一个元素和他左上角的元素是否相等
+var isToeplitzMatrix = function (matrix) {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (i - 1 >= 0 && j - 1 >= 0 && matrix[i - 1][j - 1] !== matrix[i][j]) {
+                return false
+            }
+        }
+    }
+    return true
+};
+
+// 1052. 爱生气的书店老板
+// 今天，书店老板有一家店打算试营业 customers.length 分钟。每分钟都有一些顾客（customers[i]）会进入书店，所有这些顾客都会在那一分钟结束后离开。
+
+// 在某些时候，书店老板会生气。 如果书店老板在第 i 分钟生气，那么 grumpy[i] = 1，否则 grumpy[i] = 0。 当书店老板生气时，那一分钟的顾客就会不满意，不生气则他们是满意的。
+
+// 书店老板知道一个秘密技巧，能抑制自己的情绪，可以让自己连续 X 分钟不生气，但却只能使用一次。
+
+// 请你返回这一天营业下来，最多有多少客户能够感到满意的数量。
+
+
+// 示例：
+
+// 输入：customers = [1,0,1,2,1,1,7,5], grumpy = [0,1,0,1,0,1,0,1], X = 3
+// 输出：16
+// 解释：
+// 书店老板在最后 3 分钟保持冷静。
+// 感到满意的最大客户数量 = 1 + 1 + 1 + 1 + 7 + 5 = 16.
+
+
+//  先算出基本顾客满意的数量  在判断X进行判断最终结果
+var maxSatisfied = function (customers, grumpy, X) {
+    let sum = 0
+    for (let j = 0; j < customers.length; j++) {
+        if (grumpy[j] == 0) {
+            sum += customers[j]
+        }
+    }
+    let left = 0;
+    let right = X - 1
+    let res = sum
+    while (right <= grumpy.length - 1) {
+        let t = sum
+        for (let i = left; i <= right; i++) {
+            if (grumpy[i] == 1) {
+                t = t + customers[i]
+            }
+        }
+        res = Math.max(res, t)
+        right++
+        left++
+    }
+    return res
+};
+// 832. 翻转图像
+// 给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。
+
+// 水平翻转图片就是将图片的每一行都进行翻转，即逆序。例如，水平翻转 [1, 1, 0] 的结果是 [0, 1, 1]。
+
+// 反转图片的意思是图片中的 0 全部被 1 替换， 1 全部被 0 替换。例如，反转 [0, 1, 1] 的结果是 [1, 0, 0]。
+
+
+
+// 示例 1：
+
+// 输入：[[1,1,0],[1,0,1],[0,0,0]]
+// 输出：[[1,0,0],[0,1,0],[1,1,1]]
+// 解释：首先翻转每一行: [[0,1,1],[1,0,1],[0,0,0]]；
+//      然后反转图片: [[1,0,0],[0,1,0],[1,1,1]]
+var flipAndInvertImage = function (A) {
+    let i = 0
+    while (i < A.length) {
+        let res = A[i]
+        let n = res.length
+        let o = []
+        for (let j = n - 1; j >= 0; j -- ) {
+            o.push(Number(!Boolean(res[j])))
+        }
+        A[i] = o
+        i++
+    }
+    return A
+};
+console.log(flipAndInvertImage([
+    [1, 1, 0],
+    [1, 0, 1],
+    [0, 0, 0]
+]));
+
+
+
+// 给定一个整数数组  nums，求出数组从索引 i 到 j（i ≤ j）范围内元素的总和，包含 i、j 两点。
+
+// 实现 NumArray 类：
+
+// NumArray(int[] nums) 使用数组 nums 初始化对象
+// int sumRange(int i, int j) 返回数组 nums 从索引 i 到 j（i ≤ j）范围内元素的总和，包含 i、j 两点（也就是 sum(nums[i], nums[i + 1], ... , nums[j])）
+//  
+
+// 示例：
+
+// 输入：
+// ["NumArray", "sumRange", "sumRange", "sumRange"]
+// [[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+// 输出：
+// [null, 1, -1, -3]
+
+// 解释：
+// NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+// numArray.sumRange(0, 2); // return 1 ((-2) + 0 + 3)
+// numArray.sumRange(2, 5); // return -1 (3 + (-5) + 2 + (-1)) 
+// numArray.sumRange(0, 5); // return -3 ((-2) + 0 + 3 + (-5) + 2 + (-1))
+
+
+// 官方的题解  说真的我没咋看懂["NumArray", "sumRange", "sumRange", "sumRange"]这个数组；但是这里面的求和的想法不错可以学习下
+var NumArray = function (nums) {
+    const n = nums.length;
+    this.sums = new Array(n + 1).fill(0);
+    for (let i = 0; i < n; i++) {
+        this.sums[i + 1] = this.sums[i] + nums[i];
+    }
+};
+
+NumArray.prototype.sumRange = function (i, j) {
+    console.log(this.sums) //[0, -2, -2, 1,-4, -2, -3]
+    return this.sums[j + 1] - this.sums[i];
+};
+
+let _NumArray = new NumArray([-2, 0, 3, -5, 2, -1])
+_NumArray.sumRange(0, 2)
+_NumArray.sumRange(2, 5)
+_NumArray.sumRange(0, 5)
+
+
+// 338. 比特位计数
+// 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
+
+// 示例 1:
+
+// 输入: 2
+// 输出: [0,1,1]
+// 示例 2:
+
+// 输入: 5
+// 输出: [0,1,1,2,1,2]
+
+// 自己写  先转二进制 再看二进制里面有几个1
+var countBits = function (num) {
+    let _res = []
+    for (let i = 0; i <= num; ++i) {
+        _i = i.toString(2)
+        _res.push(eval(_i.split('').join('+')))
+    }
+    return _res
+};
+countBits(2) // [ 0, 1, 1 ]
+
+
+// 官方1 直接计算
+// 利用位运算的技巧，可以在一定程度上提升计算速度。按位与运算（\&&）的一个性质是：对于任意整数 xx，令 x=x \&(x-1)x=x&(x−1)，
+// 该运算将 xx 的二进制表示的最后一个 11 变成 00。因此，对 xx 重复该操作，直到 xx 变成 00，则操作次数即为 xx 的「一比特数」。
+
+var countBits1 = function (num) {
+    const bits = new Array(num + 1).fill(0);
+    for (let i = 0; i <= num; i++) {
+        bits[i] = countOnes(i);
+    }
+    return bits
+};
+
+const countOnes = (x) => {
+    let ones = 0;
+    while (x > 0) {
+        x &= (x - 1);
+        ones++;
+    }
+    return ones;
+}
+
+// 动态规划——最高有效位
+
+var countBits2 = function (num) {
+    const bits = new Array(num + 1).fill(0);
+    let highBit = 0;
+    for (let i = 1; i <= num; i++) {
+        if ((i & (i - 1)) == 0) {
+            highBit = i;
+        }
+        bits[i] = bits[i - highBit] + 1;
+    }
+    return bits;
+};
+
+// 动态规划——最低设置位
+
+var countBits3 = function (num) {
+    const bits = new Array(num + 1).fill(0);
+    for (let i = 1; i <= num; i++) {
+        bits[i] = bits[i & (i - 1)] + 1;
+    }
+    return bits;
+};
+
+
+// 132. 分割回文串 II
+// 给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。
+
+// 返回符合要求的 最少分割次数 。
+
+
+
+// 示例 1：
+
+// 输入：s = "aab"
+// 输出：1
+// 解释：只需一次分割就可将 s 分割成 ["aa","b"] 这样两个回文子串。
+
+// 困难题  -  直接复制的答案
+var minCut = function (s) {
+    const n = s.length;
+    const g = new Array(n).fill(0).map(() => new Array(n).fill(true));
+
+    for (let i = n - 1; i >= 0; --i) {
+        for (let j = i + 1; j < n; ++j) {
+            g[i][j] = s[i] == s[j] && g[i + 1][j - 1];
+        }
+    }
+
+    const f = new Array(n).fill(Number.MAX_SAFE_INTEGER);
+    for (let i = 0; i < n; ++i) {
+        if (g[0][i]) {
+            f[i] = 0;
+        } else {
+            for (let j = 0; j < i; ++j) {
+                if (g[j + 1][i]) {
+                    f[i] = Math.min(f[i], f[j] + 1);
+                }
+            }
+        }
+    }
+
+    return f[n - 1];
+};
+console.log(minCut("aab"));
+
+// 给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+// 在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+// 在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+//  
+
+// 示例：
+
+// 输入："abbaca"
+// 输出："ca"
+// 解释：
+// 例如，在 "abbaca" 中，我们可以删除 "bb" 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 "aaca"，其中又只有 "aa" 可以执行重复项删除操作，所以最后的字符串为 "ca"。
+
+// 有一些极端case  "aaaaaaaa"  "azxxzy"
+var removeDuplicates = function (S) {
+    let _res = S.split('')
+    let i = 0
+    while (i < _res.length) {
+        if (_res[i] == _res[i + 1]) {
+            _res.splice(i, 2)
+            i--
+        } else {
+            i++
+        }
+        if (_res.length <= 1) return _res.join('')
+    }
+    return _res.join('')
+};
+
+console.log(removeDuplicates("aaaaaaaa"));
+
+
+
+// 官方的解法   栈   也是依次遍历 如果当前元素和栈顶的元素相同就删除  不同就推入
+var removeDuplicates = function (S) {
+    const stk = [];
+    for (const ch of S) {
+        if (stk.length && stk[stk.length - 1] === ch) {
+            stk.pop();
+        } else {
+            stk.push(ch);
+        }
+    }
+    return stk.join('');
+};
+
+// 时间复杂度：O(n)O(n)，其中 nn 是字符串的长度。我们只需要遍历该字符串一次。
+
+// 空间复杂度：O(n)O(n) 或 O(1)O(1)，取决于使用的语言提供的字符串类是否提供了类似「入栈」和「出栈」的接口。注意返回值不计入空间复杂度。
+
+
+// 227. 基本计算器 II
+// 给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。
+
+// 整数除法仅保留整数部分。
+
+
+
+// 示例 1：
+
+// 输入：s = "3+2*2"
+// 输出：7
+// 示例 2：
+
+// 输入：s = " 3/2 "
+// 输出：1
+// 示例 3：
+
+// 输入：s = " 3+5 / 2 "
+// 输出：5
+
+
+// 这是官方的解法  建立一个栈 如果是加号后的数字就推进来 乘除就算一下栈顶的元素 然后替换 减法就推入负值  最后统一变成加法运算一下
+//  charCodeAt  这里很不错 看不懂
+
+var calculate = function (s) {
+    s = s.trim();
+    const stack = new Array();
+    let preSign = '+';
+    let num = 0;
+    const n = s.length;
+    for (let i = 0; i < n; ++i) {
+        if (!isNaN(Number(s[i])) && s[i] !== ' ') {
+            console.log(s[i].charCodeAt(), '0'.charCodeAt())
+            num = num * 10 + s[i].charCodeAt() - '0'.charCodeAt();
+        }
+        console.log(num)
+        if (isNaN(Number(s[i])) || i === n - 1) {
+            switch (preSign) {
+                case '+':
+                    stack.push(num);
+                    break;
+                case '-':
+                    stack.push(-num);
+                    break;
+                case '*':
+                    stack.push(stack.pop() * num);
+                    break;
+                default:
+                    stack.push(stack.pop() / num | 0);
+            }
+            preSign = s[i];
+            num = 0;
+        }
+    }
+    let ans = 0;
+    while (stack.length) {
+        ans += stack.pop();
+    }
+    return ans;
+};
+console.log(calculate('33+2*2'))
+
+
+// 1603. 设计停车系统
+// 请你给一个停车场设计一个停车系统。停车场总共有三种不同大小的车位：大，中和小，每种尺寸分别有固定数目的车位。
+
+// 请你实现 ParkingSystem 类：
+
+// ParkingSystem(int big, int medium, int small) 初始化 ParkingSystem 类，三个参数分别对应每种停车位的数目。
+// bool addCar(int carType) 检查是否有 carType 对应的停车位。 carType 有三种类型：大，中，小，分别用数字 1， 2 和 3 表示。一辆车只能停在  carType 对应尺寸的停车位中。如果没有空车位，请返回 false ，否则将该车停入车位并返回 true 。
+ 
+
+// 示例 1：
+
+// 输入：
+// ["ParkingSystem", "addCar", "addCar", "addCar", "addCar"]
+// [[1, 1, 0], [1], [2], [3], [1]]
+// 输出：
+// [null, true, true, false, false]
+
+// 解释：
+// ParkingSystem parkingSystem = new ParkingSystem(1, 1, 0);
+// parkingSystem.addCar(1); // 返回 true ，因为有 1 个空的大车位
+// parkingSystem.addCar(2); // 返回 true ，因为有 1 个空的中车位
+// parkingSystem.addCar(3); // 返回 false ，因为没有空的小车位
+// parkingSystem.addCar(1); // 返回 false ，因为没有空的大车位，唯一一个大车位已经被占据了
+
+// 简单题重拳出击！
+var ParkingSystem = function(big, medium, small) {
+    this.big = big
+    this.medium = medium
+    this.small = small
+};
+
+/** 
+ * @param {number} carType
+ * @return {boolean}
+ */
+ParkingSystem.prototype.addCar = function(carType) {
+    if(carType === 1 && this.big >0){
+        this.big-=1
+        return true
+    }else if(carType === 2&& this.medium >0){
+        this.medium-=1
+        return true
+    }else if(carType === 3&& this.small >0){
+        this.small-=1
+        return true
+    }
+    return false
+};
+
+// 看看别人的答案 ！！！
+var ParkingSystem = function(big, medium, small) {
+    this.lot = [big, medium, small]
+};
+
+ParkingSystem.prototype.addCar = function(carType) {
+    this.lot[carType - 1]--
+    return this.lot[carType - 1] >= 0
+};
+
+const isRight = (str)=>{
+    let _str = /[0-9a-zA-Z]i/
+    console.log(_str.test(str))
+}
+isRight('....')
+
+// 74. 搜索二维矩阵
+// 编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+
+// 每行中的整数从左到右按升序排列。
+// 每行的第一个整数大于前一行的最后一个整数。
+ 
+
+// 示例 1：
+
+
+// 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
+// 输出：true
+
+// 暴力解法
+var searchMatrix = function(matrix, target) {
+    for(let i =0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j] === target){
+                return true
+            }
+        }
+    }
+    return false
+}
+
+
+

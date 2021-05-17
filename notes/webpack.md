@@ -335,6 +335,14 @@ ssh-keygen -t rsa -C "your.email@example.com"  => 生成密钥
 2. 用户收到远程服务器发来的字符串，使用与远程服务器公钥配对的私钥对字符串进行加密，再发送给远程服务器。
 3. 服务器使用公钥对用户发来的加密字符串进行解密，得到的解密字符串如果与第一步中发送给客户端的随机字符串一样，那么判断为登录成功。
 
+
+
+git reset --hard id
+
+git push origin HEAD --force
+
+ 
+
 **git远程操作**
 
 1. git clone 
