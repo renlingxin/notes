@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { resolve } = require('path');
 
 
 // 哨兵变量
@@ -39,3 +40,16 @@ fs.readFile('./name.text', 'utf-8', (err, data) => {
     // console.log('2.<' + data + '>')
     myRenderChild(data)
 })
+
+
+let t = ()=>{
+    return new Promise((resolve)=>{
+        resolve('1')
+        resolve('2')
+    })
+}
+async function y(){
+        const r = await t()
+        console.log('22222222222',r)
+}
+y()

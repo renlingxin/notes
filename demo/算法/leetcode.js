@@ -67,7 +67,7 @@ var twoSum2 = function (nums = [2, 7, 11, 15], target = 9) {
     return _res
 };
 
-var twoSum = function (nums, target) {
+var twoSum5 = function (nums, target) {
     let _obj = {}
     let temp = null
     for (let i = 0; i < nums.length; i++) {
@@ -79,7 +79,7 @@ var twoSum = function (nums, target) {
     }
 };
 
-console.log('twosum2:', twoSum2())
+console.log('twosum5:', twoSum5([2, 11, 7, 15]))
 
 // 直接操作nums
 var twoSum3 = function (nums = [2, 7, 11, 15], target = 9) {
@@ -92,7 +92,7 @@ var twoSum3 = function (nums = [2, 7, 11, 15], target = 9) {
         i--
     }
 };
-console.log('twosum3:', twoSum3())
+console.log('twosum3:', twoSum3([2, 11, 7, 15]))
 
 
 // es6写法   --- map  96 ms  38.5 MB
@@ -106,7 +106,7 @@ var twoSum4 = function (nums = [2, 7, 11, 15], target = 9) {
         _scool.set(nums[i], i)
     }
 };
-console.log('twosum4:', twoSum4())
+console.log('twosum4:', twoSum4([2, 11, 7, 15]))
 
 // 排序算法   内层循环作比较 时间复杂度 O(n²)  空间复杂度 最差O(n)
 let arr = [12, 3, 44, 56, 90, 0]
@@ -193,12 +193,14 @@ for (let i = 0; i < res.length; i++) {
 }
 
 // 1431 拥有最多糖果的孩子
-
+// 给你一个数组 candies 和一个整数 extraCandies ，其中 candies[i] 代表第 i 个孩子拥有的糖果数目。
+// 对每一个孩子，检查是否存在一种方案，将额外的 extraCandies 个糖果分配给孩子们之后，此孩子有 最多 的糖果。注意，允许有多个孩子同时拥有 最多 的糖果数目。
 var kidsWithCandies = function (candies, extraCandies) {
     // let max = Math.max.apply(null,candies)
     let max = Math.max(...candies)
     let _res = []
     for (let i = 0; i <= candies.length - 1; i++) {
+        // 给每个孩子加上额外的糖果 要是比原本的最大的大 那就是最大的
         _res.push(candies[i] + extraCandies >= max)
     }
     return _res
@@ -206,6 +208,7 @@ var kidsWithCandies = function (candies, extraCandies) {
 console.log(kidsWithCandies([2, 3, 5, 1, 3], 3))
 
 // 152 乘积最大子数组
+// 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
 var maxProduct = function (nums) {
     let maxF = nums[0]
     let minF = nums[0]
@@ -214,11 +217,12 @@ var maxProduct = function (nums) {
         mx = maxF, mn = minF;
         maxF = Math.max(mx * nums[i], Math.max(nums[i], mn * nums[i]));
         minF = Math.min(mn * nums[i], Math.min(nums[i], mx * nums[i]));
+        console.log('111',maxF,minF)
         ans = Math.max(maxF, ans);
     }
     return ans;
 };
-console.log(maxProduct([2, 3, -2, 1, 2, 7, 8, 0]))
+console.log('maxProduct',maxProduct([2, 3, -2, 1, 2, 7, 8, 0]))
 
 // 字符串=>转为树形机构
 let _str = ['动物-昆虫-蚂蚁', '动物-昆虫-蝴蝶', '植物-草-绿色', '植物-花-红色']
@@ -242,7 +246,7 @@ function tryTree(srcList) {
     })
     return destList
 }
-// console.log(JSON.stringify(tryTree(_str), null, 2))
+console.log(JSON.stringify(tryTree(_str), null, 2))
 
 // tree   2
 let _arr = [{
@@ -486,6 +490,7 @@ const ins = [1, 2, 3, null, null, 4, 5]
 
 // const path = require('path')
 // console.log(path)
+// 这是自己写的demo  
 function get(value) {
     let wordreg = /[a-z]/g
     let commareg = /[,]/g

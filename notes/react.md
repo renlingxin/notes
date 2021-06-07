@@ -241,9 +241,22 @@ export class App2 extends Component {
 ```
 
 
+## 教程笔记
+
+### 1、public/ manifest.json  -> 是配置pwa的信息
 
 
+### 2、robots.txt/Disallow  -> 不允许搜索引擎访问的内容   ```https://www.robotstxt.org/robotstxt.html```
 
+
+### 3、yarn.lock 和 package-lock.json 是帮助项目锁定版本号
+
+### 4、mock方案
+
+1. 本地写死
+2. mock.js
+3. 大型团队使用的yapi (去哪网开源) / rap（阿里）
+4. 本地 node 服务器  json-server   REST api serve
 
 
 

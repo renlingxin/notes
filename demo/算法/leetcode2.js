@@ -236,9 +236,9 @@ var xorOperation = function(n, start) {
 console.log('xorOperation',xorOperation(1,7))
 
 // 知识点
-// 1. 按位与 （二进制位上都为1时取1 否则取0）
+// 1. 按位与 （二进制位上都为1时取1 否则取0）&
 
-// 2. 按位或 （二进制位上都为0时取0 否则取1）
+// 2. 按位或 （二进制位上都为0时取0 否则取1）|
 
 // 3. 按位异或 （二进制位上比较两个的结果不一样取1 否则取0）
 //    a^b=c  a^c=b b^c=a  异或规律
@@ -348,3 +348,79 @@ var intToRoman = function(num) {
     return roman.join('');
 };
 console.log(intToRoman(34)) //XXXIV
+
+// 461. 汉明距离
+// 两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+
+// 给出两个整数 x 和 y，计算它们之间的汉明距离。
+
+// 注意：
+// 0 ≤ x, y < 231.
+
+// 示例:
+
+// 输入: x = 1, y = 4
+
+// 输出: 2
+
+// 解释:
+// 1   (0 0 0 1)
+// 4   (0 1 0 0)
+//        ↑   ↑
+
+// 上面的箭头指出了对应二进制位不同的位置。
+
+// 用最笨的方法解出来
+var hammingDistance = function(x, y) {
+    let _x = x.toString(2);let _y = y.toString(2)
+    let _n = Math.max(_x.length,_y.length)
+    let _res = 0
+    if(_x.length>_y.length){
+        _y = _y.padStart(_x.length,'0')
+    }
+    if(_x.length<_y.length){
+       _x = _x.padStart(_y.length,'0')
+    }
+    for(let i =_n-1;i>=0;i--){
+        if(_x[i] !== _y[i]){
+            _res++
+        }
+    }
+    return _res
+};
+console.log(hammingDistance(1,4))
+
+// 官方的
+var hammingDistance1 = function(x, y) {
+    let s = x ^ y, ret = 0;
+    console.log(s)
+    while (s != 0) {
+        // 按位与
+        s &= s - 1;
+        ret++;
+    }
+    return ret;
+};
+console.log(hammingDistance1(1,4))
+
+
+
+
+// 342. 4的幂
+// 给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 true ；否则，返回 false 。
+// 整数 n 是 4 的幂次方需满足：存在整数 x 使得 n == 4x
+
+
+// 官方  有规律
+
+// 思路与算法
+// 如果 n 是 4 的幂，那么 n 一定也是 2 的幂。因此我们可以首先判断 n 是否是 2 的幂，在此基础上再判断 n 是否是 4 的幂。
+
+
+// 如果 n 是 4 的幂，那么它可以表示成 4^x 的形式，我们可以发现它除以 3 的余数一定为1，即：
+// 如果 n 是 2 的幂却不是 4 的幂，那么它可以表示成 4^x * 2 的形式，此时它除以 3 的余数一定为 2。
+// 因此我们可以通过 n 除以 3 的余数是否为 1 来判断 nn 是否是 44 的幂。
+var isPowerOfFour = function(n) { 
+    // (n & (n - 1)) === 0  判断 n 是否是 2 的幂
+    return n > 0 && (n & (n - 1)) === 0 && n % 3 === 1;
+};

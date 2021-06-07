@@ -262,7 +262,64 @@ protected 修饰的属性或方法是受保护的，它和 private 类似，区�
 
 
 
+### 笔记
+1. delete ts 操作问题
 
+```javascript
+interface Thing {
+  prop: string;
+}
+
+function f(x: Thing) {
+  delete x.prop; //会报错  因为Thing定义中prop是必填项 删除不符合结构定义 接口的契约不会被破坏。
+}
+//改成这样
+interface Thing {
+  prop?: string;
+}
+```
+
+
+2. push 操作
+
+```javascript
+const foo = (foo: string) => {
+  const result = []
+  result.push(foo)// [ts] Argument of type 'string' is not assignable to parameter of type 'never'.
+}
+//这是因为result内部默认类型是never
+
+//改成这样
+const result : string[] = [];
+//或者这样
+const result = [] as  any;
+```
+
+3. Form 表达操作报错
+
+```javascript
+this.$refs[formName].validate();//validate 会报错 Property 'validate' does //not exist on type 'Vue | Element | Vue[] | //Element[]'.Property'validate' does not exist on type 'Vue'.any
+
+
+//改成这样  validate找不到类型，此时可以使用类型断言，将 validate 断言成： HTMLFormElement
+(this.$refs[formName] as HTMLFormElement).validate();
+
+```
+
+4. ts - Vue中的 computed 
+```ts
+get val(){
+  return '1'
+}
+
+//等价于
+
+computed:{
+  val(){
+    reuturn '1'
+  }
+}
+```
 
 
 
