@@ -182,14 +182,22 @@ typeof a; //symbol
 
 
 ### null 和 undefined
-###### undefined 
-**undefined表示这个值未定义 在使用var声明变量但并未对其加以初始化的时候，这个变量的值就是undefined **
+###### undefined （未定义的值）
+* 声明一个变量，但是没有赋值
 ```javascript
   var a;
   a === undefined  //true
 ```
-###### null
-从逻辑角度上看，null值表示一个**空对象指针**
+* 访问对象上不存在的属性或者未定义的变量
+* 函数定义了形参，但没有传递实参
+* 使用void对表达式求值
+```javascript
+void 0 ; // undefined
+void false; // undefined
+void []; // undefined
+```
+###### null   （空对象指针）
+从逻辑角度上看，null值表示一个**空对象指针**;在内存里的表示就是，栈中的变量没有指向堆中的内存对象。
 ```javascript
 //注意：typeof是一个操作符而不是函数 因此不用强制使用typeof()
 typeof null;  //'object'
@@ -640,9 +648,11 @@ name.replace(/(\w+)\s*, \s*(\w+)/, "$1 $2");
 9. 生成n-m的随机整数
 
 ```javascript
-
+    //向下取整   n <= x < m-n+1 + n
     Math.floor(Math.random() * (m-n+1) + n)
+    // 四舍五入  n <= x < m-n+n
     Math.round(Math.random() * (m-n) + n)
+    //向上取整   n-1 <= x < m-n + n-1
     Math.ceil(Math.random() * (m-n) + n-1 )
     
 ```
@@ -1510,6 +1520,14 @@ console.log('global',x)//2
 * MessageChannel
 
 创建一个通道 
+概念 =》 window.postMessage()方法提供了一种受控机制来规避此限制，只要正确的使用，这种方法就很安全。
+
+用途
+1.页面和其打开的新窗口的数据传递
+
+2.多窗口之间消息传递
+
+3.页面与嵌套的 iframe 消息传递
 
 ```html
 
@@ -1570,8 +1588,8 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
 **微任务**
 * Promise.then
 * MutationObserver
-概念 =>监听DOM变化的，定义在DOM4中，对应的是DOM3中的  Mutation events 
-资料 => https://developer.mozilla.org/zh-cn/docs/web/api/mutationobserver
+  概念 =>监听DOM变化的，定义在DOM4中，对应的是DOM3中的  Mutation events 
+  资料 => https://developer.mozilla.org/zh-cn/docs/web/api/mutationobserver
       https://www.jianshu.com/p/b5c9e4c7b1e1
 
 ```html

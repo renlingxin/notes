@@ -1050,6 +1050,27 @@ this.$emit('update:title', newValue)
 
 ```
 
+## 生命周期
+
+```javascript
+
+//加载渲染过程
+  父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount->子mounted->父mounted
+  
+//子组件更新过程
+父beforeUpdate->子beforeUpdate->子updated->父updated
+
+//父组件更新过程
+父beforeUpdate->父updated
+
+//销毁过程
+父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+
+//数据劫持操作发生在 beforecreated 和 created之间
+
+```
+
+
 ## vu2 源码目录
 
 compiler =》编译相关

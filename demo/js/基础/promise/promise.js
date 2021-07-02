@@ -18,7 +18,7 @@ function _promise(exec) {
             // 从数组初始未知开始 依次执行成功队列中的函数，并清空队列
             while (cb = self._successResult.shift()) {
                 cb(value)
-            }obj
+            }
         }
          // 为了支持同步的Promise，这里采用异步调用
         setTimeout(run, 0);
