@@ -253,7 +253,7 @@ console.log(foo, bar, 'js中的奇怪问题')
 2. URL 拦截url
 ### 15. 代码操作dom的执行时机
 
-### 16. 回流和重排
+### 16. 回流和重绘
 
 ### 17. Eventloop
 

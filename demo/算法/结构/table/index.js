@@ -322,3 +322,22 @@ var mergeTwoLists1 = function(l1, l2) {
 
     return prehead.next;
 };
+
+// 寻找两个链表的交汇节点
+
+var getIntersectionNode = function(headA, headB) {
+    const visited = new Set();
+    let temp = headA;
+    while (temp !== null) {
+        visited.add(temp);
+        temp = temp.next;
+    }
+    temp = headB;
+    while (temp !== null) {
+        if (visited.has(temp)) {
+            return temp;
+        }
+        temp = temp.next;
+    }
+    return null;
+};

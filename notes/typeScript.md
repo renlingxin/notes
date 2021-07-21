@@ -1,13 +1,16 @@
 ### TypeScript
 
-### 资料
-掘金 => https://juejin.cn/post/6914442673155735560
+### 引言
+> 什么是TS 
+
+TypeScript 是静态类型语言，通过类型注解提供编译时的静态类型检查。
 
 * 强类型的引入能让我们在写代码的时候从值优先的思维转变成类型优先；
 * 强类型的引入能帮助开发工具（IDE 等）更好地为开发者提供便利性能力，如智能补全、类型检测、编译时检查等等；
 * TypeScript 可以让 JavaScript 更好地与其他语言进行交互，甚至转换为其他语言；
 
 ### 基础类型
+
 1. Number -- 数字
 
 ```javascript
@@ -41,16 +44,17 @@
 4. Array -- 数组
 
 ```javascript
-
+    //1
     let arr: Number[] = [1, 3, 4]
-
+    //2
     let arr1: Array<Number> = [3, 4]
 
 ```
 
 5. Tuple -- 元组
+元组和数组类似。但元组类型要求属性和类型相对应
 
-```javascript
+```ts
 
     let tulpeArr: [number, string] = [2, '333']
 
@@ -58,7 +62,8 @@
     x = [1, 'eee']
 
 ```
-6. Any -- 任意
+6. Any -- 任意类型
+any 类型是ts中的顶层类型。这代表它可以被指认为任意类型。因为这个类型不会存在类型检查。因为不建议使用
 
 ```javascript
 
@@ -320,6 +325,10 @@ computed:{
   }
 }
 ```
+
+
+### 引用
+掘金 => https://juejin.cn/post/6914442673155735560
 
 
 
