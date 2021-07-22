@@ -327,11 +327,13 @@ var mergeTwoLists1 = function(l1, l2) {
 
 var getIntersectionNode = function(headA, headB) {
     const visited = new Set();
+    // 先遍历一个链表 埋进set结构
     let temp = headA;
     while (temp !== null) {
         visited.add(temp);
         temp = temp.next;
     }
+    // 遍历对比链表 如果在A链表中已经存在证明这是交汇节点
     temp = headB;
     while (temp !== null) {
         if (visited.has(temp)) {
