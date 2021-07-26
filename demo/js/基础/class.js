@@ -75,11 +75,11 @@ let p3 = new ani({
   person: "diefd",
 });
 
-console.log(ani.getOther());
+console.log(ani.getOther(),'ani.getOther()');
 // static 定义的字段 能被父类直接调用 实例调不了
-console.log(ani.only, p2.only);
+console.log(ani.only, p2.only,'ani.only, p2.only');
 // 公共实例字段 父类本身不能访问 实例可以访问
-console.log(p2.dog, ani.dog);
+console.log(p2.dog, ani.dog,'p2.dog, ani.dog');
 // p2.#times ani.#times =》SyntaxError:
 // console.log(p2.#times,ani.#times);
 
@@ -128,7 +128,7 @@ class User {
 
 new User("Jon Snow");
 let u = new User("Arya Stark");
-console.log(User.#instances,u.#instances)
+// console.log(User.#instances,u.#instances)
 
 
 //   new User('Sansa Stark'); // throws Error

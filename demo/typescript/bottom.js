@@ -77,3 +77,5 @@ function getNum1(target) {
     // target.width = "ddd";
 }
 getNum1({ width: "333", area: 222 });
+
+

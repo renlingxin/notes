@@ -180,3 +180,31 @@ type pary = {y:number};
 type parz = parx | pary;
 
 type data = [number,string];
+class People {
+  public age:number = 3
+  private name:string = 'renlingxin'
+  protected sex:string = 'nv'
+  // 同 object.defineProperty
+  get time(){
+    return '2020-1-2'
+  }
+  set time(val){
+    console.log('setter',val)
+  }
+  static tt  = ''
+}
+
+class Ren extends People{
+  constructor(){
+    super()
+  }
+  getName(){
+    console.log(this.age)//3
+    // console.log(this.name)//无法获取
+    console.log(this.sex)//nv
+  }
+}
+let rf = new People()
+rf.time = '333'
+console.log(rf.time,People.tt)
+// console.log(rf.age,rf.sex,rf.name)//sex 和 name 都无法获取. age => 3

@@ -2,37 +2,42 @@
 
 ### 引言
 
-> 什么是TypeScript？它是微软开源的JavaScript超集,用于在不破坏现有程序的情况下添加附加功能
+> 什么是TypeScript？
+
+TypeScript是[微软](https://baike.baidu.com/item/%E5%BE%AE%E8%BD%AF/124767)开发的一个开源的[编程语言](https://baike.baidu.com/item/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/9845131)，通过在[JavaScript](https://baike.baidu.com/item/JavaScript/321142)的基础上添加静态类型定义构建而成。TypeScript通过TypeScript[编译器](https://baike.baidu.com/item/%E7%BC%96%E8%AF%91%E5%99%A8/8853067)或Babel转译为JavaScript代码，可运行在任何[浏览器](https://baike.baidu.com/item/%E6%B5%8F%E8%A7%88%E5%99%A8/213911)，任何[操作系统](https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/192)。（来源百度百科）
+
+​                                                                            
+
 
 > TypeScript 有哪些优点？
 
-1. 类型 相较于JavaScript的动态类型，TypeScript 可选为静态类型，并且提供了强大的类型检查；这也使它更具表现力
-2. ES6 TypeScript 提供了最新的和不断发展的 JavaScript 特性，包括ES6以及 未来的提案中的特性
-3. 对编辑器更加友好。可以为我们提供更好的如代码补全、类型验证等功能
-4. 面向对象的特性。 TypeScript 为我们提供了标准OOP功能 如类、接口、模块等
-5. TypeScript 可以让 JavaScript 更好地与其他语言进行交互，甚至转换为其他语言；
-6. 强类型的引入能让我们在写代码的时候从值优先的思维转变成类型优先；
+* 类型 相较于JavaScript的动态类型，TypeScript 可选为静态类型，并且提供了强大的类型检查；这也使它更具表现力
+*  ES6 TypeScript 提供了最新的和不断发展的 JavaScript 特性，包括ES6以及 未来的提案中的特性
+*  对编辑器更加友好。可以为我们提供更好的如代码补全、类型验证等功能
+*  面向对象的特性。 TypeScript 为我们提供了标准OOP功能 如类、接口、模块等
+*  TypeScript 可以让 JavaScript 更好地与其他语言进行交互，甚至转换为其他语言；
+*  强类型的引入能让我们在写代码的时候从值优先的思维转变成类型优先；
 
-### 1. 基础类型
+### 基础类型
 
-1. Number -- 数字
+> Number -- 数字
 
 ts 中都是浮点数 除了支持 十进制和十六进制 字面量 还支持 ES6 引入的 二进制和八进制 字面量
 
 ```javascript
-    let decLiteral: number = 6;
-    let hexLiteral: number = 0xf00d;
-    let binaryLiteral: number = 0b1010;
-    let octalLiteral: number = 0o744;
+    let r: number = 6;
+    let e: number = 0xf00d;
+    let n: number = 0b1010;
+    let l: number = 0o744;
 ```
 
-2. String  --字符串
+> String  --字符串
 
 ```javascript
     let str: String = 'renlingxin'
 ```
 
-3. Null \ Undefined
+> Null \ Undefined
 
 ```javascript
 
@@ -41,7 +46,7 @@ ts 中都是浮点数 除了支持 十进制和十六进制 字面量 还支持 
 
 ```
 
-4. Array -- 数组
+> Array -- 数组
 
 两种书写方式
 
@@ -53,7 +58,8 @@ ts 中都是浮点数 除了支持 十进制和十六进制 字面量 还支持 
 
 ```
 
-5. Tuple -- 元组
+> Tuple -- 元组
+
 元组和数组类似。但元组类型要求属性和类型相对应
 
 ```ts
@@ -64,7 +70,8 @@ ts 中都是浮点数 除了支持 十进制和十六进制 字面量 还支持 
     x = [1, 'eee']
 
 ```
-6. Any -- 任意类型
+> Any -- 任意类型
+
 any 类型是ts中的顶层类型。这代表它可以被指认为任意类型。因为这个类型不会存在类型检查。因为不建议使用
 
 ```javascript
@@ -76,7 +83,7 @@ any 类型是ts中的顶层类型。这代表它可以被指认为任意类型�
 
 ```
 
-7. Object -- 对象
+> Object -- 对象
 
 ```javascript
 
@@ -87,7 +94,8 @@ any 类型是ts中的顶层类型。这代表它可以被指认为任意类型�
 
 ```
 
-8. Never -- 不存在
+> Never -- 不存在
+
  never类型是任何类型的子类型，也可以赋值给任何类型；然而，没有类型是never的子类型或可以赋值给never类型（除了never本身之外）。 即使 any也不可以赋值给never。
 
 ```javascript
@@ -104,7 +112,8 @@ any 类型是ts中的顶层类型。这代表它可以被指认为任意类型�
 
 ```
 
-9. Enum -- 枚举
+> Enum -- 枚举
+
 可用于常量枚举
 ```javascript
 
@@ -118,7 +127,8 @@ any 类型是ts中的顶层类型。这代表它可以被指认为任意类型�
 
 ```
 
-10. Void -- 没有任何类型
+> Void -- 没有任何类型
+
 void 类型与 any 类型相反，它表示没有任何类型；any表示任意类型
 
 ```javascript
@@ -132,7 +142,7 @@ void 类型与 any 类型相反，它表示没有任何类型；any表示任意�
 
 
 ```
-11. Boolean
+> Boolean
 
 TypeScript 中的 boolean 是原始类型。 确保使用小写版本，并且不要引用 Boolean 的对象实例
 
@@ -141,13 +151,15 @@ TypeScript 中的 boolean 是原始类型。 确保使用小写版本，并且�
     let boo1:boolean = true
     let boo2:Boolean = true  => 这样的话ts也可以正常编译 但是就是不规范别这么干
 ```
-12. Unknown 
+> Unknown 
+
 Unknown 类型和any一样也是顶层类型，它可以接收任何类型，但它与 Any 的区别在于，它首次赋值后就确定了数据类型，不允许变量的数据类型进行二次变更。所以，在需要接收所有类型的场景下，优先考虑用 Unknown 代替 Any
 
-### 2.  类型断言  => 告诉 ts ‘这个类型我知道你别管’
+###  类型断言 
+
+**告诉 ts 这个类型我知道你别管**
 
 ```javascript
-
     // 1. <>
 
     let _time:any = '20200806'
@@ -161,58 +173,55 @@ Unknown 类型和any一样也是顶层类型，它可以接收任何类型，但
 ```
 
 
-### 3. 接口 --- interface  接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。
+###  接口 interface
+
+**interface  接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。**
 
 1. 必须的属性验证
 
 ```typescript
-    interface typeCheck{
+    interface TYPE{
       color:String,
       area:Number
     }
-    function getNum(tagetValue:typeCheck){}
-    getNum({color:'',area:1111})
+    function getNum(tagetValue:TYPE){}
+    getNum({color:'',area:1111}) //强制要求入参具备 color 和 area属性
 ```
 
 2. 非必须的属性
 
 ```typescript
-    interface typeCheck{
-      color?:String,
+    interface TYPE{
+      color?:String,// ? 
       area?:Number
     }
-    function getNum(tagetValue:typeCheck){}
-    getNum({color:'',area:1111})
+    function getNum(tagetValue:TYPE){}
+    getNum({color:''})//不会强制校验 color 和 area 属性
 ```
 
 3. 只读属性（ readonly指定只读属性 ）
 
 ```typescript
-    interface typeCheck{
+    interface TYPE{
       readonly color:String,
       readonly area:Number
     }
-    function getNum(tagetValue:typeCheck){}
-    getNum({color:'',area:1111})
-let obj: Point =  {X : 10, Y : 20}
-OBJ.X = 'SSS'  // ERROR
+    let obj: TYPE =  {color : 'RED', area : 20}
+    obj.X = 'SSS'  // ERROR
 ```
+4. 多个属性和value简写
 
-### 4.  declare
-
-声明文件就是给js代码补充类型标注. 这样在ts编译环境下就不会提示js文件"缺少类型".
-
-```javascript
-
-declare var __DEV__: boolean
-declare var __COMMIT__: string
+```typescript
+interface NAMELIST {
+  [key: number]: string;
+}
 
 ```
 
 
-### 5. 泛型
-工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。是否支持多种数据类型就是其指标之一。我们定一个 temp 函数，返回其输入。
-
+###  泛型
+**可复用性是优秀代码必不可少的特性之一。我们在书写TS代码中不仅会考虑支持现有类型的校验。也需要考虑支持动态的类型校验。那么我们可以通过泛型定义。**
+1. 示例
 ```typescript
 
   // 我们不知其类型
@@ -229,12 +238,56 @@ declare var __COMMIT__: string
   }
 
 ```
+2. 使用大写字母 A-Z 定义的类型变量都属于泛型
 
-### 6. 类型保护 就是在报错前处理了它 
+* T（Type）：表示一个 TypeScript 类型
+* K（Key）：表示对象中的键类型
+* V（Value）：表示对象中的值类型
+* E（Element）：表示元素类型
+* ......
+
+### 类型保护 
+
+**类型保护的意义在于前置。就是在报错前处理了它 **
+
 1. typeof
+
+```typescript
+
+function getName(people:string){
+  if(typeOf people === 'string'){
+    console.log(1111)
+  }
+}
+```
+
+**typeof 的一个妙用**
+
+```ts
+
+  //可以通过typeof获取目标值的类型
+  let res = {name:'eeeee'}
+  type f = typeof res
+  //type f = {
+  //  name: string;
+  //}
+  
+```
+
 2. in 
-3. instanceof 实例判断
-4. ts 语法 xxx is type 
+
+```typescript
+  interface OBJ {
+    name:string
+  }
+  function getName(target:OBJ){
+    if('name' in target){
+      console.log(1111)
+    }
+  }
+```
+
+3. ts 语法 xxx is type 
 ```typescript
 
 interface _params {
@@ -247,38 +300,80 @@ function validReqParams(p: unknown): p is _params {
 
 ```
 
-### 7. class中的修饰符
+### class中的修饰符
+
+**我们知道ES6中的 class 是一个语法糖。是对寄生组合式继承方式的增强。在TypeScript中对class进行了再增强**
+
+1. 修饰符
 
 TypeScript 可以使用三种访问修饰符（Access Modifiers），分别是 public、private 和 protected。
 
 * public 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 public 的
 * private 修饰的属性或方法是私有的，不能在声明它的类的外部访问
-* protected 修饰的属性或方法是受保护的，它和 private 类似，区别是它在子类中也是允许被访问的
-
+* protected 修饰的属性或方法是受保护的，它和 private 类似，区别是它在**子类**中也是允许被访问的
 
 ```ts
+//父类
 class People {
   public age:number = 3
   private name:string = 'renlingxin'
   protected sex:string = 'nv'
 }
-
+//子类
 class Ren extends People{
   constructor(){
     super()
   }
   getName(){
-    console.log(this.age)//3
-    console.log(this.name)//无法获取
-    console.log(this.sex)//nv
+    console.log(this.age)//3 public 定义子类可以获取
+    console.log(this.name)//private 定义的子类 无法获取
+    console.log(this.sex)//protected 定义 子类可以获取 输出：nv
   }
 }
+//实例
 let y = new People()
-console.log(y.age,y.sex,y.name)//sex 和 name 都无法获取. age => 3
+console.log(y.age)//age => 3
+console.log(y.sex,y.name)
+//private && protected 定义在实例中sex 和 name 都无法获取. 
+//错误详情 => Property 'name' is private and only accessible within class 'People'.ts(2341)
+
+```
+
+2. get set (ES6)
+我们可以在类中定义get 和 set 来拦截属性的改查行为
+
+```ts
+class People {
+  // 同 object.defineProperty
+  get time(){
+    return '2020-1-2'
+  }
+  set time(val){
+    console.log('setter',val)
+  }
+}
+let p = new People()
+p.time = '2021-4-4' //'setter', '2021-4-4'
+
+console.log(p.time)// '2020-1-2'
+
+```
+
+3. static (ES6)
+通过 static 定义的属性只能在class本身中使用。称之为‘静态属性’
+```ts
+
+class People {
+  static name = 'renlingxin' 
+}
+let p = new People()
+console.log(p.name,People.name) //static 定义的属性 能被父类直接调用 实例调不了
+
 ```
 
 
-### 8. tips
+
+###  tips
 1. delete ts 操作问题
 
 ```javascript
@@ -336,15 +431,33 @@ computed:{
   }
 }
 ```
-5. 多种类型
+5. 联合类型
 
 ```ts
-let t:number | string = '3'
+let t:number | undefined = '3'
+```
+6. 判断深层次数据属性是否存在可以使用  ?.
+
+```ts
+cosnt _age = res && res.data && res.data.age // JS
+cosnt _age = res?.data?.age // TS
+
 ```
 
+7. TypeScript
 
-### 工具
+ts中内置了DOM各种元素的声明
 
+```ts
+
+HTMLElementTagNameMap  => ts中DOM类型定义的集合
+
+常见的类型定义：
+1. HTMLFormElement   => form
+2. HTMLHeadingElement => h1
+3. HTMLImageElement => img
+4. ...
+```
 
 
 
