@@ -136,3 +136,65 @@ var isCovered = function(ranges, left, right) {
         return false
     }
 };
+
+// 671. 二叉树中第二小的节点
+// 给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
+
+// 更正式地说，root.val = min(root.left.val, root.right.val) 总成立。
+
+// 给出这样的一个二叉树，你需要输出所有节点中的第二小的值。如果第二小的值不存在的话，输出 -1 。
+
+ 
+
+// 示例 1：
+
+
+// 输入：root = [2,2,5,null,null,5,7]
+// 输出：5
+// 解释：最小的值是 2 ，第二小的值是 5 。
+var findSecondMinimumValue = function(root) {
+    let _arr = []
+    _time(root,_arr)
+    _arr.sort((a,b)=>a-b)
+    let _min = _arr[0]
+    for(let i=0;i<_arr.length;i++){
+        if(_arr[i] > _min){
+            return _arr[i]
+        }
+    }
+    return -1
+};
+
+const _time = function(node,_arr){
+    if(node === null) return
+    _arr.push(node.val)
+    _time(node.left,_arr)
+    _time(node.right,_arr)
+}
+console.log('findSecondMinimumValue',findSecondMinimumValue([2,2,5,null,null,5,7]))
+
+
+// 官方  理解题意很重要
+var findSecondMinimumValue = function(root) {
+    let ans = -1;
+    const rootvalue = root.val;
+
+    const dfs = (node) => {
+        if (node === null) {
+            return;
+        }
+        // 这一步是关键
+        if (ans !== -1 && node.val >= ans) {
+            return;
+        }
+        if (node.val > rootvalue) {
+            ans = node.val;
+        }
+        dfs(node.left);
+        dfs(node.right);
+    }
+
+    dfs(root);
+    return ans;
+};
+

@@ -658,6 +658,18 @@ infinite=》无限循环
 normal=》默认值-正常播放
 alternate=》轮流反向播放
 ```
+
+* 兼容书写方式
+
+```css
+
+-webkit-animation: name time 动作方式 次数
+/* Safari 和 Chrome */
+
+```
+
+
+
 2. transfrom transtion 
 
 > transtion

@@ -412,3 +412,65 @@ function inOrder1(node,arr) {
         return arr
     }
 }
+
+// 863. 二叉树中所有距离为 K 的结点
+// 给定一个二叉树（具有根结点 root）， 一个目标结点 target ，和一个整数值 K 。
+
+// 返回到目标结点 target 距离为 K 的所有结点的值的列表。 答案可以以任何顺序返回。
+
+// 示例 1：
+
+// 输入：root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, K = 2
+// 输出：[7,4,1]
+// 解释：
+// 所求结点为与目标结点（值为 5）距离为 2 的结点，
+// 值分别为 7，4，以及 1
+var distanceK = function(root, target, k) {
+    const parents = new Map();
+    const ans = [];
+
+    const findParents = (node) => {
+        if (node.left != null) {
+            parents.set(node.left.val, node);
+            findParents(node.left);
+        }
+        if (node.right != null) {
+            parents.set(node.right.val, node);
+            findParents(node.right);
+        }
+    }
+
+    // 从 root 出发 DFS，记录每个结点的父结点
+    findParents(root);
+    // from 这里的作用是为了避免重复访问节点
+    const findAns = (node, from, depth, k) => {
+        if (node == null) {
+            return;
+        }
+        if (depth === k) {
+            ans.push(node.val);
+            return;
+        }
+        // 向下-左  from 这里的作用是为了避免重复访问节点  比如在这里已经向上访问父节点了 在这里就会重复访问到当前节点
+        if (node.left !== from) {
+            findAns(node.left, node, depth + 1, k);
+        }
+        // 向下-右 from 这里的作用是为了避免重复访问节点  比如在这里已经向上访问父节点了 在这里就会重复访问到当前节点
+        if (node.right !== from) {
+            findAns(node.right, node, depth + 1, k);
+        }
+        // 向上-
+        if (parents.get(node.val) !== from) {
+            findAns(parents.get(node.val), node, depth + 1, k);
+        }
+    }
+    // 从 target 出发 DFS，寻找所有深度为 k 的结点
+    findAns(target, null, 0, k);
+
+    return ans;
+};
+// 作者：LeetCode-Solution
+// 链接：https://leetcode-cn.com/problems/all-nodes-distance-k-in-binary-tree/solution/er-cha-shu-zhong-suo-you-ju-chi-wei-k-de-qbla/
+// 来源：力扣（LeetCode）
+// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
