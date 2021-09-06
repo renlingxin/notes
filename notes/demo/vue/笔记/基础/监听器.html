@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>watch</title>
+</head>
+
+<body>
+    <div id="box">
+
+        <input v-model="msg" type="text">
+        <h2> {{msg}}</h2>
+        <button @click='nun[0].name="ren"'>改变</button>
+        <h2>{{nun[0].name}}</h2>
+
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    // watch 监听单个属性   基本数据类型简单监视   复杂数据类型深度监视
+    new Vue({
+        el: '#box',
+        data: {
+            msg: 'renlingxin',
+            nun: [{
+                name: 'jack'
+            }]
+        },
+        methods: {
+
+        },
+        watch: {
+            // 监听基本数据类型
+            msg: (newV, oldV) => {
+                console.log(newV, oldV);
+
+                if (newV == 'xxxx') {
+                    console.log(newV);
+                }
+
+            },
+            // 监听复杂数据类型
+            nun: {
+                deep: true, //深度监视
+                handler: (newV, oldV) => {
+                    // console.log(newV)
+                    console.log(newV[0].name)
+                }
+            }
+        }
+
+
+    });
+</script>
+
+</html>

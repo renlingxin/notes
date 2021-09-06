@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="some-element-you-want-to-animate" style="width: 100px;height:100px;background-color: #000;"></div>
+</body>
+<script>
+  // window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
+  const element = document.getElementById('some-element-you-want-to-animate');
+  let start;
+
+  function step(timestamp) {
+    if (start === undefined)
+      start = timestamp;
+    const elapsed = timestamp - start;
+
+    // `Math.min()` is used here to make sure that the element stops at exactly 200px.
+    element.style.transform = 'translateX(' + Math.min(0.1 * elapsed, 200) + 'px)';
+
+    if (elapsed < 2000) { // Stop the animation after 2 seconds
+      window.requestAnimationFrame(step);
+    }
+  }
+
+  window.requestAnimationFrame(step);
+</script>
+
+</html>

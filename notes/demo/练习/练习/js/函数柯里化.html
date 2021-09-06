@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- 函数柯里化 
+维基百科上说道：柯里化，英语：Currying(果然是满满的英译中的既视感)，
+是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数
+，并且返回接受余下的参数而且返回结果的新函数的技术。-->
+<script>
+    // 普通的add函数
+    function add(x, y) {
+        return x + y
+    }
+
+    // Currying后
+    function curryingAdd(x) {
+        return function (y) {
+            return x + y
+        }
+    }
+
+    add(1, 2) // 3
+    curryingAdd(1)(2) // 3
+</script>
+<!-- 经典面试题 -->
+<script>
+    function add() {
+        // 第一次执行时，定义一个数组专门用来存储所有的参数
+        var _args = Array.prototype.slice.call(arguments);
+        console.log(_args)
+
+        // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+        var _adder = function () {
+            _args.push(...arguments);
+            return _adder;
+        };
+        console.log(_args)
+
+        // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+        _adder.toString = function () {
+            return _args.reduce(function (a, b) {
+                return a + b;
+            });
+        }
+        return _adder;
+
+    }
+
+    console.log(add(1)(2)(3)) // 6
+    console.log(add(1, 2, 3)(4)) // 10
+    console.log(add(1)(2)(3)(4)(5)) // 15
+    console.log(add(2, 6)(1)) // 9
+</script>
+
+</html>

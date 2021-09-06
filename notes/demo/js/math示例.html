@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .marquee-style {
+            border: 1px solid #000;
+            padding: 3px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <marquee class="marquee-style">jintian niweishenmo buchifan wo xianzai rangni quchifan ni qubuqu </marquee>
+</body>
+
+<script>
+    //获取4-12之间的随机整数
+    for (i = 0; i < 5; i++) {
+        console.log(Math.round(Math.random() * (12 - 4) + 4));
+    }
+    // for (i = 0; i < 10; i++) {
+    //     console.log(Math.floor(Math.random() * (16 - 4 + 1) + 4));
+    // }
+    // 函数
+    // 任意数求和
+    function sum() {
+        var total = null;
+        for (i = 0; i < arguments.length; i++) {
+            var item = arguments[i];
+            isNaN(item) ? null : total = total + item;
+
+        }
+        return total;
+    }
+    console.log(sum(10, 20, 're'));
+    // es6中的方法
+    let sum1 = (...arg) => {
+        // filter  遍历
+        // eval（）函数可以字符串转换为代码执行，并返回一个或多个值
+        // join() 方法用于把数组中的所有元素放入一个字符串
+        arg = arg.filter(item => !isNaN(item));
+        return eval(arg.join('+'));
+    };
+    console.log(sum1(10, 80, 'rfilterev'));
+    // 函数表达式
+    var fn = function () {
+
+    };
+    // obox.onclick = function () {
+
+    // };
+    // 自执行函数
+    (function (i) {
+
+    })(10); //官方推荐
+    // i 是形参   10  是实参
+    ~ function () {
+
+    }(); +
+    function () {
+
+    }();
+    ! function () {
+
+    }();
+</script>
+
+</html>

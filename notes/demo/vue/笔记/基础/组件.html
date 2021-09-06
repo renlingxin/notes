@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .main {
+            width: 100%;
+            height: 1000px;
+            text-align: center;
+            border: 1px solid #000;
+
+        }
+
+        .leecs {
+            width: 50%;
+            height: 800px;
+            float: left;
+            margin-top: 20px;
+            background-color: bisque;
+        }
+
+        .rigcs {
+            width: 50%;
+            height: 800px;
+            margin-top: 20px;
+            float: left;
+            background-color: red;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="app">
+
+          
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    
+
+    // 局部组件
+    let lee = {
+        template: `
+        <div class="leecs">左侧</div>
+        `
+    }
+    let rig = {
+        template: `
+        <div class="rigcs">右侧</div>
+        `
+    }
+    // 定义
+    let qq = {
+        template: `
+        
+        <div class="main">
+        <h2>我是任岭鑫---来自{{here}}住在{{fathName}}</h2>
+        <lee></lee>
+        <rig></rig>
+        </div>
+        
+        
+        `,
+        components: {
+            rig,
+            lee
+        },
+        // 组件实例的作用域是孤立的。这意味着不能 (也不应该) 在子组件的模板内直接引用父组件的数据。
+        // 父组件的数据需要通过 prop 才能下发到子组件中   也就是props是子组件访问父组件数据的唯一接口
+        props:['here','fathName']
+    }
+    new Vue({
+        el: '#app',
+        data: {
+
+        },
+        // 引用
+        template: `
+        <qq here="china" fath-name="石家庄"></qq>
+        
+        `,
+        components: {
+            // 挂载
+            qq
+        }
+    });
+</script>
+
+</html>

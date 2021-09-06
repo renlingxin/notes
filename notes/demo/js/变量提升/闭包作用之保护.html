@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 闭包  函数执行形成一个不受销毁的私有作用域（私有内存）才是闭包
+    // 下面的是闭包：柯理化函数
+    1
+
+    function fn() {
+        return function () {
+
+        }
+    }
+    var f = fn();
+    // 2  闭包：惰性函数
+    var untils = (function () {
+        return {
+
+        }
+    })();
+    // 闭包实战应用    真实项目中，为了保证js的性能（堆栈内存的性能优化），应该尽可能减少闭包的使用（不销毁的堆栈内存是消耗内存的）
+    // 1 闭包具有保护作用：保护私有变量不受外界的干扰
+    // 在真实项目中，尤其是团队协作开发的时候，应该尽可能减少全局变量的使用，以防止相互之间的冲突（‘全局变量污染’）
+    // 我们把自己的一部分内容封装到一个闭包中，让全局变量变成私有变量
+    // 不仅如此，我们封装类库插件的时候也会把自己的程序放到闭包中保护起来，防止和用户的程序冲突，但是有需要暴露一些方法给客户使用，怎么处理？
+    //   （1）JQ这种方式，把需要暴露的方法抛到全局
+    (function () {
+        function jQuery() {
+            var a = 'ren';
+            console.log('fsf');
+            return a;
+        }
+        window.jQuery = window.$ = jQuery; //把需要供外面使用的方法，通过给win设置属性的方法暴露出去
+    })();
+    jQuery();
+    $();
+    // (2) zepto这种方式：基于return 把需要供外面使用的方法暴露出去
+    var zepto = (function () {
+        return {
+            xin: function () {
+                console.log('hello world')
+            }
+        };
+    })();
+    zepto.xin();
+    // 2 闭包具有保存作用：形成不销毁的堆栈内存，把一些值保存下来，方便调取使用
+    var xx = 5;
+    (function ren(xx) {
+        console.log(xx);
+        console.log(1111);
+    })(xx);
+</script>
+
+</html>

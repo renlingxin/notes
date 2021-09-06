@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // es6 中object.is 方法比较俩对象是否相等  
+    let one = {
+        name: 'ren'
+    }
+    let two = one;
+    console.log(Object.is(one, two))
+    // object.is 判断的是对象指针是否相等
+    let three = {
+        name: 'ren'
+    }
+    console.log(Object.is(one, three))
+
+    // 递归的方法比较两数组是否相等
+    function isObjectValueEqual(a, b) {
+        //  Object.getOwnPropertyNames 方法获取对象的键值名数组
+        var aProps = Object.getOwnPropertyNames(a);
+        console.log(aProps)
+        var bProps = Object.getOwnPropertyNames(b);
+        console.log(bProps)
+
+
+        // 键值名条数不相等直接返回 false 
+        if (aProps.length != bProps.length) {
+            return false;
+        }
+
+        // 对内容进行比较
+        for (var i = 0; i < aProps.length; i++) {
+            var propName = aProps[i]
+
+            var propA = a[propName]
+            var propB = b[propName]
+            // 如果内容是一个对象 再次运用 isObjectValueEqual 函数进行比较
+            if ((typeof (propA) === 'object')) {
+                if (this.isObjectValueEqual(propA, propB)) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if (propA !== propB) {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+    var a = {
+        id: 1,
+        name: 2,
+        c: {
+            age: 3
+        }
+    };
+    var b = {
+        id: 1,
+        names: 2,
+        c: {
+            age: 3
+        }
+    }
+    console.log(isObjectValueEqual(a, b)); //true
+</script>
+
+</html>

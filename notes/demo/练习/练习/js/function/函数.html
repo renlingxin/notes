@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数的属性</title>
+</head>
+
+<body>
+
+</body>
+<!-- 函数是对象 函数名是指针引用 -->
+<script>
+    // 函数的属性和方法有 length 和 prototype
+    function cat(name, age) {
+
+    }
+    // 函数的length属性表示函数希望接收的命名参数的个数
+    console.log(cat.length);
+</script>
+<!-- 函数内部属性  arguments 和 this -->
+<script>
+    var name = '任岭鑫';
+
+    function go(num) {
+        console.log(arguments);
+        // 在全局环境中 调用函数时  this对象引用就是window
+        console.log(this.name);
+    }
+    go();
+    let to = {name:'黑猫警长'};
+    to.go = go;
+    to.go();
+</script>
+
+</html>

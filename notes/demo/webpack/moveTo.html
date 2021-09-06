@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script>
+function openWin(){
+    // window.resizeTo(100,100)
+    myWindow=window.open('','','width=200,height=100');
+    myWindow.document.write("<p>这是我的窗口</p>");
+}
+function moveWin(){
+    myWindow.moveTo(0,0);
+    myWindow.focus();
+}
+
+// 构造函数
+function Person(){
+    this.name = 'renlingxin'
+}
+let p1 = new Person();
+let p2 = new Person();
+console.log(p1.name)
+p1.name = '1213131'
+
+</script>
+</head>
+<body>
+
+<input type="button" value="打开窗口" onclick="openWin()" />
+<br><br>
+<input type="button" value="移动窗口" onclick="moveWin()" />
+
+</body>
+</html>

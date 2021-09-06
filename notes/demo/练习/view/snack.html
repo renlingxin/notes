@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="gc" width="400" height="400"></canvas>
+</body>
+
+
+<script>
+    window.onload = function () {
+        canv = document.getElementById('gc');
+        // getContext() 方法可返回一个对象，该对象提供了用于在画布上绘图的方法和属性   
+        // 当前唯一的合法值是 "2d"  表示二维图
+        ctx = canv.getContext('2d');
+        // addEventListener() 方法用于向指定元素添加事件句柄。
+        // keydown=》字符串，指定事件名。 keyPush=》指定要事件触发时执行的函数。
+        document.addEventListener('keydown', keyPush);
+        setInterval(game, 1000 / 15);
+    }
+    px = py = 10;
+    gs = tc = 20;
+    ax = ay = 15;
+    xv = yv = 0;
+    trail = [];
+    tail = 5;
+
+    function game() {
+        px += xv;
+        py += yv;
+        if (px < 0) {
+            px = tc - 1;
+        }
+        if (px > tc - 1) {
+            px = 0;
+        }
+        if (py < 0) {
+            py = tc - 1;
+        }
+        if (py > tc - 1) {
+            py = 0;
+        }
+        // fillStyle 属性设置或返回用于填充绘画的颜色、渐变或模式。
+        ctx.fillStyle = 'black';
+        // fillRect() 方法绘制“已填色”的矩形。默认的填充颜色是黑色
+        // 1矩形左上角的 x 坐标
+        // 2矩形左上角的 y 坐标
+        // 3矩形的宽度，以像素计
+        // 4矩形的高度，以像素计
+        ctx.fillRect(0, 0, canv.width, canv.height);
+       
+        ctx.fillStyle = 'lime';
+        for (var i = 0; i < trail.length; i++) {
+            ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
+            if (trail[i].x == px && trail[i].y == py) {
+                tail = 5;
+            }
+        }
+        trail.push({
+            x: px,
+            y: py
+        });
+        while (trail.length > tail) {
+            trail.shift();
+        }
+        if (ax == px && ay == py) {
+            tail++;
+            // 获得随机整数  floor=》向下取整   random=》该范围定的随机数
+            ax = Math.floor(Math.random() * tc);
+            ay = Math.floor(Math.random() * tc);
+        }
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
+    }
+
+    function keyPush(evt) {
+        switch (evt.keyCode) {
+            // 键盘事件37,38,39,40 分别是左上右下
+            case 37:
+                xv = -1;
+                yv = 0;
+                break;
+            case 38:
+                xv = 0;
+                yv = -1;
+                break;
+            case 39:
+                xv = 1;
+                yv = 0;
+                break;
+            case 40:
+                xv = 0;
+                yv = 1;
+                break;
+        }
+    }
+
+
+
+    Math.round(Math.random()*(m-n)+n);
+    Math.floor(Math.random()*(m-n+1)+n);
+</script>
+
+</html>

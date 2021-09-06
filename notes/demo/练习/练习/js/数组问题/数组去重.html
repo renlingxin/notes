@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+    <style>
+    </style>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    var ary = [1, 1, 1, 1, 1, 25, 1, 5, 8, 6, 4, 8, 5, 2];
+    // 一
+    // 1 依次拿出系统中的每一项，排除最后一项，最后一项后面没有需要比较的内容了
+    // 2 和当前拿出项后面的每一项依次比较
+    // 3 如果有重复的，我们把找到的这个重复项在原有数组中删除掉
+    //    这么做会导致数组塌陷问题，当我们吧当前项删除后后面的每一项都要向前进一位，也就是原有数组的索引发生了改变
+    //    ，此时我们的k继续累加1，下次再拿出来就是跳过一位
+
+    for (i = 0; i < ary.length - 1; i++) {
+        var item = ary[i]; //item依次拿出的每一项  i当前项的索引
+        for (k = i + 1; k < ary.length; k++) {
+            if (item === ary[k]) {
+                ary.splice(k, 1);
+                k--; //删除后先减减，就相当于没加没减
+            }
+
+        }
+    }
+    console.log(ary);
+    // 二
+    // 基于对象属性名不能重复这个特性，实现高性能数组去重
+    // 1 创建一个空对象
+    // 2 依次遍历数组中的每一项，把每一项储存的值，当做对象的属性名和属性值储存起来
+    // 储存的时候进行一个判断，判断当前对象是否已经存在属性名了，如果已经存在，说明之前有这一项储存的操作，进一步说明之前数组中出现
+    // 过这个数值了
+    var ary1 = [1, 2, 12, 1, 1, 1, 1, 12, 1, 5, 1, 5, 1, 5];
+    var obj = {};
+    for (i = 0; i < ary1.length; i++) {
+        var item = ary1[i]; //item依次拿出的每一项  i当前项的索引
+        //储存之前判断
+        if (obj.hasOwnProperty(item)) {
+            // ary1.splice(i,1);  这种方式如果数组很长，就会非常消耗性能
+            // i--;  
+            ary1[i] = ary1[ary1.length - 1]; // 我们把数组的最后一项获取到，替换当前项内容
+            ary1.length--; // 然后把数组的最后一项删除
+            i--;
+            continue;
+        }
+        //把这一项作为对象的属性名和属性值存储进去
+        obj[item] = item;
+    }
+    console.log(obj);
+    console.log(ary1);
+    // 三   es6中的方法
+    var ary2 = [1, 2, 12, 1, 1, 1, 1, 12, 1, 5, 1, 5, 1, 5];
+    var newary = Array.from(new Set(ary2));
+    console.log(newary);
+    //     Array.from()方法就是将一个类数组对象或者可遍历对象转换成一个真正的数组。
+    // 　　那么什么是类数组对象呢？所谓类数组对象，最基本的要求就是具有length属性的对象
+
+    // 3.利用ES5数组里的filter过滤：
+    function unique(a) {
+
+        var res = a.filter(function (item, index, array) {
+            return array.indexOf(item) === index;
+        });
+
+        return res;
+    }
+    var a = [1, 1, '1', '2', 1];
+    var ans = unique(a);
+    console.log(ans);
+    //     1.遍历数组法 它是最简单的数组去重方法（indexOf方法）
+    // 实现思路：新建一个数组，遍历去要重的数组，当值不在新数组的时候（indexOf为-1）就加入该新数组中；
+    var arr = [2, 8, 5, 0, 5, 2, 6, 7, 2];
+
+    function unique1(arr) {
+        var hash = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (hash.indexOf(arr[i]) == -1) {
+                hash.push(arr[i]);
+            }
+        }
+        return hash;
+    }
+    var ans = unique1(arr);
+    console.log(ans);
+
+    // 2.数组下标判断法 // 调用indexOf方法，性能和方法1差不多
+    // 实现思路：如果当前数组的第 i 项在当前数组中第一次出现的位置不是 i，那么表示第 i 项是重复的，忽略掉。否则存入结果数组。
+    function unique2(arr) {
+        var hash = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr.indexOf(arr[i]) == i) {
+                hash.push(arr[i]);
+            }
+        }
+        return hash;
+    }
+    var ans = unique2(arr);
+    console.log(ans);
+
+    // 3. 排序后相邻去除法
+    // 实现思路： 给传入的数组排序， 排序后相同的值会相邻， 然后遍历排序后数组时， 新数组只加入不与前一值重复的值。
+    function unique3(arr) {
+        arr.sort();
+
+        var hash = [arr[0]];
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] != hash[hash.length - 1]) {
+                hash.push(arr[i]);
+            }
+        }
+        return hash;
+    }
+    var ans = unique3(arr);
+    console.log(ans);
+
+    function tHaa(arrf) {
+        var res = Array.from(new Set(arrf));
+        return res;
+    }
+    // es6 新方法
+    // 整体格式
+    var newary = Array.from(new Set(ren));
+</script>

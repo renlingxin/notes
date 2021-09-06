@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.defineProperty</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // vue中的双向数据绑定就是通过数据劫持和发布-订阅者模式实现    
+    // 通过object.defineProperty()方法来劫持属性setter,getter,在数据变动时发布消息给订阅者，触发响应的函数操作
+    // 1
+    // let car = {}
+    // let val = 3000
+    // Object.defineProperty(car, 'price', {
+    //     get() {
+    //         console.log('price属性被读取了')
+    //         return val
+    //     },
+    //     set(newVal) {
+    //         console.log('price属性被修改了')
+    //         val = newVal
+    //     }
+    // })
+    // 2
+    /**
+     * 把一个对象的每一项都转化成可观测对象
+     * @param { Object } obj 对象
+     */
+     let car = observable({
+        'brand':'BMW',
+        'price':3000
+    })
+    
+    function observable(obj) {
+        if (!obj || typeof obj !== 'object') {
+            return;
+        }
+        let keys = Object.keys(obj);
+        console.log(keys)
+        keys.forEach((key) => {
+            console.log(key)
+            defineReactive(obj, key, obj[key])
+        })
+        return obj;
+    }
+    /**
+     * 使一个对象转化成可观测对象
+     * @param { Object } obj 对象
+     * @param { String } key 对象的key
+     * @param { Any } val 对象的某个key的值
+     */
+    function defineReactive(obj, key, val) {
+        Object.defineProperty(obj, key, {
+            get() {
+                console.log(`${key}属性被读取了`);
+                return val;
+            },
+            set(newVal) {
+                console.log(`${key}属性被修改了`);
+                val = newVal;
+            }
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    var tes = {
+        template: `
+        <div></div>
+    `
+    };
+    Vue.component('subset', tes);
+
+
+
+    var App = {
+        template: `
+        <div>
+          <button ref = "btn">我是按钮</button>
+          <button ref = "btn2">我是按钮2</button>
+          <subset ref = "sbc"></subset>
+        </div>
+        `,
+        data() {
+            return {
+
+            }
+        },
+        // 组件创建之前
+        beforeCreate: function () {
+
+        },
+        // 组件创建之后 
+        created: function () {
+            console.log(this.$refs.btn);
+        },
+        // 挂载数据到DOM之前会调用
+        beforeMount: function () {
+            console.log(this.$refs.btn);
+        },
+        // 挂载数据到DOM之后会调用
+        mounted: function () {
+            // 如果在组件内部标签绑定ref,再使用 this.$refs.xxx获取的是原生js的DOM对象
+            // ref这个属性值不能重名
+            console.log(this.$refs.btn);
+            console.log(this.$refs.btn2);
+            console.log(this.$refs.sbc);// 如果是给组件绑定的ref属性，那么获取的就是组件对象
+        }
+
+    }
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+
+        },
+
+        components: {
+            App
+        }
+
+
+    })
+</script>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function fn(name, age) {
+        var n = 10;
+        this.name = name;
+        this.age = age + n;
+    }
+    var f1 = new fn('xxx', 20);//创建实例f1
+    var f2 = new fn('aaa', 20);//在构造函数执行的时候，如果不需要fn传递实参，我们可以省略小括号，意思还是创建实例
+    console.log(f1 === f2);
+
+    console.log(f1.name);
+    console.log(f2.age);
+    console.log('name' in f1);
+    console.log(f1.n);//只有this.xxx才跟实例有关系，n是私有作用域中的私有变量，this是当前类的实例
+    console.log(f1 instanceof fn);//instanceof检测当前实例是否属于fn
+    console.log(f1 instanceof Object);//object万物皆对象
+
+    console.log('toString' in f1);//toString 是公有属性
+    console.log(f1.hasOwnProperty('tostring'));//检测是否是当前的私有属性
+
+</script>
+
+</html>

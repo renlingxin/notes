@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css</title>
+    <style>
+        .parent {
+            /* 设置padding 或者border 都可以避免 理解为触发bfc  */
+            border: 1px solid blue;
+            /* padding: 1px; */
+            /* margin-bottom: 30px; */
+            /* overflow: hidden; */
+            /* float: left; */
+        }
+
+        /* 这样的情况下会出现边距塌陷问题  都是正数--两者之间的距离取最大  一正一负--取两者的和  都是负数--取最大 */
+        .btn1 {
+            /* 这里配合父元素设置了border属性会让当前元素不在耦合父元素 */
+            margin-top: 50px;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 40px;
+            /* 这样的写法错误 别这么写 */
+            /* border-bottom: 40px; */
+
+            /* 设置pading不会产生塌陷问题 */
+            /* padding-bottom: 40px; */
+            background-color: aqua;
+        }
+
+        .btn2 {
+            width: 200px;
+            height: 200px;
+            margin-top: 50px;
+            /* 这样的写法错误 别这么写 */
+            /* border-top: 50px; */
+
+            /* 设置pading不会产生塌陷问题 */
+            /* padding-top: 50px; */
+            background-color: blue;
+            margin-bottom: 40px;
+        }
+
+        .parent2 {
+            width: 200px;
+            height: 200px;
+            margin-top: 30px;
+            overflow: hidden;
+            border: 1px solid red;
+        }
+
+        .btn3 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="btn1">
+
+        </div>
+        <div class="btn2">
+
+        </div>
+    </div>
+    <div class="parent2">
+        <div class="btn3">
+
+        </div>
+    </div>
+
+    <div>
+        总结：
+        1. 父子之间的边距塌陷问题 例如子元素导致父元素被一起移动 可以通过在父元素设置border padding 或者触发bfc的方式去解决
+        2. 边距塌陷问题只存在上下 不在左右
+        2. 触发bfc的方式有：
+        【1】根元素，即HTML元素
+        　　【2】float的值不为none
+        　　【3】overflow的值不为visible
+        overflow 基本所有属性 auto hidden inherit visible(默认属性 不会裁剪显示到外面) scroll(如果需要，内容将被剪裁以适合填充框)
+        　　【4】display的值为inline-block、table-cell、table-caption
+        　　【5】position的值为absolute或fixed
+
+        3. 两个bfc同样会存在相互边距塌陷问题 但可以清楚内部元素的边距塌陷问题 margin 的问题可以将两个盒子都用bfc包起来然后内部设置距离
+    </div>
+</body>
+
+</html>

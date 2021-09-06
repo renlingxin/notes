@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        剪切板的内容：
+        <hr />
+        <span></span>
+    </div>
+</body>
+<script>
+    window.onload = () => {
+        // 此方法只适用于IE  因为IE提供了对外接口  其他浏览器不支持 因为剪切板内容涉及到用户的安全问题
+        let content = document.clipboardData.getData('text')
+        console.log(content)
+    }
+</script>
+
+</html>

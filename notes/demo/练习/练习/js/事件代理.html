@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="tableTest" style="border: 1px solid #000">
+        <tr id="trTest">
+            <td>点我</td>
+            <td>点我</td>
+            <td>点我</td>
+            <td>点我</td>
+            <td>点我</td>
+        </tr>
+    </table>
+
+</body>
+<script type="text/javascript">
+    // 简单代码 遇到td特别多的时候 就会出现性能问题
+    // window.onload = function () {
+    //     var oTr = document.getElementById("trTest");
+    //     var oTd = oTr.getElementsByTagName("td");
+    //     for (let i = 0; i < oTd.length; i++) {
+    //         oTd[i].onclick = function () {
+    //             this.style.backgroundColor = 'yellow';
+    //         }
+    //     }
+    // }
+
+    // 将事件绑定到tr上  通过事件冒泡，将多个元素的事件绑定到一个元素上
+    window.onload = function () {
+
+        var oTr = document.getElementById("trTest");
+        oTr.onclick = function () {
+            // 获取事件源  也就是当前触发事件的对象
+            console.log(window.event.srcElement)
+            var ev = window.event.srcElement;
+            ev.style.backgroundColor = 'yellow';
+        }
+
+    }
+</script>
+
+
+</html>

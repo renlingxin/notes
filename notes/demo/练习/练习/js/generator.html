@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function* change() {
+        yield 11111;
+        yield 222222;
+        yield 33333333;
+        // return 5555555;
+    }
+    var ren = change();
+    console.log(ren.next()) //done属性的值false，表示遍历还没有结束。
+    console.log(ren.next())
+    console.log(ren.next())
+    console.log(ren.next())
+
+    async function timeout(ms) {
+        await new Promise((resolve) => {
+            setTimeout(resolve, ms);
+            console.log(11);
+        });
+    }
+
+    async function asyncPrint(value, ms) {
+        await timeout(ms);
+        console.log(value);
+    }
+
+    asyncPrint('hello world', 2000);
+
+
+    function* fibs() {
+        let a = 0;
+        let b = 1;
+        while (true) {
+            yield a;
+            [a, b] = [b, a + b];
+        }
+    }
+
+    let [first, second, third, fourth, fifth, sixth] = fibs();
+    console.log(second)
+</script>
+
+</html>

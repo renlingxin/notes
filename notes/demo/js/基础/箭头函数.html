@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // es6箭头函数
+    let fn = (x, y) => {
+
+    };
+    fn(10, 20);
+    let fn1 = x => {
+        //只有一个形参，我们可以省略小括号
+    };
+    fn(10);
+    let fn2 = (x, y) => x + y;//如果函数体中只有一句操作，并且是return的，我们可以省略大括号(给形参设置默认值)
+    console.log(fn2(10, 20));
+
+    let obj = {
+        fn: (function () {
+            //this =>window
+            return () => {
+                console.log(this);
+            }
+        })
+    }
+    obj.fn();//this => window 箭头函数执行没有执行主体，在箭头函数中使用到的this都是直接找上下文
+    // 解构赋值
+    let num = [12, 13, 14, 4];
+    let [q, w, e, r] = num;
+    console.log(q, w, e, r);
+    let [, , t, y] = num;
+    console.log(t, y);
+
+    let value = { name: 'renlingxin', age: 12, score: [11, 12, 23, 44] };
+    let { name: a, score: [b, ...c] } = value;//剩余运算符 除了前面的项都放在一个数组中
+    // score: [b, ...c,d]  这是错误的，剩余运算符处于解构赋值的最后位置
+    console.log(a, b, c);//原来的name age score 不能用了
+    let { friend = 0 } = value;
+    console.log(friend);//给不存在的属性设置默认值
+
+    // 剩余运算符
+    // 在es6中，三个点有三种含义
+    // 1 剩余运算符
+    // 2 拓展运算符
+    // 3 展开运算符  把数组，对象，类数组，中的每一项展开  xxx,xxx,xxx
+    let ary1 = [12, 232, 45];
+    let [...ary2] = ary1;  //ary.slice=(0 )
+    console.log(ary2);
+    // 展开运算符
+    let arg = [12, 23, 34];
+    let fn4 = function (a, b, c) {
+        console.log(a, b, c);
+    }
+    fn4(...arg);//把数组中的每一项分别传递给一个函数，此时我们使用展开运算符展开即可
+    console.log(Math.max(...arg));
+
+    let name = { name: 'ren', age: 23 };
+    let newname = { ...name, sex: 1 };//把原有对象克隆放到新对象中
+    console.log(newname);
+
+
+
+
+
+
+
+
+</script>
+
+</html>

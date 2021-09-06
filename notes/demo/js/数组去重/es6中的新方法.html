@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 1 Array.from 和 new set
+    let array = [1, 4.55, '555', 555, 888, 9, 9, 9]
+    let ren =[{name:'enlingxin'},{name:'enlingxin'}]
+    // 分步格式
+    let set = new Set(array);
+    console.log(set);
+    // 　Array.from()方法就是将一个类数组对象或者可遍历对象转换成一个真正的数组。
+    //     将一个类数组对象转换为一个真正的数组，必须具备以下条件：
+
+    // 　　1、该类数组对象必须具有length属性，用于指定数组的长度。如果没有length属性，那么转换后的数组是一个空数组。
+
+    // 　　2、该类数组对象的属性名必须为数值型或字符串型的数字
+    let set1 = Array.from(set);
+    console.log(set1);
+    // 整体格式
+    var newary = Array.from(new Set(ren));
+    console.log(newary);
+
+
+    var rr = [...new Set(array)];
+    console.log(rr);
+</script>
+
+</html>

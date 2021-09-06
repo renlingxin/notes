@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    
+    //重名问题的处理
+    // 1 带var和function关键字声明相同的名字，这也算是重名
+    var j = 12;
+    function j() {
+
+    }
+    //2 关于重名的处理：如果名字重复了不会重新的声明但是会重新的定义（重新赋值）不管是变量提升还是代码执行阶段都是这样
+    // 变量提升1 fn ==1  2 fn ==2  3 fn ==3  4 fn ==4
+    fn();//=>4
+    function fn() { console.log(1) };
+    fn();//=>4
+    function fn() { console.log(2) };
+    fn();//=>4
+    var fn =100;  //带var只声明，赋值操作没有处理，所以在代码执行的时候完成赋值  fn =100;
+    fn();//Uncaught TypeError: fn is not a function    =>100()
+    function fn() { console.log(3) };
+    fn();
+    function fn() { console.log(4) };
+    fn();
+</script>
+
+</html>

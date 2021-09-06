@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let age = /^\d+$/g;
+    let age2 = new RegExp("^\d+$", "g");
+    // .代表除了\n以外的任意字符
+    let reg = /^.$/;
+    console.log(reg.test('n'));
+    console.log(reg.test('nn'));//只能是一位
+    console.log(reg.test('1'));
+    console.log(reg.test('\n'));
+    // 中括号中只代表他自己的意思
+    let reg2 = /^[.]$/;
+    console.log(reg2.test('.'));
+    console.log(reg2.test('nn'));//只能是一位
+    console.log(reg2.test('1'));
+    console.log(reg2.test('\n'));
+    // 在这里\d依然是0-9之间的任意数字
+    let reg3 = /^[\d]$/;
+    console.log(reg3.test('.'));
+    console.log(reg3.test('nn'));//只能是一位
+    console.log(reg3.test('1'));
+    console.log(reg3.test('\n'));
+    // 1  中括号的一些细节
+    // 不加^和$的情况
+    let reg4 = /./;
+    console.log(reg4.test('n'));
+    console.log(reg4.test('nn'));
+    let reg5 = /[18]/;//不加^和$代表字符只要是包含1或者8就可以
+    console.log(reg5.test('1'));
+    console.log(reg5.test('18'));
+    let reg6 = /^[18]$/;
+    console.log(reg6.test('1'));//加了就是代表要么是1要么是8两个数字
+    console.log(reg6.test('8'));
+    console.log(reg6.test('18'));
+
+    let reg7 = /^[12-68]$/;//意思是1或者2-6或者8
+    console.log(reg6.test('12'));
+    console.log(reg6.test('8'));
+    console.log(reg6.test('1'));
+
+
+    // 例题：年龄18-65之间
+    let agey = /^((1[89])|([2-5]\d)|(6[0-5]))$/;
+    console.log(agey.test('3'));
+    // 编写一个规则，匹配“[object AAA]”
+    let gui = /^\[object .+\]$/;//   \的意思是转义将[]转义为普通的中括号
+    console.log(gui.test('[object AAA]'));
+
+    // 2 分组的作用
+
+    // 改变优先级
+    let oush = /^18$/;
+    console.log(oush.test('18'));
+    let oush1 = /^18|19$/;
+    console.log(oush1.test('1818'));
+    console.log(oush1.test('18'));
+    console.log(oush1.test('19'));
+    console.log(oush1.test('181'));
+    console.log(oush1.test('1'));
+    let oush2 = /^(18|19)$/;
+    console.log(oush2.test('1818'));
+    console.log(oush2.test('18'));
+    console.log(oush2.test('19'));
+    console.log(oush2.test('181'));
+    console.log(oush2.test('1'));
+    //分组引用
+    // ([a-z]) 第一位 ([a-z]) 第二位  \2 第三位  \1  第四位  总共四位 第一位和第四位一样   第二位和第三位一样
+    let rego = /^([a-z])([a-z])\2\1$/;//正则中出现的\1代表和第一个分组出现一模一样的内容
+    console.log(rego.test('oppo'));//op 和 po相反
+    console.log(rego.test('poop'));
+    console.log(rego.test('opop'));
+    //分组捕获
+    // 130435199803052317
+    // 130435 =>地区
+    // 19980305 =>生日
+    // 2317 => 倒数第二位 奇数男
+    let omg = /^\d{17}(\d|X)$/;//只能匹配是否符合格式，不能提取身份证中的一些信息
+    let omg1 = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{2})(\d)(\d|x)$/;
+    console.log(omg1.exec('130435199803052317'));
+    // exec实现的是正则捕获，获取的结果是一个数组
+
+    //验证是否为有效数字
+    let res = /^(\+|-)?$/; //let res = /^[+-]?$/; （+|-）不加\，+表示多次，[]里面就是其本身含义
+    let ress = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
+    //电话手机号码
+    let phone = /^1\d{10}$/;
+    //中文姓名
+    let name = /^[\u4E00-\u9FA5]{2,}(·[\u4E00-\u9FA5]{2,})?$/;
+    //邮箱
+    let tig = /^\w+([-.]\w+)*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    console.log(tig.test('197753732@qq.com'));
+
+</script>
+
+</html>

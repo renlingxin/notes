@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>computed 监听多个属性</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        ul li {
+            margin: 20px 20px;
+            padding: 10px 5px;
+            border-radius: 3px;
+        }
+
+        ul li.active {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <!-- autoplay 属性规定一旦视频就绪马上开始播放 -->
+        <!-- controls 属性规定浏览器应该为视频提供播放控件。 -->
+        <audio :src="getCurrentSongSrc" autoplay controls></audio>
+        <ul>
+            <!-- :class="{active:currentIndex == index}"   这种方式也可以 -->
+            <li v-for="(item,index) in musicData" :class="currentIndex == index ? 'active' :'' "
+                @click="clickHandler(index)">
+                <h2>{{item.id}}----歌名：{{item.name}}</h2>
+                <p>作者：{{item.author}}</p>
+
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    var musicData = [{
+            id: 1,
+            name: 'ren',
+            author: 'jj',
+            songSrc: './static/1.mp3'
+        },
+        {
+            id: 2,
+            name: 'ling',
+            author: 'tt',
+            songSrc: './static/2.mp3'
+        },
+        {
+            id: 3,
+            name: 'xin',
+            author: 'yy',
+            songSrc: './static/3.mp3'
+        },
+        {
+            id: 4,
+            name: 'hah',
+            author: 'xx',
+            songSrc: './static/4.mp3'
+        },
+    ]
+    new Vue({
+        el: '#box',
+        data: {
+            musicData: musicData,
+            currentIndex: 0
+        },
+        // 监听复杂数据类型   computed 和methods 相比 是有缓存的
+        computed: {
+            // es6函数不能用
+            getCurrentSongSrc: function () {
+                // 默认只有getter
+                console.log('我执行了')
+                return this.musicData[this.currentIndex].songSrc
+            }
+        },
+        methods: {
+            clickHandler(index) {
+                console.log(index)
+                this.currentIndex = index;
+            }
+        }
+    });
+</script>
+
+</html>

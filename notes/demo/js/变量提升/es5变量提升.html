@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 带var和不带var的区别
+    1
+    console.log(a);
+    console.log(window.a);
+    console.log('a' in window);// in验证属性是否存在    结果为true 在变量提升阶段，在全局作用域下声明了一个a，此时
+    // 就已经把a当做属性赋值给window    只是还没有赋值
+    var a = 12;
+    console.log(a);//全局变量a 
+    console.log(window.a);//window的一个属性名a   12
+    a = 13;
+    console.log(a);
+
+    window.a = 14;
+    console.log(a);//全局变量和window中的属性存在  “映射机制”
+
+    // 2  不加var
+    console.log(window.b);
+    console.log('b' in window);// in验证属性是否存在    结果为true 在变量提升阶段，在全局作用域下声明了一个a，此时
+    // 就已经把a当做属性赋值给window    只是还没有赋值
+    b = 12;//window.b的简写  不加var就是相当于给window加了一个属性
+    console.log(b);//全局变量a 
+    console.log(window.b);
+    //  作用域链
+    function fn() {
+        e = 12;
+        console.log('e' in window);//如果在全局作用域中没有找到，就会给window设置一个属性
+        console.log(b);
+    }
+    fn();
+    console.log(b);
+
+    window.r = 18;
+    console.log(r);//r相当于window.r
+    // es6中的let
+    let t = 10;
+    console.log(t);
+    console.log(window.t);
+    // 条件判断下的变量提升
+    // 在当前作用域下不管条件是否成立都要进行变量提升  1 带var的还是只声明  2 function在老版本渲染机制下，声明加定义都处理，为了迎合es6中的块级作用域，都是只声明不定义
+    if (1 == 1) {
+        console.log(fnd);//当条件成立，进入到判断体中（在es6中他是一个块级作用域，第一件事类似于变量提升，先把fnd声明和定义，也就是判断体中代码执行之前，fnd就已经赋值了）
+        function fnd() {
+            console.log('ok');
+        }
+    }
+    //var m ;0在全局作用域下声明的全局变量也相当于给win设置了一个属性  window.m = undefined;
+    console.log(m);
+    if ('m' in window) {
+        var m = 100;
+    }
+    console.log(m);
+    // 只对等号左边进行变量提升
+    // 匿名函数之函数表达式
+    sum();//
+    // ren();Uncaught TypeError: ren is not a function
+    var ren = function () {//var ren;只对等号左边进行变量提升  =>真实项目中常用
+        console.log(1);
+    }
+    ren();
+    // 普通函数
+    function sum() {//sum=xxxxx;
+        console.log(2);
+    }
+    // 练习题360面试题
+    // f = function () { return true };//window.f =f4
+    // g = function () { return false };//window.g =g
+    // ~function () {//自执行函数创建并且执行
+    //     // 变量提升    function g;只声明  并且g是私有变量与全局无关
+    //     console.log(g);
+    //     console.log('g' in window);
+    //     if (g() && [] == ![]) {//对象和布尔比较是true  ![] => flase     []==flase   =>true  结果 =>one.html:83 Uncaught TypeError: g is not a function
+    //         // g()  值是undefinded
+    //         f = function () { return false };//修改了全局中的f
+    //         function g() { return true };
+    //     }
+    // }();
+
+    // console.log(f());
+    // console.log(g());
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

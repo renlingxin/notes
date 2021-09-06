@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 　Array.from()方法就是将一个类数组对象或者可遍历对象转换成一个真正的数组。
+    //     将一个类数组对象转换为一个真正的数组，必须具备以下条件：
+
+    // 　　1、该类数组对象必须具有length属性，用于指定数组的长度。如果没有length属性，那么转换后的数组是一个空数组。
+
+    // 　　2、该类数组对象的属性名必须为数值型或字符串型的数字
+
+
+    // 1 将字符串转换为数组
+    var str = 'renlingxin';
+    var str1 = Array.from(str);
+    var str2 = str.split('');
+    console.log(str1);
+    console.log(str2);
+    //  2 将set结构转换为数组
+    var time = [2019, 5, 5, 5.55, 88];
+    var set = Array.from(new Set(time));
+    console.log(set);
+    // 3 可接受第二个参数类似于map函数
+    var num = [12, 45, 48, 7, 9, 7, 75];
+    console.log(Array.from(num, item => item + 1))
+    // 如果参数是一个真数组 结果还是这个数组
+    console.log(Array.from([12, 45, 47, 56, 213, 4654, 154]))
+
+
+
+
+    // ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+
+    // Set本身是一个构造函数，用来生成Set数据结构。
+</script>
+
+</html>

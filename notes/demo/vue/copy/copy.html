@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>copy</title>
+</head>
+
+<body>
+    <button onclick="copyNative()">input复制</button>
+    <br>
+    <span id="copyMy">dadadasdadad</span> <button onclick="copys()">span复制</button>
+    <br>
+    <button>插件</button>
+</body>
+<script src="./index.js"></script>
+<script>
+    let _copy = new copyTest({ btn:'#copyMy' })
+    // _copy.install(this)
+
+    function copys() {
+        var val = document.getElementById('copyMy');
+        window.getSelection().selectAllChildren(val);
+        document.execCommand("Copy");
+        console.log("已复制好，可贴粘。");
+    }
+
+    function copyNative() {
+        _copy.$copyText('反对分身乏术的').then(() => {
+            console.log('复制成功')
+        }).catch(() => {
+            console.error('没复制成功')
+        })
+    }
+</script>
+
+</html>

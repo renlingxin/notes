@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单的双向数据绑定</title>
+</head>
+
+<body>
+    <input type="text" name="" id="input1">
+    <span id="value"></span>
+    <button onclick="clicks()">点我</button>
+</body>
+<script>
+    let content = {
+        text: ''
+    }
+    let temp;
+
+    let input = document.getElementById('input1')
+    // 获取value
+    let _value = document.getElementById('value')
+
+    Object.defineProperty(content, 'text', {
+        set(value) {
+            input.value = value
+            // 这里的功能相当于complier
+            _value.innerHTML = value
+            temp = value
+        },
+        get() {
+            return temp
+        }
+    })
+    input.oninput = function (e) {
+        content.text = e.target.value
+    }
+
+    function clicks() {
+        content.text = 'wo'
+    }
+</script>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+
+
+    </div>
+</body>
+<!-- 1 先引入vue.js -->
+<script src="./js/vue.js"></script>
+<!-- 2 引包  引入核心的插件 -->
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    Vue.use(VueRouter);
+    var Series = {
+        template: `
+          <div>付费栏目</div>
+
+        `,
+        created() {
+            console.log('付费栏目组件created');
+        },
+        mounted() {
+            console.log('付费栏目组件mounted');
+        },
+        destroyed() {
+            console.log('付费栏目组件被销毁了');
+        }
+    }
+    var Topics = {
+        template: `
+          <div>
+          <h3 @click="clickHandler">我是专题广场</h3>
+          </div>
+
+        `,
+        methods: {
+            clickHandler(e) {
+                e.target.style.color = 'red'
+            }
+        },
+        created() {
+            console.log('专题广场组件created');
+        },
+        mounted() {
+            console.log('专题广场组件mounted');
+        },
+        // 加了keep-alive  之后就缓存了组件 没有了销毁的过程
+        destroyed() {
+            console.log('专题广场组件被销毁了');
+        }
+    }
+    var router = new VueRouter({
+        routes: [{
+                path: '/series',
+
+                component: Series
+            },
+            {
+                path: '/topics',
+
+                component: Topics
+            }
+        ]
+    })
+    var App = {
+        template: `
+        <div>
+        <router-link to="/series">付费栏目</router-link>
+        
+        <router-link to="/topics">专题广场</router-link>
+        <keep-alive>
+                <router-view></router-view>
+        </keep-alive>
+        
+        </div>
+        
+        `
+    }
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+
+            }
+        },
+        template: `<App/>`,
+        components: {
+            App
+        },
+        router
+    })
+</script>
+
+
+</html>

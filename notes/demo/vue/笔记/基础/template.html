@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 第一种方法  template标签 -->
+    <template id="coon">
+        <h2>任岭鑫是最棒的哈哈哈</h2>{{form}}
+    </template>
+    <!-- 第二种方法  script -->
+    <script id="teeo" type="x-template">
+        <div>
+                <hr/>
+                <h2>任岭鑫</h2>
+                {{form}}
+        </div>
+        
+
+    </script>
+</body>
+
+</html>
+<script src="./js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            form:'china'
+        },
+        template: '#teeo',
+        methods: {
+           
+        }
+
+
+
+    })
+</script>

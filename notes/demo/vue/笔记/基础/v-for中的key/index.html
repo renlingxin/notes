@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .userList {
+            border: 1px solid red;
+            margin: 20px 0;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script src="../js/vue.js"></script>
+<script src="./lodash.min.js"></script>
+<!-- 
+绑定key之前  输入框中的值不会跟随内容改变而改变   
+绑定 key之后 输入框中的值就会跟随内容改变到响应位置
+-->
+<!--key是为了高效的更新虚拟DOM =》 key作为每个节点的唯一标识，diff算法就可以正确的识别此节点，找到正确的位置区插入新的节点 -->
+<script>
+    Vue.component('my-com', {
+        template: `
+            <div class='userList'>
+                    <div class='content'>
+                        <h3>{{obj.name}}</h3>
+                        <p>{{obj.content}}</p>                       
+                     </div>
+                     <div class='control'>
+                        <input type="text" placeholder='请输入你的名字'/>
+                     </div>
+            </div>
+            `,
+        props: {
+            obj: Object
+        }
+    })
+    var App = {
+        data() {
+            return {
+                datas: [{
+                        id: 1,
+                        name: '张三',
+                        content: '我是张三'
+                    },
+                    {
+                        id: 2,
+                        name: '李四',
+                        content: '我是李四'
+                    },
+                    {
+                        id: 3,
+                        name: '王五',
+                        content: '我是王五'
+                    }
+                ]
+            }
+        },
+        template: `
+        <div>
+            <button @click='change'>改变顺序</button>
+            <my-com v-for='(item,index) in datas' :obj = 'item' :key='item.id'></my-com>
+            </div>
+        `,
+        methods: {
+            change() {
+                console.log(1);
+                // 打乱数组的顺序
+                this.datas = _.shuffle(this.datas);
+            }
+        },
+    }
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            }
+        },
+        template: `
+               <App></App>
+        `,
+        components: {
+            App
+        }
+
+
+    })
+</script>
+
+</html>

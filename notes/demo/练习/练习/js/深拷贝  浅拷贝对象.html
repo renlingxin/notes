@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- 浅拷贝  对象 -->
+<script>
+    let person = {
+        name: 'renlingxin',
+        age: 55,
+        color: ['red', 'green', 'blue']
+    }
+    // 浅拷贝
+    let bom = person;
+    console.log(bom)
+
+    function say(data) {
+        let results = data.constructor === 'Array' ? [] : {}
+        for (item in data) {
+            if (data.hasOwnProperty(item)) {
+                results[item] = data[item];
+            }
+        }
+        return results;
+    }
+    let res = say(person);
+    console.log(res)
+    // 浅拷贝 后的对象会因为二级目录的改变而改变旧对象
+    res.color[0] = 111111111111;
+    console.log(res)
+
+    // slice数组浅拷贝
+    let num = [1, 55, 8, 89, 7, {
+        id: 11111
+    }];
+    let datas = num.slice();
+    console.log(datas)
+    datas[5].id = 222222222;
+    console.log(datas)
+</script>
+<!-- 深拷贝  对象-->
+<script>
+    let umlist = {
+        name: 'ren',
+        age: 55,
+        color: [14, 5, 5]
+    }
+
+    function check(data) {
+        let result = data.constructor === 'Array' ? [] : {};
+        for (item in data) {
+            if (data.hasOwnProperty(item)) {
+                result[item] = typeof data[item] === 'object' ? check(data[item]) : data[item];
+            }
+        }
+        return result;
+    }
+    let ress = check(umlist);
+    console.log(ress);
+    //    深拷贝不会因为新对象的改变而改变旧对象
+    ress.color[1] = 1111111;
+    console.log(ress);
+    console.log(umlist)
+
+
+    // 简单粗暴 的拷贝方法
+    let bostlist = {
+        name: 'xxx',
+        age: 122,
+        bott: [1, 5, 8, 8, 8]
+    }
+    let resto = JSON.parse(JSON.stringify(bostlist))
+    console.log(resto)
+    resto.bott[0] = 55555;
+    console.log(resto)
+    console.log(bostlist)
+
+    // es6深拷贝
+
+
+    let numList = [1, 2, 3, 444, {
+        name: 'renlingxin'
+    }];
+    let news = [...numList];
+    console.log(numList);
+    console.log(news);
+    news[0] = 0;
+    console.log(numList);
+    console.log(news)
+
+
+    let objs = {name:'rennren',age:2222};
+    let newObj = {...objs};
+    console.log(objs);
+    console.log(newObj)
+    newObj.name = 'jingcha';
+    console.log(objs);
+    console.log(newObj)
+</script>
+
+</html>

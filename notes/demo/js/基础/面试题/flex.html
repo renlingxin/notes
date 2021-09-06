@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+
+            display: flex;
+        }
+
+        .div1 {
+            /* flex: 1; === flex: 1 1 auto; */
+            border: 1px solid red;
+            /* flex-grow 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大 */
+            /* flex-grow: 0.6; */
+            /* flex-shrink 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小(如果在空间不足的前提下 越小代表其越大) */
+            /* flex-shrink: 0.6; */
+            /* flex: 1; */
+            width: 500px;
+            /*  flex-basis的默认值是auto，表示自动，也就是完全根据子列表项自身尺寸渲染。
+                自身尺寸渲染优先级如下：
+                min-width > || max-width > width > Content Size */
+
+            /* flex-basis优先级是比width高的（可以理解为覆盖）。 */
+            flex-basis: 300px;
+        }
+
+        .div2 {
+            border: 1px solid red;
+            /* flex: 1; */
+        }
+
+        .div3 {
+            border: 1px solid red;
+            /* flex: 1; */
+        }
+
+        .pic {
+            width: 100px;
+            height: 2px;
+            background-color: brown;
+            margin-top: 70px;
+            transform: rotate(45deg);
+        }
+
+        .sanjiao {
+            position: relative;
+            margin: 50px auto;
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid #333;
+            background: #fff;
+            line-height: 120px;
+            text-indent: 5px;
+        }
+
+        .sanjiao::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border: 49px solid transparent;
+            border-left: 49px solid deeppink;
+            border-bottom: 49px solid deeppink;
+            /* animation: slash 6s infinite ease; */
+        }
+
+        .sanjiao::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border: 48px solid transparent;
+            border-left: 48px solid #fff;
+            border-bottom: 48px solid #fff;
+            /* animation: slash2 6s infinite ease; */
+        }
+
+        @keyframes slash {
+            0% {
+                transform: translate(-50px);
+            }
+
+            30% {
+                transform: translate(0px);
+            }
+
+            100% {
+                transform: translate(0px);
+            }
+        }
+
+        @keyframes slash2 {
+            0% {
+                transform: translate(-100px);
+            }
+
+            30% {
+                transform: translate(-100px);
+            }
+
+            60% {
+                transform: translate(0px);
+            }
+
+            100% {
+                transform: translate(0px);
+            }
+        }
+
+        .tt {
+            width: 0;
+            height: 0;
+            border: 50px solid transparent;
+            border-left-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="div1">我是一个div</div>
+        <div class="div2">我是一个很多字div</div>
+        <div class="div3">我是一个更多字而且第三个div</div>
+    </div>
+    <div class="pic"></div>
+    <div class="sanjiao"></div>
+
+    <div class="tt">
+
+    </div>
+</body>
+
+</html>

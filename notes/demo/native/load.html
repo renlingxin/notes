@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面加载状态相关</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // 1. ready js 没有提供 原生ready 方法  DOMContentLoaded => 当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和子框架的完全加载。
+    document.ready = function (callback) {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.removeEventListener('DOMContentLoaded', arguments.callee, false)
+            callback()
+        }, false)
+    }
+    document.ready(() => {
+        console.log(1111)
+    })
+    // 2. onload 页面加载完之后  => HTML 文档被完全加载和解析 样式表、图像和子框架完全加载。
+    window.onload = function () {
+        console.log(document.readyState)
+    }
+
+
+    // document.readyState  页面的状态 3 种
+    switch (document.readyState) {
+        case 'loading':
+            alert('我正在加载呢')
+        case 'interactive':
+            alert('还没加载完呢哥')
+        case 'complete':
+            alert('加载完了昂')
+            break;
+    }
+    // document.onreadystatechange 页面状态发生变化时触发
+    document.onreadystatechange = function () {
+        console.log(document.readyState)
+    }
+    document.addEventListener('readystatechange', function () {
+        console.log(document.readyState)
+    }, false)
+</script>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    li{
+        list-style: none;
+    }
+    .box{
+        margin: 20px auto;
+        width: 300px;
+    }
+    .box li{
+        padding: 0 5px;
+        line-height: 35px;
+        border-bottom: 1px dashed #aaa;
+        /* 鼠标的小手 */
+        cursor: pointer;
+        /* 鼠标转圈圈 */
+        /* cursor:progress; */
+        /* 超出的一行的部分自动裁切，用省略号代替 */
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    
+    /* css3 */
+    /* li:nth-child  先获取当前元素的所有子元素再匹配标签名是否是li */
+    /* li:nth-of-type()   先给当前容器按照某一个标签名进行分组  获取分组中的第一个 */
+    /* even是偶数  odd是奇数 */
+    .box li:nth-of-type(even){
+         background: lightblue;
+    }
+    .box li:nth-of-type(3n+1){
+         color: red;
+    }
+    .box li:nth-of-type(3n+2){
+         color: green;
+    }
+    .box li:nth-of-type(3n+3){
+         color: rgb(20, 20, 20);
+    }
+    .box li:hover{
+        background: lightcoral;
+    }
+    </style>
+</head>
+<body>
+    <ul class="box">
+        <li>你好，我是群管理，欢迎加入,你是来加群学习Web前端开发的吗?</li>
+        <li>对的</li>
+        <li>你是学习前端哪方面的呀！</li>
+        <li>前端！       </li>
+        <li>咱们这边有免费的学习资料和视频教程加下好友可以发你学习的时候可以看下哦！</li>
+        <li>不</li>
+        <li>JS-大型直播网站弹幕效果-兮夜链接：https://pan.baidu.com/s/1CFCe_lN0CqQULF9mtOylaQ ghgbjs 360导航拖拽 万章</li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    function ren(res){
+        console.log(res)
+    }
+</script>
+
+<body>
+    <input type="text" onblur="ren(this.value)">
+    <!-- <input type="text" name="btn" id="btn" placeholder="请输入" oninput="change()"> -->
+</body>
+<!-- <script>
+    let btn = document.getElementsByTagName('input');
+    console.log(btn);
+    // oninput 事件在用户输入时触发。
+    // 该事件在 <input> 或 <textarea> 元素的值发生改变时触发。
+    // 提示： 该事件类似于 onchange 事件。不同之处在于 oninput 事件在元素值发生变化是立即触发， 
+    // onchange 在元素失去焦点时触发。另外一点不同是 onchange 事件也可以作用于 <keygen> 和 <select> 元素。
+    function change() {
+        console.log()
+    }
+</script> -->
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .hide {
+      visibility: hidden;
+    }
+
+    .none {
+      display: none;
+    }
+
+    .scrool-parse {
+      width: 200px;
+      height: 100px;
+      overflow: auto;
+      border: 1px solid black;
+    }
+
+    .scrool-child {
+      width: 450px;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="user">
+    <li>1111</li>
+    <li>2222</li>
+    <li>3333</li>
+  </ul>
+  <div id="child">
+    <li>3333</li>
+  </div>
+  <input id="btn" type="text" value="111" placeholder="222">
+  <div class="none">display:none</div>
+  <div class="hide">visibility: hidden</div>
+
+  <button onclick="history.back()">第一次点击</button>
+  <button onclick="history.back()">第二次点击</button>
+  <button onclick="history.go(2)">第三次点击</button>
+  <div class="scrool-parse">
+    **hash**
+    <p class="scrool-child"> hash即浏览器url中#后面的内容，包含#。hash是URL中的锚点，代表的是网页中的一个位置，单单改变#后面的部分，浏览器只会加载相应位置的内容，不会重新加载页面。也即是说：
+      * 即#是用来指导浏览器动作的，对服务器端完全没有用，HTTP请求中，不包含#。
+      * 每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用“后退”按钮，就可以回到上一个位置
+      **所以hash模式通过锚点值的改变，根据不同的值，渲染指定DOM位置的不同数据**</p>
+
+  </div>
+</body>
+<script>
+  console.log(document.childNodes)
+  let _user = document.getElementById('user').lastChild
+  let _child = document.getElementById('child')
+  console.log(_user)
+
+  _child.appendChild(_user)
+
+  let _btn = document.getElementById('btn')
+  _btn.onclick = function (event) {
+    console.log(event)
+  }
+  // onpopstate 事件
+  window.onpopstate = function (event) {
+    console.log(event)
+    alert('location:' + document.location + 'state:' + JSON.stringify(event.state))
+  }
+  history.pushState({
+    page: 1
+  }, 'title1', '?page=1')
+  history.pushState({
+    page: 2
+  }, 'title2', '?page=2')
+  history.pushState({
+    page: 3
+  }, 'title3', '?page=3')
+</script>
+
+</html>

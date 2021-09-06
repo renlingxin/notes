@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- map是一个类似于set的数据结构 ，在map中键名可以是任何类型 而object中的键名只能是字符串数字 -->
+<script>
+    // map 问题 这里的答案是undefined 因为 set 和 get 调用的数组[1] 是分别的两个
+    // let map = new Map();
+    // map.set([1], "ES6系列");
+
+    // let con = map.get([1]);
+    // console.log(con);
+
+    // 正确写法
+    let map = new Map();
+    let arr = [1];
+    map.set(arr, "ES6系列");
+    let con = map.get(arr);
+    console.log(con); //ES6系列
+</script>
+<script>
+    // 在这里 s1 和 s2 是唯一的值 ，而foo相当于对s1的描述
+    let s1 = Symbol('foo');
+    let s2 = Symbol('bar');
+    console.log(s1); // Symbol(foo)
+    console.log(s2); // Symbol(bar)
+
+
+    s1.toString() // "Symbol(foo)"
+    s2.toString() // "Symbol(bar)"
+</script>
+
+</html>

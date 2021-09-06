@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .ren {
+      width: 500px;
+      height: 500px;
+      background-color: red;
+      /* position: relative; */
+/* 第四种 弹性盒 */
+      /* display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: center; */
+/* 第五种 vertical-align 属性 子元素设置margin:0 auto */
+      /* 	此元素会作为一个表格单元格显示 */
+      /* display: table-cell; */
+      /* vertical-align 属性设置元素的垂直对齐方式。middle	把此元素放置在父元素的中部。 */
+      /* vertical-align: middle; */
+    }
+
+    .small {
+      width: 200px;
+      height: 200px;
+      background-color: green;
+/* 第一种 定位 */
+      /* position: absolute;
+      left: 25%;
+      top: 25%; */
+/* 第二种 都设置为0 ，使元素在各个方向达到平衡，自然就居中了 */
+      /* position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin:auto; */
+/* 第三种 计算距离 */
+      /* float: left;
+      margin-left: 150px;
+      margin-top: 150px; */    
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ren">
+    <div class="small"></div>
+  </div>
+
+</body>
+<!-- 补充弹性盒属性
+display:flex;是一种布局方式
+
+flex-flow属性是flex-direction和flex-wrap属性的复合属性。
+flex-flow属性用于设置或检索弹性盒模型对象的子元素排列方式。
+
+flex-direction属性规定灵活项目的方向。
+   row 从左向右排列  默认值是 "row"。
+   column 从上到下垂直排列  
+   column-reverse 从右向左排列
+   initial    inherit  row-reverse     
+flex-wrap属性规定灵活项目是否拆行或拆列 
+   nowrap 元素不换行    默认值是 "nowrap"。
+   wrap 元素换行
+   wrap-reverse   initial   inherit    
+-->
+</html>
+<script>
+
+  let t = 't am ttt'
+  let _res = ''
+  for(let i=t.length-1;i>=0;--i){
+    _res+=t[i]
+  }
+  console.log(_res);
+</script>

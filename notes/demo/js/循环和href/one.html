@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="点击跳转" id="btn">
+
+</body>
+
+</html>
+<script>
+    // 跳转
+    var time;
+    var btn = document.getElementById('btn');
+    btn.onclick = function () {
+        time = setTimeout(fn, 3000);
+        function fn() {
+            window.location.href = 'http://www.baidu.com';
+        }
+
+    }
+    // switch循环
+
+    // var ren = 3;
+    // switch (ren) {
+    //     case ren>0:
+    //         ren++;
+    //         break;
+    //     case ren<0:
+    //         ren--;
+    //         break;
+    //     default: ren = 0;
+    // }
+    // alert(ren);
+
+    // for循环
+    var ary = [12, 16, 49, 6, 1];
+    // 从索引0开始输出
+    // for(i=0;i<ary.length;i++){
+    //   console.log(ary[i]);
+    // }
+    //    输出数组中的奇数项
+    // 1
+    for (i = 0; i < ary.length; i++) {
+        // i=0  =>第一项   奇数
+        // i=1  =>第二项   偶数
+        // i=2  =>第三项   奇数
+        // if (i % 2 === 0){
+        //     
+        // }
+        i % 2 === 0 ? console.log(ary[i]) : '';
+
+    }
+    // 2
+    for (i = 0; i < ary.length; i += 2) {
+        console.log(ary[i]);
+    }
+    // 循环中的关键字
+    for (y = 0; y < 10; y++) {
+        if (y < 5) {
+            y++;
+            continue;//结束本轮循环
+        }
+        if (y > 7) {
+            y += 2;
+            break;//强制结束循环
+        }
+        y += 1;
+    }
+    console.log(y);
+
+    //输出直角三角形
+    for (i = 0; i <= 7; i += 2) {
+        for (j = 0; j <= i; j++) {
+            document.write('*');
+        }
+        document.write('<br>');
+    }
+    //正金字塔
+    for (var a = 1; a <= 5; a++) {
+        for (var b = 1; b <= (5 - a); b++) {
+            document.write("1");
+        }
+        for (var c = 1; c <= 2 * a - 1; c++) {
+            document.write("♥");
+        }
+        document.write("<br/>");
+
+    }
+    //倒金字塔
+    for (var a = 1; a <= 5; a++) {
+        for (var b = 1; b <= (a - 1); b++) {
+            document.write("1");
+        }
+        for (var c = 1; c <= 11 - 2 * a; c++) {
+            document.write("♥");
+        }
+        document.write("<br/>");
+
+    }
+
+</script>

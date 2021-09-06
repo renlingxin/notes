@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <html>
+
+    <body>
+        <div id='app'>
+            <input type="radio" name="test" v-for="(item,index) in list" :value="item.value" v-model="checkedValue">
+            <button @click="test">获取选中的值</button>
+        </div>
+
+    </body>
+    <script src=""></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    checkedValue: '',
+                    list: [{
+                        value: 1
+                    }, {
+                        value: 2
+                    }, {
+                        value: 3
+                    }]
+                }
+            },
+            methods: {
+                test() {
+                    console.log('被选中的值为:' + this.checkedValue)
+                }
+            }
+        });
+    </script>
+
+    </html>
