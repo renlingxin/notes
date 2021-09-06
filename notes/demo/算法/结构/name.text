@@ -1,2 +1,0 @@
-简单定制下 powerlevel9k 主题
-powerlevel9k 主题的好处就是可以做很多自定义，只需要简单修改 ~/.zshrc 配置即可生效。更多关于该主题的定制请看 customizing-prompt-segments；
