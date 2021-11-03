@@ -100,6 +100,7 @@ https://blog.csdn.net/weixin_40817115/article/details/90384398
 
 版本号格式：主版本号.次版本号.修订号
 版本号递增规则：
+
 - 主版本号：做了不兼容修改或颠覆式的重写
 - 次版本号：向下兼容的功能性新增
 - 修订号：向下兼容的问题修正
@@ -142,7 +143,6 @@ package.json 中的版本号1.0.1-0变为 1.0.1-1
 ```
 
 > prepatch - 直接升级小号，增加预发布号为0。
-> 
 
 3. npm version preminor
 
@@ -186,6 +186,20 @@ package.json 中的版本号1.0.1-0变为 1.0.1-1
 ```
 >如果没有prerelease，直接升级minor， 同时patch设置为0；
 
+### package.json
+
+1. dependencies 和 devDependencies 
+   devDependencies 是一些在开发环境需要用到的
+   dependencies 是生产环境需要的
+   peerDependencies -- 开发插件是 插件所依赖的包
+    ** peerDependencies的目的是提示宿主环境去安装满足插件peerDependencies所指定依赖的包，然后在插件import或者require所依赖的包的时候，永远都是引用宿主环境统一安装的npm包，最终解决插件与所依赖包不一致的问题。**
+2. 
+
+- `^`：比如`^1.2.5`，代表版本范围`1.*.*`最新
+- `~`：比如`~1.2.5`，代表版本范围`1.2.*` 最新
+
+- 默认使用前缀`~`：`npm config set save-prefix '~'`
+- 不使用前缀，保存确切版本 ：`npm config set save-exact true`
 
 
 

@@ -240,6 +240,170 @@ export class App2 extends Component {
 }
 ```
 
+### 父子组件之间通信
+
+1. 父组件 -> 子组件
+* <1>函数式组件  --- 通过 ref  forwardRef 相结合的使用方式 使父组件调用子组件的方法
+
+```react
+
+function parent (props){
+  const childRef = ref()
+  const clear = () => {
+    childRef.current?.update()
+  }
+  return (
+    <child ref={childRef}></child>
+  )
+}
+
+//子组件
+const child = forwardRef(props,ref){
+  useImperativeHandle(ref,()=>({
+      update
+  }))
+  const update = () => {
+    console.log(222)
+  }
+  return (
+       <div></div>
+  )
+}
+
+```
+
+* <2>  class 组件
+
+```react
+//父组件
+//保存子组件this到this.$child中给当前父组件使用
+funThis = (_this) => {
+   this.$child = _this;
+};
+
+update() {
+    this.$child.clear();//执行子组件方法
+}
+
+render() {
+    return (
+        <Drag funThis={this.funThis}>
+    )
+}
+
+// 子组件
+componentDidMount() {
+    this.props.funThis(this);
+}
+clear(){
+   console.log("123")
+}
+
+```
+
+2. 子组件 -> 父组件
+可以通过父组件props的方式 将父组件的事件供子组件调用
+```react
+//父组件
+
+function parent (props){
+  const clear = () => {}
+  return (
+    <child clear={clear}></child>
+  )
+}
+
+//子组件
+function child(props){
+  const update = () => {
+    this.props.clear()
+  }
+  return (
+       <div></div>
+  )
+}
+```
+
+### useState && useRef
+
+1. useState
+
+> 使用方式
+```react
+  //text 是内容 setText 是修改函数  useState(0) 接受默认值 我们可通过type指定类型
+  const [text,setText] = useState<type>(0)
+```
+> 关键点
+```react
+  //1. setText 重复赋值相同的内容 => 不会触发多次渲染
+  setText(0)
+  setText(0)
+```
+
+```react
+  //2. useState() => 指定的默认值可以传通过函数计算。并且该函数只会执行一次
+  const t = 3
+  const [text,setText] = useState<type>(()=>{
+    //该函数只会在初始化时执行
+    return 0+t
+  })
+```
+```react
+  //3. setText中我们可以获取到上一次变化的值
+  const [text,setText] = useState<type>(0)
+  setText((last)=>{
+    return last + '111'
+  })
+```
+
+
+
+2. useRef
+
+> 使用方式
+
+```react
+//1. 获取DOM 操作DOM
+function input(){
+  let inputEl = useRef(null)
+  const click = () => {
+    inputEl.current.focus()
+  }
+  return (
+    <input ref={inputEl}/>
+    <div onclick={click}></div>
+  )
+}
+//2. 我们需要保证函数组件每次 render 之后，某些变量不会被重复申明，比如说 Dom 节点，定时器的 id 等等，在类组件中，我们完全可以通过给类添加一个自定义属性来保留，比如说 this.xxx， 但是函数组件没有 this。使用useState 的话会触发组件 render。这是没有必要的
+
+function time(){
+let _time = null
+let _timeRef = useRef(null)
+
+const change = (value) => {
+  //1. 第一种方式 _time在组件渲染时会去重新的声明。因此导致旧值已经丢失
+  if(_time){
+    clearTimeout()
+  }
+  _time = setTimeOut(()=>{
+    //dothing
+  },1000)
+
+  //1. 第二种方式 _timeRef 会在组件渲染中缓存值
+  if(_timeRef.current){
+    clearTimeout(_timeRef.current)
+  }
+  _timeRef.current = setTimeOut(()=>{
+    //dothing
+  },1000)
+}
+
+  return (
+    <input onChange={change}/>
+  )
+}
+
+```
 
 ## 教程笔记
 

@@ -1,4 +1,3 @@
-
 // 1846. 减小和重新排列数组后的最大元素
 // 给你一个正整数数组 arr 。请你对 arr 执行一些操作（也可以不进行任何操作），使得数组满足以下条件：
 
@@ -39,7 +38,9 @@ var maximumElementAfterDecrementingAndRearranging = function (arr) {
 
 // 两分法
 const binarySearch = (nums, target, lower) => {
-    let left = 0, right = nums.length - 1, ans = nums.length;
+    let left = 0,
+        right = nums.length - 1,
+        ans = nums.length;
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
         if (nums[mid] > target || (lower && nums[mid] >= target)) {
@@ -52,22 +53,22 @@ const binarySearch = (nums, target, lower) => {
     return ans;
 }
 
-var search = function(nums, target) {
+var search = function (nums, target) {
     let ans = 0;
     const leftIdx = binarySearch(nums, target, true);
     const rightIdx = binarySearch(nums, target, false) - 1;
     if (leftIdx <= rightIdx && rightIdx < nums.length && nums[leftIdx] === target && nums[rightIdx] === target) {
         ans = rightIdx - leftIdx + 1;
-    } 
+    }
     return ans;
 };
 
 
 // 遍历
-var search = function(nums, target) {
+var search = function (nums, target) {
     let _res = 0
-    for(let i=0;i<nums.length;i++){
-        if(nums[i] == target){
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] == target) {
             _res++
         }
     }
@@ -89,15 +90,15 @@ var search = function(nums, target) {
 // 输出：7
 // 解释：数组中的元素可以分为数对 (3,3) 和 (5,2) 。
 // 最大数对和为 max(3+3, 5+2) = max(6, 7) = 7 。
-var minPairSum = function(nums) {
-    let _sort = nums.sort((a,b)=>a-b)
+var minPairSum = function (nums) {
+    let _sort = nums.sort((a, b) => a - b)
     let _res = 0
-    for(let i=0;i<_sort.length;i++){
-        _res = Math.max(nums[i]+nums[_sort.length-i-1],_res)
+    for (let i = 0; i < _sort.length; i++) {
+        _res = Math.max(nums[i] + nums[_sort.length - i - 1], _res)
     }
     return _res
 };
-console.log(minPairSum([3,5,2,3]))
+console.log(minPairSum([3, 5, 2, 3]))
 
 
 // 1893. 检查是否区域内所有整数都被覆盖
@@ -107,7 +108,7 @@ console.log(minPairSum([3,5,2,3]))
 
 // 已知区间 ranges[i] = [starti, endi] ，如果整数 x 满足 starti <= x <= endi ，那么我们称整数x 被覆盖了。
 
- 
+
 
 // 示例 1：
 
@@ -117,22 +118,22 @@ console.log(minPairSum([3,5,2,3]))
 // - 2 被第一个区间覆盖。
 // - 3 和 4 被第二个区间覆盖。
 // - 5 被第三个区间覆盖。
-var isCovered = function(ranges, left, right) {
+var isCovered = function (ranges, left, right) {
     let _res = 0
-    for(let i=left;i<=right;i++){
+    for (let i = left; i <= right; i++) {
         let j = 0
-        while(j<ranges.length){
-            if(i >= ranges[j][0] &&  i <= ranges[j][1]){
-                _res+=1
+        while (j < ranges.length) {
+            if (i >= ranges[j][0] && i <= ranges[j][1]) {
+                _res += 1
                 break
             }
             j++
         }
     }
-    if(_res === 0) return false
-    if(_res == right - left + 1){
+    if (_res === 0) return false
+    if (_res == right - left + 1) {
         return true
-    }else{
+    } else {
         return false
     }
 };
@@ -144,7 +145,7 @@ var isCovered = function(ranges, left, right) {
 
 // 给出这样的一个二叉树，你需要输出所有节点中的第二小的值。如果第二小的值不存在的话，输出 -1 。
 
- 
+
 
 // 示例 1：
 
@@ -152,30 +153,30 @@ var isCovered = function(ranges, left, right) {
 // 输入：root = [2,2,5,null,null,5,7]
 // 输出：5
 // 解释：最小的值是 2 ，第二小的值是 5 。
-var findSecondMinimumValue = function(root) {
+var findSecondMinimumValue = function (root) {
     let _arr = []
-    _time(root,_arr)
-    _arr.sort((a,b)=>a-b)
+    _time(root, _arr)
+    _arr.sort((a, b) => a - b)
     let _min = _arr[0]
-    for(let i=0;i<_arr.length;i++){
-        if(_arr[i] > _min){
+    for (let i = 0; i < _arr.length; i++) {
+        if (_arr[i] > _min) {
             return _arr[i]
         }
     }
     return -1
 };
 
-const _time = function(node,_arr){
-    if(node === null) return
+const _time = function (node, _arr) {
+    if (node === null) return
     _arr.push(node.val)
-    _time(node.left,_arr)
-    _time(node.right,_arr)
+    _time(node.left, _arr)
+    _time(node.right, _arr)
 }
-console.log('findSecondMinimumValue',findSecondMinimumValue([2,2,5,null,null,5,7]))
+// console.log('findSecondMinimumValue',findSecondMinimumValue([2,2,5,null,null,5,7]))
 
 
 // 官方  理解题意很重要
-var findSecondMinimumValue = function(root) {
+var findSecondMinimumValue = function (root) {
     let ans = -1;
     const rootvalue = root.val;
 
@@ -198,3 +199,84 @@ var findSecondMinimumValue = function(root) {
     return ans;
 };
 
+// 规律题
+// 292. Nim 游戏
+// 你和你的朋友，两个人一起玩 Nim 游戏：
+
+// 桌子上有一堆石头。
+// 你们轮流进行自己的回合，你作为先手。
+// 每一回合，轮到的人拿掉 1 - 3 块石头。
+// 拿掉最后一块石头的人就是获胜者。
+// 假设你们每一步都是最优解。请编写一个函数，来判断你是否可以在给定石头数量为 n 的情况下赢得游戏。如果可以赢，返回 true；否则，返回 false 。
+
+// 官方的题解 有一个规律是重点 当某个人手里只剩4个的时候那么 无论那几个对方都会赢 所以如果想赢的话一定要避免4个的场景 因此在先手的情况下4的倍数 都是不行的
+var canWinNim = function (n) {
+    return n % 4
+};
+console.log(canWinNim(8), 'canWinNim')
+
+console.log(45 % 3, 3 * 3 * 3 * 3)
+
+
+// 326. 3的幂
+// 给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。
+
+// 整数 n 是 3 的幂次方需满足：存在整数 x 使得 n == 3x
+
+// 官方题解 思路 - 试除法 - 也就是 =把n一直整除3 
+var isPowerOfThree = function (n) {
+    if (n == 1) {
+        return true
+    }
+    if (n < 3) {
+        return false
+    }
+    if (n / 3 == 3) {
+        return true
+    } else {
+        return isPowerOfThree(n / 3)
+    }
+};
+console.log(isPowerOfThree(45), 'isPowerOfThree')
+var isPowerOfThree1 = function (n) {
+    while (n !== 0 && n % 3 !== 0) {
+        n = Math.floor(n / 3)
+    }
+    return n === 1
+};
+console.log(isPowerOfThree1(45), 'isPowerOfThree11')
+
+// 187. 重复的DNA序列
+// 所有 DNA 都由一系列缩写为 'A'，'C'，'G' 和 'T' 的核苷酸组成，例如："ACGAATTCCG"。在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。
+// 编写一个函数来找出所有目标子串，目标子串的长度为 10，且在 DNA 字符串 s 中出现次数超过一次。
+// 示例 1：
+// 输入：s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+// 输出：["AAAAACCCCC","CCCCCAAAAA"]
+// 示例 2：
+// 输入：s = "AAAAAAAAAAAAA"
+// 输出：["AAAAAAAAAA"]
+
+// 原始方法  列出所有的子字符串 然后遍历其中符合条件的字符串
+var findRepeatedDnaSequences = function (s) {
+    if (s.length < 10) {
+        return []
+    }
+    let _rud = []
+    for (let i = 0; i <= s.length - 10; i++) {
+        _rud.push(s.slice(i, i + 10))
+    }
+    let j = 0
+    let _res = []
+    let g = {}
+    while (j < _rud.length) {
+        if (g[_rud[j]] !== undefined && !_res.includes(_rud[j])) {
+            g[_rud[j]] += 1
+            _res.push(_rud[j])
+        } else {
+            g[_rud[j]] = 1
+        }
+        j++
+    }
+    return _res
+};
+console.log(findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"), 'findRepeatedDnaSequences')
