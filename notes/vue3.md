@@ -66,5 +66,22 @@ export default {
 
 ```
 
-#### 一、v-model
+#### 2. @options
+
+**同时在@options 和 页面实例中书写created周期。会是什么效果**
+
+```ts
+@Options({
+  created() {
+    console.log(222222);
+  },
+})
+export default class App extends Vue {
+   created() {
+     console.log(11111);
+   }
+}
+//结果 11111 。222222并不会输出。那么我们可以得到结论 实例的action会比@options优先级更高
+
+````
 
