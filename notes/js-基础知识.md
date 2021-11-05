@@ -1746,6 +1746,51 @@ e.set(f.d,'111') //这个就有了 因为d对象被f对象内部引用了 销毁
 
 
 
+### 循环
+
+1. forEach
+```javascript
+let t = [1,2,3,5]
+t.forEach(e=>{
+  console.log(e)
+  if(e===3) {
+    return false //通过return false 只能跳出本次循环 并不能终止forEach
+  }
+})
+// 1,2,3,5
+
+```
+2. for
+
+```javascript
+let t = [1,2,3,5]
+for(let i=0;i<t.length;i++){
+  console.log(t[i])
+  if(t[i] === 3){
+    break //终止for循环
+    contuine //continue 结束本次循环
+  }
+}
+
+
+```
+
+### settimeut 使用方式
+
+```javascript
+setTimeout(()=>{},1000) 
+setTimeout(console.log,1000,'232','3333','4444')
+//参数
+//1. fn 回调函数
+//2. delay 时间
+//3. 之后的参数会在 delay 时间后作为参数传递给 fn
+
+// 返回值
+//返回值timeoutID是一个正整数，表示定时器的编号。这个值可以传递给clearTimeout()来取消该定时器。
+
+//需要注意的是setTimeout()和setInterval()共用一个编号池，技术上，clearTimeout()和 clearInterval() 可以互换。但是，为了避免混淆，不要混用取消定时函数。
+
+```
 
 
 

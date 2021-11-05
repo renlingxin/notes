@@ -280,3 +280,185 @@ var findRepeatedDnaSequences = function (s) {
     return _res
 };
 console.log(findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"), 'findRepeatedDnaSequences')
+
+// 476. 数字的补数
+// 对整数的二进制表示取反（0 变 1 ，1 变 0）后，再转换为十进制表示，可以得到这个整数的补数。
+
+// 例如，整数 5 的二进制表示是 "101" ，取反后得到 "010" ，再转回十进制表示得到补数 2 。
+// 给你一个整数 num ，输出它的补数。
+// 示例 1：
+// 输入：num = 5
+// 输出：2
+// 解释：5 的二进制表示为 101（没有前导零位），其补数为 010。所以你需要输出 2 。
+var findComplement = function (num) {
+    let t = num.toString(2)
+    let _res = ''
+    for (let i = 0; i < t.length; i++) {
+        if (t[i] == '1') {
+            _res += '0'
+        } else {
+            _res += '1'
+        }
+    }
+    return parseInt(_res, 2)
+};
+console.log(findComplement(5), 'findComplementfindComplement')
+
+// 453. 最小操作次数使数组元素相等
+// 给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。
+
+
+// 示例 1：
+
+// 输入：nums = [1,2,3]
+// 输出：3
+// 解释：
+// 只需要3次操作（注意每次操作会增加两个元素的值）：
+// [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
+
+// 官方题解 --- 首先不需要计算使得数组中相等的那个值. 而是比较元素的相对大小 因此向上或者向下是一样的 向上的话并不容易计算出临界值 向下的临界值会是数组中最小的元素
+// 计算每一个元素到最小元素之间距离的和 即是总共的操作次数
+var minMoves = function (nums) {
+    let min = Math.min(...nums)
+    let res = 0
+    for (let i = 0; i < nums.length; i++) {
+        res += (nums[i] - min)
+    }
+    return res
+};
+console.log('minMoves', minMoves([1, 2, 3]))
+
+
+// 66. 加一
+// 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+
+// 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+
+// 你可以假设除了整数 0 之外，这个整数不会以零开头。
+
+
+// 示例 1：
+
+// 输入：digits = [1,2,3]
+// 输出：[1,2,4]
+// 解释：输入数组表示数字 123。
+
+
+var plusOne = function (digits) {
+    let n = digits.length - 1
+    for (let i = n; i >= 0; i--) {
+        // 不为9的时候递增 --- 并且代表叠加结束
+        if (digits[i] != 9) {
+            digits[i]++
+            return digits
+        }
+        // 为9时 赋值0
+        digits[i] = 0
+    }
+    // 如果走到了这边 说明都是9 例如 【9】 其结果就是 【1，0】
+    let temp = new Array(digits.length + 1).fill(0)
+    temp[0] = 1
+    return temp
+
+};
+console.log('plusOne', plusOne([9]))
+
+// 给你两个 没有重复元素 的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。
+
+// 请你找出 nums1 中每个元素在 nums2 中的下一个比其大的值。
+
+// nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的右边的第一个比 x 大的元素。如果不存在，对应位置输出 -1 。
+
+//  
+
+// 示例 1:
+
+// 输入: nums1 = [4,1,2], nums2 = [1,3,4,2].
+// 输出: [-1,3,-1]
+// 解释:
+
+// 来源：力扣（LeetCode）
+// 链接：https://leetcode-cn.com/problems/next-greater-element-i
+// 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+// 官方解法  单调栈（前置记录每一个元素的右侧第一个最大值） + 哈希表（记录映射关系  元素 ： 该元素Nums2右侧第一个最大值）
+
+var nextGreaterElement = function(nums1, nums2) {
+    const map = new Map()
+    const stack = []
+    for(let i=nums2.length-1;i>=0;i--){
+        const res = nums2[i]
+        while(stack.length && res>stack[stack.length-1]){
+            stack.pop()
+        }
+        map.set(res, stack.length ? stack[stack.length-1] : -1)
+        stack.push(res)
+    }
+    return nums1.map((item)=>{return map.get(item)})
+};
+console.log(nextGreaterElement([4,1,2],[1,3,4,2]),'nextGreaterElement()')
+
+// 暴力解法
+var nextGreaterElement1 = function(nums1, nums2) {
+    let result = []
+  for(let i=0;i<nums1.length;i++){
+      let res = nums1[i]
+      let j = 0
+      while(nums2[j] !== res){
+          j++
+      }
+      let tt = nums2[j]
+      j++
+      while(nums2[j] < tt ){
+          j++
+      }
+      result.push(nums2[j] || -1)
+  }
+  return result
+};
+
+console.log(nextGreaterElement1([4,1,2],[1,3,4,2]),'nextGreaterElement111()')
+
+
+// 技巧： 判断 n 是否是2的幂
+// https://leetcode-cn.com/problems/power-of-two/solution/2de-mi-by-leetcode-solution-rny3/
+let isPowerOfTwo = (n) =>{
+    // 1. 第一种 n 是正整数且 n & (n-1) === 0 按位与
+    // return n > 0 && (n & (n-1)) === 0
+    // 2. 第二种方式 -n 的二进制表示是n的二进制表示每一位取反再加上1
+    // return n > 0 && n & (-n) === n
+}
+
+// 367. 有效的完全平方数
+// 给定一个 正整数 num ，编写一个函数，如果 num 是一个完全平方数，则返回 true ，否则返回 false 。
+
+// 进阶：不要 使用任何内置的库函数，如  sqrt 。
+
+ 
+
+// 示例 1：
+
+// 输入：num = 16
+// 输出：true
+
+// 使用内置函数 sqrt 开平方
+var isPerfectSquare = function(num) {
+    let n = Math.floor(Math.sqrt(num))
+    return n*n === num
+};
+console.log(isPerfectSquare(16),'isPerfectSquare')
+
+// 暴力计算 - 从1开始 计算是否有符合 x * x == num 的数字 如果 x * x > num 代表没有计算的意义了
+var isPerfectSquare1 = function(num) {
+    let x = 1;
+    let res = 0
+    while(res <= num){
+        if(res === num){
+            return true
+        }
+        res = x * x
+        x++
+    }
+    return false
+};
+console.log(isPerfectSquare(1),'isPerfectSquare')

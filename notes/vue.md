@@ -1041,7 +1041,7 @@ this.$emit('update:title', newValue)
 ```javascript
 
   修饰符名称	 作用
-  .stop	    阻止事件进行传递
+  .stop	    阻止事件进行传递(阻止事件冒泡)
   .prevent	阻止事件的默认行为
   .capture	使该事件最先触发
   .self	    限制事件是由自身触发才进行处理，即事件冒泡触发该事件无效
@@ -1049,6 +1049,126 @@ this.$emit('update:title', newValue)
   .passive	会立即触发事件的默认行为，即不会被event.preventDefault()影响
 
 ```
+1. .stop  阻止冒泡
+
+```vue
+
+<template>
+    <div @click="onParent">
+      Parent
+      <div @click.stop="onChild">
+       Child
+      </div>
+    </div>
+</template>
+<script>
+export default {
+  methods:{
+   onParent(){
+     console.log('parent')
+   },
+   onChild(){
+     console.log('child')
+   }
+  }
+}
+
+</script>
+
+click -> onChild 未加.stop log: child parent
+click -> onChild 加.stop log:  child (回阻止事件向上冒泡)
+
+```
+
+2. .prevent  阻止默认事件
+
+```vue
+
+<template>
+
+ <a href="www.xxx.com" @click="onParent">网页A</a>
+ <a href="www.xxx.com" @click.prevent="onChild">网页B</a>
+ 
+</template>
+<script>
+export default {
+  methods:{
+   onParent(){
+     console.log('parent')
+   },
+   onChild(){
+     console.log('child')
+   }
+  }
+}
+</script>
+
+ click -> 未加prevent log: 发生跳转(跳转是a标签的默认行为事件)
+ click -> 加.prevent log: 未发生跳转
+ 
+```
+
+3. .capture  将事件流由  里 -> 外  调整为 外 -> 里 调转事件流方向
+
+```vue
+<template>
+    <div @click.capture="onParent">
+      父节点
+      <div @click.capture="onChild">
+      子节点
+      </div>
+    </div>
+</template>
+<script>
+export default {
+  methods:{
+   onParent(){
+     console.log('parent')
+   },
+   onChild(){
+     console.log('child')
+   }
+  }
+}
+</script>
+
+click -> 未加.capture  log: child parent (冒泡事件流默认是由里向外)
+click -> 添加.capture  log: parent child (由外层向里层)
+
+```
+
+4. .self  触发元素本身
+
+```vue
+<template>
+    <div @click.self="onParent">
+      父节点
+      <div @click="onChild">
+      子节点
+      </div>
+    </div>
+</template>
+
+<script>
+export default {
+  methods:{
+   onParent(){
+     console.log('parent')
+   },
+   onChild(){
+     console.log('child')
+   }
+  }
+}
+</script>
+
+未加.self:  click - 父节点 ->  log: child parent (本身子节点存在于父节点)
+添加.self:  click - 父节点 ->  log: parent 
+           click - 子节点 ->  log: child 
+           
+```
+
+
 
 ## 生命周期
 

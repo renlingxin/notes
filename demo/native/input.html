@@ -25,7 +25,7 @@
     <ul>
         <li>
             1 type 类型<br>
-            <input type="text" placeholder="文本">
+            <input type="text" placeholder="文本" id="tm">
             <input type="password" placeholder="密码">
             <!-- type 为 number 的时候 可以输入 e 因为 e 在数学上代表数字 -->
             <input type="number"> 
@@ -105,6 +105,16 @@
     let file = document.getElementsByName('img')[0]
     file.addEventListener('change', function (event) {
         console.log(this.files)
+    }, false)
+
+    let _btn = document.getElementById('tm')
+    // input 事件是边输入边触发
+    _btn.addEventListener('input', function (event) {
+        console.log(event,'input')
+    }, false)
+    // change 事件是失焦时触发
+    _btn.addEventListener('change', function (event) {
+        console.log(event,'change')
     }, false)
     // window.addEventListener('onkeydown',function(e){
     //     console.log('1111', e)

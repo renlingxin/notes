@@ -130,5 +130,11 @@ console.log(diffreg3.test('https13011111111'))
 console.log('----------------cxc---------------------')
 let diffreg4 = /^[0-9](\d\，+)|(\d\,+)[0-9]*$/
 console.log(diffreg4.test('2222'))
+
+let y = '200万元'.replace(/[^\d.]/g,'')
+console.log('----------------匹配数字---------------------',y)
+
+
+
 // </script>
 // </html>

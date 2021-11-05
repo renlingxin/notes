@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-06 11:25:00
+ * @LastEditTime: 2021-10-13 15:06:46
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /github/demo/vue/手写源码/event.js
+ */
 class eventBus {
     constructor(target) {
         this._event = null
@@ -76,3 +84,16 @@ class eventBus {
         }
     }
 }
+
+let g = new eventBus()
+g.$on('time-change',()=>{console.log('A --------- 监听time-change')})
+
+
+// setTimeout(() => {
+//     console.log('22222')
+//     g.$emit('time-change') 
+// }, 2000);
+// console.log('1111')
+g.$on('time-change',()=>{console.log('B --------- 监听time-change')})
+
+g.$once('time-change') 
