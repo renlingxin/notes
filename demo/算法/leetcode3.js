@@ -383,46 +383,48 @@ console.log('plusOne', plusOne([9]))
 
 // 官方解法  单调栈（前置记录每一个元素的右侧第一个最大值） + 哈希表（记录映射关系  元素 ： 该元素Nums2右侧第一个最大值）
 
-var nextGreaterElement = function(nums1, nums2) {
+var nextGreaterElement = function (nums1, nums2) {
     const map = new Map()
     const stack = []
-    for(let i=nums2.length-1;i>=0;i--){
+    for (let i = nums2.length - 1; i >= 0; i--) {
         const res = nums2[i]
-        while(stack.length && res>stack[stack.length-1]){
+        while (stack.length && res > stack[stack.length - 1]) {
             stack.pop()
         }
-        map.set(res, stack.length ? stack[stack.length-1] : -1)
+        map.set(res, stack.length ? stack[stack.length - 1] : -1)
         stack.push(res)
     }
-    return nums1.map((item)=>{return map.get(item)})
+    return nums1.map((item) => {
+        return map.get(item)
+    })
 };
-console.log(nextGreaterElement([4,1,2],[1,3,4,2]),'nextGreaterElement()')
+console.log(nextGreaterElement([4, 1, 2], [1, 3, 4, 2]), 'nextGreaterElement()')
 
 // 暴力解法
-var nextGreaterElement1 = function(nums1, nums2) {
+var nextGreaterElement1 = function (nums1, nums2) {
     let result = []
-  for(let i=0;i<nums1.length;i++){
-      let res = nums1[i]
-      let j = 0
-      while(nums2[j] !== res){
-          j++
-      }
-      let tt = nums2[j]
-      j++
-      while(nums2[j] < tt ){
-          j++
-      }
-      result.push(nums2[j] || -1)
-  }
-  return result
+    for (let i = 0; i < nums1.length; i++) {
+        let res = nums1[i]
+        let j = 0
+        while (nums2[j] !== res) {
+            j++
+        }
+        let tt = nums2[j]
+        j++
+        while (nums2[j] < tt) {
+            j++
+        }
+        result.push(nums2[j] || -1)
+    }
+    return result
 };
 
-console.log(nextGreaterElement1([4,1,2],[1,3,4,2]),'nextGreaterElement111()')
+console.log(nextGreaterElement1([4, 1, 2], [1, 3, 4, 2]), 'nextGreaterElement111()')
 
 
 // 技巧： 判断 n 是否是2的幂
 // https://leetcode-cn.com/problems/power-of-two/solution/2de-mi-by-leetcode-solution-rny3/
-let isPowerOfTwo = (n) =>{
+let isPowerOfTwo = (n) => {
     // 1. 第一种 n 是正整数且 n & (n-1) === 0 按位与
     // return n > 0 && (n & (n-1)) === 0
     // 2. 第二种方式 -n 的二进制表示是n的二进制表示每一位取反再加上1
@@ -434,7 +436,7 @@ let isPowerOfTwo = (n) =>{
 
 // 进阶：不要 使用任何内置的库函数，如  sqrt 。
 
- 
+
 
 // 示例 1：
 
@@ -442,18 +444,18 @@ let isPowerOfTwo = (n) =>{
 // 输出：true
 
 // 使用内置函数 sqrt 开平方
-var isPerfectSquare = function(num) {
+var isPerfectSquare = function (num) {
     let n = Math.floor(Math.sqrt(num))
-    return n*n === num
+    return n * n === num
 };
-console.log(isPerfectSquare(16),'isPerfectSquare')
+console.log(isPerfectSquare(16), 'isPerfectSquare')
 
 // 暴力计算 - 从1开始 计算是否有符合 x * x == num 的数字 如果 x * x > num 代表没有计算的意义了
-var isPerfectSquare1 = function(num) {
+var isPerfectSquare1 = function (num) {
     let x = 1;
     let res = 0
-    while(res <= num){
-        if(res === num){
+    while (res <= num) {
+        if (res === num) {
             return true
         }
         res = x * x
@@ -461,4 +463,89 @@ var isPerfectSquare1 = function(num) {
     }
     return false
 };
-console.log(isPerfectSquare(1),'isPerfectSquare')
+console.log(isPerfectSquare(1), 'isPerfectSquare')
+
+// 299. 猜数字游戏
+// 你在和朋友一起玩 猜数字（Bulls and Cows）游戏，该游戏规则如下：
+
+// 写出一个秘密数字，并请朋友猜这个数字是多少。朋友每猜测一次，你就会给他一个包含下述信息的提示：
+
+// 猜测数字中有多少位属于数字和确切位置都猜对了（称为 "Bulls", 公牛），
+// 有多少位属于数字猜对了但是位置不对（称为 "Cows", 奶牛）。也就是说，这次猜测中有多少位非公牛数字可以通过重新排列转换成公牛数字。
+// 给你一个秘密数字 secret 和朋友猜测的数字 guess ，请你返回对朋友这次猜测的提示。
+
+// 提示的格式为 "xAyB" ，x 是公牛个数， y 是奶牛个数，A 表示公牛，B 表示奶牛。
+
+// 请注意秘密数字和朋友猜测的数字都可能含有重复数字。
+
+// 示例 1:
+
+// 输入: secret = "1807", guess = "7810"
+// 输出: "1A3B"
+// 解释: 数字和位置都对（公牛）用 '|' 连接，数字猜对位置不对（奶牛）的采用斜体加粗标识。
+// "1807"
+//   |
+// "7810"
+
+// 官方
+var getHint = function (secret, guess) {
+    let nill = 0
+    // 每一位的数字范围 0-9 这里存储的是 secret guess 所对应的枚举数量
+    let ans = Array(10).fill(0)
+    let gns = Array(10).fill(0)
+
+    for (let i = 0; i < secret.length; i++) {
+        // 位置和数字都相同的是 公牛
+        if (secret[i] === guess[i]) {
+            nill += 1
+        } else {
+            // secret[i].charCodeAt() - '0'.charCodeAt() === Number()
+            ++ans[secret[i].charCodeAt() - '0'.charCodeAt()]
+                ++gns[guess[i].charCodeAt() - '0'.charCodeAt()]
+        }
+    }
+
+    let min = 0
+    for (let j = 0; j < 10; ++j) {
+        // Math.min(ans[j], gns[j]) 取两者之间的最小数量 即是相同但位置不同的 奶牛
+        min = min + Math.min(ans[j], gns[j])
+    }
+    return '' + nill + 'A' + '' + min + 'B'
+};
+console.log(getHint("1807", "7810"), 'getHint')
+
+// 495. 提莫攻击
+// 在《英雄联盟》的世界中，有一个叫 “提莫” 的英雄。他的攻击可以让敌方英雄艾希（编者注：寒冰射手）进入中毒状态。
+
+// 当提莫攻击艾希，艾希的中毒状态正好持续 duration 秒。
+
+// 正式地讲，提莫在 t 发起发起攻击意味着艾希在时间区间 [t, t + duration - 1]（含 t 和 t + duration - 1）处于中毒状态。如果提莫在中毒影响结束 前 再次攻击，中毒状态计时器将会 重置 ，在新的攻击之后，中毒影响将会在 duration 秒后结束。
+
+// 给你一个 非递减 的整数数组 timeSeries ，其中 timeSeries[i] 表示提莫在 timeSeries[i] 秒时对艾希发起攻击，以及一个表示中毒持续时间的整数 duration 。
+
+// 返回艾希处于中毒状态的 总 秒数。
+
+
+// 示例 1：
+
+// 输入：timeSeries = [1,4], duration = 2
+// 输出：4
+// 解释：提莫攻击对艾希的影响如下：
+// - 第 1 秒，提莫攻击艾希并使其立即中毒。中毒状态会维持 2 秒，即第 1 秒和第 2 秒。
+// - 第 4 秒，提莫再次攻击艾希，艾希中毒状态又持续 2 秒，即第 4 秒和第 5 秒。
+// 艾希在第 1、2、4、5 秒处于中毒状态，所以总中毒秒数是 4 。
+
+var findPoisonedDuration = function (timeSeries, duration) {
+    let res = duration //在最后一秒会有一次完成的中毒过程
+    for (let i = 0; i < timeSeries.length - 1; i++) {
+        let diff = timeSeries[i + 1] - timeSeries[i]
+        if (diff > duration) {
+            res += duration
+        } else {
+            res += diff
+        }
+    }
+    return res
+};
+
+console.log('findPoisonedDuration', findPoisonedDuration([1, 2, 3, 4, 5, 6, 7, 8, 9], 1))
