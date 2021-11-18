@@ -123,6 +123,62 @@ input::placeholder => 默认样式
     transform: translateX(-50%);
 ```
 
+### BEM (block element modifier) css 命名方法论
+
+参考：https://zhuanlan.zhihu.com/p/72631379
+
+1. block -- >  块 
+
+```css
+
+.header {
+​
+}
+
+/* block 不能使用元素选择器和ID选择器 */
+.header a{
+​
+}
+
+```
+
+2. element --> 元素 表示目的 例如距离等  使用 __ 双下划线
+
+```css
+.header__body {
+    margin-top: 50px;
+}
+```
+3. modifier --> 修饰符使用表示状态例如背景色等  -- 双横杠区别
+
+```css
+
+.header__button--default {
+    background: none;
+}
+
+```
+4. 在预处理器中
+
+```css
+
+.header {
+    &__body {
+        padding: 20px;
+    }
+​
+    &__button {
+        &--primary {
+            background: #329FD9;
+        }
+        &--default {
+            background: none;
+        }
+    }
+}
+
+```
+
 
 
 
@@ -148,7 +204,6 @@ input::placeholder => 默认样式
 文本输入字段被设置为当页面加载时获得焦点：
 
 document.styleSheets
-
 
 
 

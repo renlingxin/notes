@@ -1168,6 +1168,35 @@ export default {
            
 ```
 
+5. .once 只执行一次
+
+```vue
+
+<template>
+	<div>
+    <div @click.once="onceClick">
+      点击-once
+    </div>
+    <div @click.once="onClick">
+      点击
+    </div>
+	</div> 
+</template>
+
+<script>
+export default {
+  methods:{
+   onceClick(){
+     console.log('once')//执行执行一次
+   },
+   onClick(){
+     console.log('child')//可多次执行
+   }
+  }
+}
+</script>
+
+```
 
 
 ## 生命周期

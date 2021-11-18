@@ -1,5 +1,4 @@
 //1. 三次失败走reject
-
 const myaxios = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
