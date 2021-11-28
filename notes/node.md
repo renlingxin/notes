@@ -204,9 +204,60 @@ package.json 中的版本号1.0.1-0变为 1.0.1-1
 
 ### process
 
+概念：
+
+process.env 属性返回包含用户环境的对象 
+
+node : http://nodejs.cn/api/process.html#processenv
+vue-cli : https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F
+
+####  vue-cli 中的process
+
+1. vue-cli 默认会设置环境变量 NODE_ENV
+
+```json
+
+    "serve": "vue-cli-service serve", //对应  development
+    "build": "vue-cli-service build",// 对应 production
+    "lint": "vue-cli-service lint" // 对应 test
+
+```
 
 
+2. 可以通过--mode设置 NODE_ENV 变量
 
 
+```json
 
+vue-cli-service build --mode development
 
+```
+
+3. 同时也可以通过文件的方式设置变量
+
+```json
+
+.env                # 在所有的环境中被载入
+.env.local          # 在所有的环境中被载入，但会被 git 忽略
+.env.[mode]         # 只在指定的模式中被载入
+.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+
+```
+
+4. chainWebpack 中通过 DefinePlugin  设置变量
+
+ chainWebpack 内部的 webpack 配置是通过 webpack-chain 维护的。这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则和具名插件，并有机会在后期进入这些规则并对它们的选项进行修改。**它允许我们更细粒度的控制其内部配置**
+ 
+ 
+ 
+```js
+module.exports = {
+  chainWebpack: config => { 
+    config.plugin('define').tap((definitions)=>{//DefinePlugin
+      definitions[0]['process.env']['my'] = JSON.stringify('renlingxin')//设置新的全局变量
+      return definitions
+    })
+  }
+}
+
+```
