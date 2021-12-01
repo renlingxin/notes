@@ -246,6 +246,16 @@ interface NAMELIST {
 * E（Element）：表示元素类型
 * ......
 
+3. tips
+
+```ts
+type personType<T> = {[P in keyof T]?: T[P]}
+interface IParam { name: string, age: string }
+personType<IParam>
+
+```
+
+
 ### 类型保护 
 
 **类型保护的意义在于前置。就是在报错前处理了它 **
@@ -370,6 +380,34 @@ let p = new People()
 console.log(p.name,People.name) //static 定义的属性 能被父类直接调用 实例调不了
 
 ```
+### object  Object  {} 
+
+1. object 表示非基本类型
+
+```ts
+
+
+```
+
+2. Object 对象类
+
+```ts
+
+// 在 ts 中的定义
+interface Object {
+    constructor: Function;
+    toString(): string;
+    ...
+}
+
+```
+
+3. {}
+
+```ts
+
+
+```
 
 
 
@@ -458,6 +496,27 @@ HTMLElementTagNameMap  => ts中DOM类型定义的集合
 3. HTMLImageElement => img
 4. ...
 ```
+
+
+8. 不推荐使用 Function object 
+
+*  不要使用'Function'作为类型。“Function”类型接受类似于值的任何函数。它在调用函数时不提供类型安全性，这可能是常见的错误源。它还接受类声明之类的东西，类声明将在运行时抛出，因为它们不会被“new”调用。
+
+* object 类型是指除string boolean等基本类型之外的非基本类型 较为宽泛
+
+
+```ts
+
+function getAge(fn: Function) {} // Function 宽泛类
+function getAge(fn: (value:string) => void)){} // 指定函数
+
+const bb: object = {}; //宽泛的对象类型
+
+const bb: {[key: string]: string} = {} //指定对象键值都是string
+
+```
+
+
 
 
 

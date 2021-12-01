@@ -549,3 +549,76 @@ var findPoisonedDuration = function (timeSeries, duration) {
 };
 
 console.log('findPoisonedDuration', findPoisonedDuration([1, 2, 3, 4, 5, 6, 7, 8, 9], 1))
+
+
+// 786. 第 K 个最小的素数分数
+// 给你一个按递增顺序排序的数组 arr 和一个整数 k 。数组 arr 由 1 和若干 素数  组成，且其中所有整数互不相同。
+
+// 对于每对满足 0 < i < j < arr.length 的 i 和 j ，可以得到分数 arr[i] / arr[j] 。
+
+// 那么第 k 个最小的分数是多少呢?  以长度为 2 的整数数组返回你的答案, 这里 answer[0] == arr[i] 且 answer[1] == arr[j] 。
+
+// 排列记录所有可能项 （存在小数点精度问题）
+var kthSmallestPrimeFraction = function (arr, k) {
+    let res = []
+    let obj = {}
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            obj[arr[i] / arr[j]] = [arr[i], arr[j]]
+            res.push(arr[i] / arr[j])
+        }
+    }
+    res.sort((a, b) => a - b)
+    return obj[res[k - 1]]
+};
+console.log(kthSmallestPrimeFraction([1, 2, 3, 5], 3))
+// 官方题解1 (分数的比较)
+var kthSmallestPrimeFraction1 = function (arr, k) {
+    const n = arr.length;
+    const frac = [];
+    for (let i = 0; i < n; ++i) {
+        for (let j = i + 1; j < n; ++j) {
+            frac.push([arr[i], arr[j]]);
+        }
+    }
+    // x[0] / x[1] > y[0] / y[1] === x[0] * y[1] > y[0] * x[1]
+    frac.sort((x, y) => x[0] * y[1] - y[0] * x[1]);
+    return frac[k - 1];
+};
+console.log(kthSmallestPrimeFraction1([1, 2, 3, 5], 3))
+
+// 1446. 连续字符
+// 给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。
+
+// 请你返回字符串的能量。
+
+// 一次遍历
+var maxPower = function (s) {
+    let res = [] //遍历过程中存储能量
+    let max = 0 // 不断修改的最大数
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] !== res[res.length - 1]) {
+            res.splice(0)
+        }
+        res.push(s[i])
+        max = Math.max(max, res.length)
+    }
+    return max
+};
+console.log(maxPower('leetcode'))
+
+// 官方题解 与方法1思路类似 但方法1 空间复杂度略大
+var maxPower1 = function (s) {
+    let ans = 1
+    let tba = 1
+    for (let i = 1; i < s.length; i++) {
+        if (s[i] === s[i - 1]) {
+            tba += 1
+            ans = Math.max(tba, ans)
+        } else {
+            tba = 1
+        }
+    }
+    return ans
+};
+console.log(maxPower1('leetcode'))
