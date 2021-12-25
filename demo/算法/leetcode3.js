@@ -622,3 +622,59 @@ var maxPower1 = function (s) {
     return ans
 };
 console.log(maxPower1('leetcode'))
+
+// 1154. 一年中的第几天
+// 给你一个字符串 date ，按 YYYY-MM-DD 格式表示一个 现行公元纪年法 日期。请你计算并返回该日期是当年的第几天。
+
+// 通常情况下，我们认为 1 月 1 日是每年的第 1 天，1 月 2 日是每年的第 2 天，依此类推。每个月的天数与现行公元纪年法（格里高利历）一致。
+
+
+
+// 示例 1：
+
+// 输入：date = "2019-01-09"
+// 输出：9
+
+// 公元纪年是 以耶稣诞辰日为开始的纪年方式
+var dayOfYear = function (date) {
+    const obj = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    const _date = date.split('-')
+    const year = _date[0]
+    const month = _date[1]
+    // 闰年 的二月会多一天 闰年的计算方法是400的倍数 或者4的倍数且不是100的倍数
+    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+        ++obj[1];
+    }
+    let ans = 0
+    for (let i = 0; i < month - 1; i++) {
+        ans += obj[i]
+    }
+    return ans + Number(_date[2])
+};
+console.log('dayOfYear',dayOfYear("2019-01-09"))
+
+// 686. 重复叠加字符串匹配
+// 给定两个字符串 a 和 b，寻找重复叠加字符串 a 的最小次数，使得字符串 b 成为叠加后的字符串 a 的子串，如果不存在则返回 -1。
+
+// 注意：字符串 "abc" 重复叠加 0 次是 ""，重复叠加 1 次是 "abc"，重复叠加 2 次是 "abcabc"。
+
+ 
+
+// 示例 1：
+
+// 输入：a = "abcd", b = "cdabcdab"
+// 输出：3
+// 解释：a 重复叠加三遍后为 "abcdabcdabcd", 此时 b 是其子串。
+var repeatedStringMatch = function(a, b) {
+    let ans = 0
+    let res = ''
+    while(res.length < (a.length * 2 + b.length)){ //最重要的部分是最大长度的问题  如果满足题意最大可能性是  使用a的前半部分+a的后半部分 考虑到b可能会比a长 因此最长限制是 2*a+b
+        res += a
+        ans++
+        if(res.includes(b)){
+            return ans
+        }
+    }
+    return -1
+};
+console.log('repeatedStringMatch',repeatedStringMatch("aaaaaaaaaaaaaaaaaaaaaab", "ba"))

@@ -5,7 +5,7 @@
 > 什么是TypeScript？
 
 TypeScript是[微软](https://baike.baidu.com/item/%E5%BE%AE%E8%BD%AF/124767)开发的一个开源的[编程语言](https://baike.baidu.com/item/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/9845131)，通过在[JavaScript](https://baike.baidu.com/item/JavaScript/321142)的基础上添加静态类型定义构建而成。TypeScript通过TypeScript[编译器](https://baike.baidu.com/item/%E7%BC%96%E8%AF%91%E5%99%A8/8853067)或Babel转译为JavaScript代码，可运行在任何[浏览器](https://baike.baidu.com/item/%E6%B5%8F%E8%A7%88%E5%99%A8/213911)，任何[操作系统](https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/192)。（来源百度百科）
-
+https://segmentfault.com/a/1190000023943952 -- 阿宝哥
 ​                                                                            
 
 
@@ -157,18 +157,42 @@ Unknown 类型和any一样也是顶层类型，它可以接收任何类型，但
 
 ###  类型断言 
 
+TS 允许你覆盖它的推断，并且能以你任何你想要的方式分析它，这种机制被称为「类型断言」
+
+本质上类型断言是有害的. 因为你因此失去了TS的类型检查. 当出现错误时. TS不能正确的识别.
+
 **告诉 ts 这个类型我知道你别管**
 
-```javascript
-    // 1. <>
+1. <> （有一个弊端 React 语法中冲突）
 
-    let _time:any = '20200806'
-    let _tiemLength:number = (<String>_time).length
+```ts
 
-    // 2. as
+    const time:any = '20200806'
+    const tiemLength:number = (<String>time).length
+    
+    // let foo = <string>bar;</string>; 在JSX 中与标签语法冲突
+```
 
-    let _time1:any = '20200806'
-    let _tiemLength1:number = (_time as String).length
+2. as （推荐使用）
+
+```ts  
+
+    const _time1:any = '20200806'
+    const _tiemLength1:number = (_time as String).length
+```
+
+3. !   ( ! 表示非空断言 即该类型不会是 null 或者 undefined )
+```ts
+    
+    class app extends Vue{
+       @Props()
+       name!:string = 'renlingxin' // ! props name不会是null或undefined即必传属性
+       
+       age!:number = 1 // Declarations with initializers cannot also have definite assignment assertions. 带有初始值的声明不能有明确的类型断言
+       
+       a = null
+       name:string = this.a! // 断言属性 a 不会是null 或者Undefined
+    }
 
 ```
 
@@ -384,32 +408,151 @@ console.log(p.name,People.name) //static 定义的属性 能被父类直接调�
 
 1. object 表示非基本类型
 
+基本类型 string、boolean、number、bigint、symbol、null 和 undefined 
+
 ```ts
 
+// 例如TS中的Object.create
+Object.create(o: object | null): any;
 
+//TS中的WeakMap
+interface WeakMap<K extends object, V> {
+    delete(key: K): boolean;
+    get(key: K): V | undefined;
+    has(key: K): boolean;
+    set(key: K, value: V): this;
+}
 ```
 
 2. Object 对象类
 
 ```ts
 
-// 在 ts 中的定义
+//TS中定义与object的区别在于其显式定义对象的基本内置方法 另一个区别在于Object包含基本类型
 interface Object {
     constructor: Function;
     toString(): string;
     ...
 }
 
+const A:Object = ''
+const A:Object = {}
+
+const B:object = '' //error
+const B:object = {} //success
+
 ```
 
-3. {}
+3. {} 意指一个空对象 没有成员的对象
 
 ```ts
 
+ const b:{} = { c:'d' }
+ const v = this.b.c //error  
 
 ```
 
+### TS 中的 ?
+1. 可选链
+TS 3.7 版本中实现了ECMAScript 的功能之一： 可选链. 使我们在访问null和undefined阻止表达式的运行
 
+```ts
+
+const obj = {}
+const a = obj?.name // 不会error
+
+```
+
+2. 可选属性
+
+```ts
+
+interface IParams{
+  name?:string, //表述name属性可有可无
+  age: number
+}
+
+```
+
+3. ?? 
+
+TS 3.7 版本中引入了 ** 空值合并运算符（当左侧数值为null或者undefined时 返回右侧的数值）** 
+
+```ts
+// ?? 和 || 的区别
+const name = null ?? 'renlingxin' // 'renlingxin'
+const age = null || 'renlingxin' // 'renlingxin'
+
+const name = false ?? 'renlingxin' // false
+const age = false || 'renlingxin' // 'renlingxin'
+
+// 函数表达式同样适用
+function A(){ return null }
+function B(){ return 1 }
+
+const res = A() ?? B()
+
+```
+
+### TS 中的 &
+
+& 可用于合并类型
+
+```ts
+  // 类型合并
+  interface IC { c: string }
+  interface IA { a: number }
+  type Params = IC & IA // { c: string, a: number }
+  
+  // 重名合并
+  interface IB { b: string }
+  interface ID { b: number }
+  type Params = IB & ID// { b: never }
+  
+  // 补充 同时声明两个同名的 interface 会相互合并
+  interface IN { a: string }
+  interface IN { c: number }
+  btn:IN = { a:'', c：22 } //IN 合并
+  
+```
+
+### TS 中的 |
+
+| 表示联合类型 意为既
+
+```ts
+
+type Name = string | undefined
+
+```
+
+### 工具类型
+
+1. `Partial<T>` ( 只能应用于 type 不用用于interface ) 音译 -> [ˈpɑːrʃl] 泡售
+
+```ts
+
+  interface IParams { name:string }
+  type Params = Partial<IParams> // {name?:string | undefined}
+
+  // Partial 内部实现
+  type Partial<T> = {
+      [P in keyof T]?: T[P];
+  };
+
+```
+2. Required 功能与 Partial 相反 将所有可选属性变为必选
+
+```ts
+
+  // 使用方式同上
+  
+  // 内部实现 -? 移除可选属性
+  type Partial<T> = {
+      [P in keyof T]-?: T[P];
+  };
+  
+```
 
 ###  tips
 1. delete ts 操作问题

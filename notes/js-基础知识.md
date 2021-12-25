@@ -1127,6 +1127,8 @@ say.sayName()
 
 #### 链式调用
 
+** 1.  new promise().then > l.then      2.     l.then1 > l.then2 内部状态不依赖 **
+
 1. 链式调用中，只有前一个 then 的回调执行完毕后，跟着的 then 中的回调才会被加入至微任务队列。
 
 ```javascript
@@ -1169,6 +1171,7 @@ say.sayName()
 3. 同一个 Promise 的每个链式调用的开端会首先依次进入微任务队列
 
 ```javascript
+
   let p = Promise.resolve().then(() => {
     console.log("then1");
     Promise.resolve().then(() => {
@@ -1182,7 +1185,6 @@ say.sayName()
     console.log("then3");
   });
   // then1 then1-1 then2 then3 当执行到then2的时候p是then2生成的，不是Promise.resolve生成的
-
 
 ```
 4. 当链式 回调遇到 return 
@@ -1240,8 +1242,55 @@ Promise.resolve()
  // then1 then1-1 then2 then3 then4 then1-2
 
 ```
+#### 无异常捕获下的  unhandledRejection
+
+1. unhandledRejection
+
+当捕获器未处理的Promise错误时会产生 unhandledRejection 错误.  unhandledrejection 继承自 PromiseRejectionEvent，而 PromiseRejectionEvent 又继承自 Event。因此unhandledrejection 含有 PromiseRejectionEvent 和 Event 的属性和方法。**例如 event.preventDefault();**
+
+```js
+
+// node 环境 
+process.on('unhandledRejection', (reason, p) => {
+    console.log('未处理的 rejection：', p, '原因：', reason);
+});
+Promise.reject('2222') // UnhandledPromiseRejectionWarning: 2222
+Promise.reject('2222').catch(console.log)
 
 
+// window 环境
+window.addEventListener("unhandledrejection", (event) => {
+  console.log(event, "event");
+  event.preventDefault();// 默认行为会控制台抛出 Uncaught (in promise)
+});
+```
+
+2. try catch 同样可以捕获未处理的reject error
+
+
+```js
+
+// try catch 捕获错误
+function o() {
+    try {
+        // Promise.reject('2222') // 1. 捕获JS未处理的Promise错误 unhandledrejection
+    } catch (error) {
+        console.log(error, 'f --- error') //2. promise 作为异步微任务任务并没有在try作用域中执行
+    }
+}
+o()
+
+async function f() {
+    try {
+        await Promise.reject('2222') // 异步任务 -> 同步任务
+        await Promise.reject('3333').catch(console.log) //catch 捕获过的错误不会被try catch 捕获
+    } catch (error) {
+        console.log(error, 'f --- error')
+    }
+}
+f()
+
+```
 
 
 ### 一 、--try  catch
@@ -1792,5 +1841,5 @@ setTimeout(console.log,1000,'232','3333','4444')
 
 ```
 
-
+### Promise
 

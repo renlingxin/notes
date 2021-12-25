@@ -36,3 +36,4 @@ getResApi().then(res => {
     console.log(res, '6666')
 })
 console.log(getResApi(), 'getResApi()')
+
